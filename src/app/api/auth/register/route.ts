@@ -4,6 +4,7 @@ import { RequestStatus } from '@/server/model/types';
 import { z } from 'zod';
 import { generateSalt, hashPassword } from '@/server/utils/password';
 import { db } from '@/server/utils/db';
+import { createSession } from '@/server/utils/session';
 
 export const POST = async (request: NextRequest) => {
   try {
@@ -27,7 +28,7 @@ export const POST = async (request: NextRequest) => {
     const salt = generateSalt();
     const hashedPassword = await hashPassword(parsedData.password, salt);
 
-    const res = await db.query(
+    const createdUser = await db.query(
       `
       INSERT INTO users (name, email, password, salt, terms_and_guidelines_accepted) 
       VALUES ($1, $2, $3, $4, $5)
@@ -41,10 +42,14 @@ export const POST = async (request: NextRequest) => {
       ],
     );
 
+    const user = createdUser.rows[0] as unknown as { id: string; role: string };
+
+    await createSession({ id: user.id, role: user.role });
+
     return NextResponse.json({
       status: RequestStatus.SUCCESS,
-      message: 'User registered successfully',
-      data: res.rows[0],
+      message: 'Account created successfully',
+      data: user,
     });
   } catch (error) {
     console.error(error);
