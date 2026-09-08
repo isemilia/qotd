@@ -51,7 +51,7 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json(
       {
         status: RequestStatus.ERROR,
-        message: 'Something went wrong',
+        message: 'Unable to create account',
       },
       { status: 500 },
     );
