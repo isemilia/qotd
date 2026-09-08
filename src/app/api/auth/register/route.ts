@@ -1,0 +1,59 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { signUpSchema } from '@/features/auth/model/schemas';
+import { RequestStatus } from '@/server/model/types';
+import { z } from 'zod';
+import { generateSalt, hashPassword } from '@/server/utils/password';
+import { db } from '@/server/utils/db';
+
+export const POST = async (request: NextRequest) => {
+  try {
+    const body = await request.json();
+
+    const parseResult = signUpSchema.safeParse(body);
+
+    if (parseResult.error) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'Invalid input',
+          errors: z.flattenError(parseResult.error),
+        },
+        { status: 400 },
+      );
+    }
+
+    const parsedData = parseResult.data;
+
+    const salt = generateSalt();
+    const hashedPassword = await hashPassword(parsedData.password, salt);
+
+    const res = await db.query(
+      `
+      INSERT INTO users (name, email, password, salt, terms_and_guidelines_accepted) 
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING id, name, email, role`,
+      [
+        parsedData.name,
+        parsedData.email,
+        hashedPassword,
+        salt,
+        parsedData.termsAndGuidelinesAccepted,
+      ],
+    );
+
+    return NextResponse.json({
+      status: RequestStatus.SUCCESS,
+      message: 'User registered successfully',
+      data: res.rows[0],
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      {
+        status: RequestStatus.ERROR,
+        message: 'Something went wrong',
+      },
+      { status: 500 },
+    );
+  }
+};
