@@ -36,3 +36,20 @@ export const createSession = async (user: { id: string; role: string }) => {
     expires_at: session.expires_at,
   });
 };
+
+export const removeSession = async () => {
+  const cookieStore = await cookies();
+  const sessionId = cookieStore.get(COOKIE_SESSION_KEY)?.value;
+
+  if (!sessionId) {
+    return;
+  }
+
+  await deleteSessionById(sessionId);
+};
+
+export const deleteSessionById = async (sessionId: string) => {
+  const cookieStore = await cookies();
+  await db.query(`DELETE FROM sessions WHERE id = $1`, [sessionId]);
+  cookieStore.delete(COOKIE_SESSION_KEY);
+};

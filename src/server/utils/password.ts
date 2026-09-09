@@ -18,3 +18,16 @@ export const hashPassword = async (
 export const generateSalt = () => {
   return crypto.randomBytes(16).toString('hex').normalize();
 };
+
+export const comparePasswords = async (args: {
+  password: string;
+  salt: string;
+  hashedPassword: string;
+}) => {
+  const hashedUserInput = await hashPassword(args.password, args.salt);
+
+  return crypto.timingSafeEqual(
+    Buffer.from(hashedUserInput, 'hex'),
+    Buffer.from(args.hashedPassword, 'hex'),
+  );
+};
