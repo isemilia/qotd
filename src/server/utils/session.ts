@@ -53,3 +53,9 @@ export const deleteSessionById = async (sessionId: string) => {
   await db.query(`DELETE FROM sessions WHERE id = $1`, [sessionId]);
   cookieStore.delete(COOKIE_SESSION_KEY);
 };
+
+export const deleteAllSessionsByUserId = async (userId: string) => {
+  const cookieStore = await cookies();
+  await db.query(`DELETE FROM sessions WHERE user_id = $1`, [userId]);
+  cookieStore.delete(COOKIE_SESSION_KEY);
+};
