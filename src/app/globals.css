@@ -7,8 +7,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-dm-sans);
+  --font-mono: var(--font-dm-mono);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -23,18 +23,18 @@
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
+  /*--color-ring: var(--ring);*/
+  /*--color-input: var(--input);*/
   --color-border: var(--border);
-  --color-destructive: var(--destructive);
+  /*--color-destructive: var(--destructive);*/
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
+  /*--color-secondary: var(--secondary);*/
   --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
+  /*--color-primary: var(--primary);*/
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -46,11 +46,44 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* custom */
+  --color-primary: var(--midnight-500);
+  --color-secondary: var(--midnight-400);
+  --color-input: var(--midnight-100);
+  --color-ring: var(--midnight-400);
+  --color-destructive: var(--error-500);
+  --color-success: var(--success-500);
+
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  /* custom: */
+  --midnight-600: #2C466A;
+  --midnight-500: #446087;
+  --midnight-400: #6E87AA;
+  --midnight-200: #CBDBEF;
+  --midnight-100: #F2F9FF;
+
+  --periwinkle-300: #C3CDF0;
+  --periwinkle-200: #D9DFF3;
+  --periwinkle-100: #ECEFFC;
+
+  --vanilla-100: #FFFCF8;
+  --vanilla-200: #FCF8F1;
+
+  --white: #FFFFFF;
+
+  --error-500: #FF5454;
+  --warning-500: #FFC854;
+  --success-500: #82DC61;
+
+  --background: var(--vanilla-200);
+  --foreground: var(--white);
+
+  /* tailwind: */
+  /*--background: oklch(1 0 0);*/
+  /*--foreground: oklch(0.145 0 0);*/
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -65,7 +98,7 @@
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
+  /*--input: oklch(0.922 0 0);*/
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
@@ -127,4 +160,12 @@
   html {
     @apply font-sans;
   }
+}
+
+.bg-auth {
+  background: url("/bg-auth.png");
+}
+
+.shadow-card {
+  box-shadow: 0 4px 10px 0 rgb(68 96 135 / 3%);
 }
