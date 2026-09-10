@@ -53,6 +53,7 @@
   --color-input: var(--midnight-100);
   --color-ring: var(--midnight-400);
   --color-destructive: var(--error-500);
+  --color-success: var(--success-500);
 
 }
 

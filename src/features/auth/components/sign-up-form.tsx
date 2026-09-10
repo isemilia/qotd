@@ -12,6 +12,7 @@ import { Button } from '@/ui/primitives/button';
 import { z } from 'zod';
 import { InlineLink } from '@/ui/components/inline-link';
 import { ControlledCheckbox } from '@/ui/components/controlled-checkbox';
+import { useCreateAccount } from '@/features/auth/api/mutations';
 
 export const SignUpForm: FC = () => {
   const form = useForm({
@@ -19,8 +20,15 @@ export const SignUpForm: FC = () => {
     mode: 'all',
   });
 
-  const handleSubmit = (data: z.infer<typeof signUpClientSchema>) => {
-    console.log(data);
+  const createAccount = useCreateAccount();
+
+  const handleSubmit = async (data: z.infer<typeof signUpClientSchema>) => {
+    await createAccount.mutateAsync({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      termsAndGuidelinesAccepted: data.termsAndGuidelinesAccepted,
+    });
   };
 
   return (
@@ -63,6 +71,7 @@ export const SignUpForm: FC = () => {
             control={form.control}
           />
           <ControlledInput
+            type={'password'}
             name={'password'}
             label={'Password'}
             placeholder={'Enter your password...'}
@@ -70,6 +79,7 @@ export const SignUpForm: FC = () => {
             control={form.control}
           />
           <ControlledInput
+            type={'password'}
             name={'confirmPassword'}
             label={'Confirm password'}
             placeholder={'Confirm your password...'}
@@ -93,11 +103,13 @@ export const SignUpForm: FC = () => {
           <Button
             className={' w-full max-w-[354px]'}
             onClick={form.handleSubmit(handleSubmit)}
+            loading={createAccount.isPending}
           >
             Create account
           </Button>
           <Text color={'secondary'} className={'text-[14px]'}>
-            Already a member? <InlineLink href={'/sign-in'}>Sign in</InlineLink>
+            Already have an account?{' '}
+            <InlineLink href={'/sign-in'}>Sign in</InlineLink>
           </Text>
         </div>
       </form>

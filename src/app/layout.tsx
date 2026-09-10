@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { DM_Sans, DM_Mono } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/shared/utils/cn';
+import { QueryProvider } from '@/shared/providers/query-provider';
+import { Toaster } from '@/ui/primitives/toast';
 
 const dmSans = DM_Sans({
   variable: '--font-dm-sans',
@@ -33,7 +35,8 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       )}
     >
       <body className='min-h-full flex flex-col text-primary leading-[1.2]'>
-        {children}
+        <QueryProvider>{children}</QueryProvider>
+        <Toaster timeout={10000000} />
       </body>
     </html>
   );
