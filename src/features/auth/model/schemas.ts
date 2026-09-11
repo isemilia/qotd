@@ -25,5 +25,7 @@ export const signUpClientSchema = signUpSchema
 
 export const signInSchema = z.object({
   email: z.email(),
-  password: z.string(),
+  password: z.string().min(5).max(30),
 });
+
+export const signInClientSchema = signInSchema.extend({});
