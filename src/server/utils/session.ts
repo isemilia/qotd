@@ -20,7 +20,10 @@ export const setSessionCookie = async (session: {
 };
 
 export const createSession = async (user: { id: string; role: string }) => {
-  const res = await db.query(
+  const res = await db.query<{
+    id: string;
+    expires_at: string;
+  }>(
     `
         INSERT INTO sessions (user_id, user_role)
         VALUES ($1, $2)
@@ -28,10 +31,7 @@ export const createSession = async (user: { id: string; role: string }) => {
     `,
     [user.id, user.role],
   );
-  const session = res.rows[0] as unknown as {
-    id: string;
-    expires_at: string;
-  };
+  const session = res.rows[0];
 
   await setSessionCookie({
     id: session.id,
@@ -74,15 +74,13 @@ export const getSession = async () => {
 };
 
 export const getSessionById = async (sessionId: string) => {
-  const res = await db.query(`SELECT * FROM sessions WHERE id = $1`, [
-    sessionId,
-  ]);
-  const session = res.rows[0] as unknown as {
+  const res = await db.query<{
     user_id: string;
     id: string;
     expires_at: string;
     role: UserRole;
-  };
+  }>(`SELECT * FROM sessions WHERE id = $1`, [sessionId]);
+  const session = res.rows[0];
 
   if (!session) {
     return null;

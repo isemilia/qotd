@@ -29,7 +29,10 @@ export const POST = async (request: NextRequest) => {
     const salt = generateSalt();
     const hashedPassword = await hashPassword(parsedData.password, salt);
 
-    const createdUser = await db.query(
+    const createdUser = await db.query<{
+      id: string;
+      role: UserRole;
+    }>(
       `
       INSERT INTO users (name, email, password, salt, terms_and_guidelines_accepted) 
       VALUES ($1, $2, $3, $4, $5)
@@ -43,10 +46,7 @@ export const POST = async (request: NextRequest) => {
       ],
     );
 
-    const user = createdUser.rows[0] as unknown as {
-      id: string;
-      role: UserRole;
-    };
+    const user = createdUser.rows[0];
 
     await createSession({ id: user.id, role: user.role });
 

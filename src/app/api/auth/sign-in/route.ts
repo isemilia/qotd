@@ -36,13 +36,13 @@ export const POST = async (request: NextRequest) => {
     const parsedData = parseResult.data;
 
     const user = (
-      await db.query(`SELECT * FROM users WHERE email = $1`, [parsedData.email])
-    ).rows[0] as unknown as {
-      salt: string;
-      password: string;
-      id: string;
-      role: UserRole;
-    } | null;
+      await db.query<{
+        salt: string;
+        password: string;
+        id: string;
+        role: UserRole;
+      }>(`SELECT * FROM users WHERE email = $1`, [parsedData.email])
+    ).rows[0];
 
     if (!user) {
       return invalidCredentialsResponse();
