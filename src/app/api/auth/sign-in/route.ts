@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { db } from '@/server/utils/db';
 import { comparePasswords } from '@/server/utils/password';
 import { createSession } from '@/server/utils/session';
+import { UserRole } from '@/features/auth/model/types';
 
 const invalidCredentialsResponse = () => {
   return NextResponse.json(
@@ -35,13 +36,13 @@ export const POST = async (request: NextRequest) => {
     const parsedData = parseResult.data;
 
     const user = (
-      await db.query(`SELECT * FROM users WHERE email = $1`, [parsedData.email])
-    ).rows[0] as unknown as {
-      salt: string;
-      password: string;
-      id: string;
-      role: string;
-    } | null;
+      await db.query<{
+        salt: string;
+        password: string;
+        id: string;
+        role: UserRole;
+      }>(`SELECT * FROM users WHERE email = $1`, [parsedData.email])
+    ).rows[0];
 
     if (!user) {
       return invalidCredentialsResponse();

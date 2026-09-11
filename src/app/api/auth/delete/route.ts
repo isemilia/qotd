@@ -23,11 +23,11 @@ export const POST = async () => {
     }
 
     // get current session
-    const sessionRes = await db.query(`SELECT * FROM sessions WHERE id = $1`, [
-      sessionId,
-    ]);
-    const session = sessionRes.rows[0] as unknown as
-      { user_id: string } | undefined;
+    const sessionRes = await db.query<{ user_id: string }>(
+      `SELECT * FROM sessions WHERE id = $1`,
+      [sessionId],
+    );
+    const session = sessionRes.rows[0];
 
     if (!session) {
       return NextResponse.json(
