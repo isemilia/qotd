@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { generateSalt, hashPassword } from '@/server/utils/password';
 import { db } from '@/server/utils/db';
 import { createSession } from '@/server/utils/session';
+import { UserRole } from '@/features/auth/model/types';
 
 export const POST = async (request: NextRequest) => {
   try {
@@ -42,7 +43,10 @@ export const POST = async (request: NextRequest) => {
       ],
     );
 
-    const user = createdUser.rows[0] as unknown as { id: string; role: string };
+    const user = createdUser.rows[0] as unknown as {
+      id: string;
+      role: UserRole;
+    };
 
     await createSession({ id: user.id, role: user.role });
 

@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { db } from '@/server/utils/db';
 import { comparePasswords } from '@/server/utils/password';
 import { createSession } from '@/server/utils/session';
+import { UserRole } from '@/features/auth/model/types';
 
 const invalidCredentialsResponse = () => {
   return NextResponse.json(
@@ -40,7 +41,7 @@ export const POST = async (request: NextRequest) => {
       salt: string;
       password: string;
       id: string;
-      role: string;
+      role: UserRole;
     } | null;
 
     if (!user) {

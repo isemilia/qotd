@@ -1,5 +1,7 @@
 import { db } from '@/server/utils/db';
 import { cookies } from 'next/headers';
+import { UserRole } from '@/features/auth/model/types';
+import { UserRow } from '@/server/model/types';
 
 export const COOKIE_SESSION_KEY = 'sessionId';
 
@@ -58,4 +60,71 @@ export const deleteAllSessionsByUserId = async (userId: string) => {
   const cookieStore = await cookies();
   await db.query(`DELETE FROM sessions WHERE user_id = $1`, [userId]);
   cookieStore.delete(COOKIE_SESSION_KEY);
+};
+
+export const getSession = async () => {
+  const cookieStore = await cookies();
+  const sessionId = cookieStore.get(COOKIE_SESSION_KEY);
+
+  if (!sessionId) {
+    return null;
+  }
+
+  return getSessionById(sessionId.value);
+};
+
+export const getSessionById = async (sessionId: string) => {
+  const res = await db.query(`SELECT * FROM sessions WHERE id = $1`, [
+    sessionId,
+  ]);
+  const session = res.rows[0] as unknown as {
+    user_id: string;
+    id: string;
+    expires_at: string;
+    role: UserRole;
+  };
+
+  if (!session) {
+    return null;
+  }
+
+  const expiresAt = new Date(session.expires_at).getTime();
+  const now = new Date().getTime();
+
+  if (expiresAt < now) {
+    await deleteSessionById(session.id);
+    return null;
+  }
+
+  return session;
+};
+
+export const getCurrentUser = async () => {
+  const session = await getSession();
+
+  if (!session) {
+    return null;
+  }
+
+  const user = (
+    await db.query<UserRow>(
+      `
+      SELECT id,
+             name,
+             email,
+             role,
+             status,
+             created_at AS "createdAt"
+      FROM users 
+      WHERE id = $1
+    `,
+      [session.user_id],
+    )
+  ).rows[0];
+
+  if (!user) {
+    return null;
+  }
+
+  return user;
 };
