@@ -1,6 +1,6 @@
 'use client';
 
-import { ComponentType, FC, SVGProps, useEffect } from 'react';
+import { FC, Fragment } from 'react';
 import { MenuLinearIcon } from '@/ui/icons/linear/menu-linear.icon';
 import {
   Dialog,
@@ -23,31 +23,12 @@ import { LogoutLinearIcon } from '@/ui/icons/linear/logout-linear.icon';
 import { LoginLinearIcon } from '@/ui/icons/linear/login-linear.icon';
 import { AddUserLinearIcon } from '@/ui/icons/linear/add-user-linear.icon';
 import Link from 'next/link';
-import { Text, TextColor } from '@/ui/primitives/text';
-
-type MenuItem = {
-  label: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
-  color: TextColor;
-  closeOnClick: boolean;
-} & (
-  | {
-      href: string;
-      onClick?: never;
-    }
-  | {
-      href?: never;
-      onClick: () => void;
-    }
-);
+import { Text } from '@/ui/primitives/text';
+import { MenuItem } from '@/widgets/header/model/types';
 
 export const MobileMenu: FC<{ isAuthenticated: boolean }> = ({
   isAuthenticated,
 }) => {
-  useEffect(() => {
-    console.log('MobileMenu rendered');
-  }, []);
-
   const authenticatedItems: MenuItem[] = [
     {
       label: 'Manage account',
@@ -149,18 +130,16 @@ export const MobileMenu: FC<{ isAuthenticated: boolean }> = ({
 
   return (
     <Dialog>
-      <DialogTrigger
-        onClick={() => {
-          console.log('trigger');
-        }}
-      >
+      <DialogTrigger>
         <MenuLinearIcon
           className={'size-6 text-secondary pointer-events-none'}
         />
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
-        className={'h-full min-w-full rounded-none bg-background p-0'}
+        className={
+          'h-full min-w-full gap-2.5 rounded-none bg-background p-0 grid grid-rows-[auto_1fr]'
+        }
       >
         <DialogHeader
           className={'h-12.5 px-5 flex flex-row items-center justify-between'}
@@ -177,18 +156,19 @@ export const MobileMenu: FC<{ isAuthenticated: boolean }> = ({
           </DialogClose>
         </DialogHeader>
 
-        <div className={'space-y-4 px-5'}>
+        <div className={'space-y-4 px-5 h-full overflow-auto pb-6'}>
           {menu.map((group, i) => {
             return (
-              <>
+              <Fragment key={i}>
                 <div className={'space-y-4'}>
                   {group.map((item, i) => {
                     const Icon = item.icon;
 
                     const content = (
                       <Text
-                        className={'flex items-center gap-3'}
+                        className={'flex items-center gap-3 text-[14px]'}
                         color={item.color}
+                        weight={'medium'}
                       >
                         <Icon className={'size-5'} />
                         <span>{item.label}</span>
@@ -196,8 +176,9 @@ export const MobileMenu: FC<{ isAuthenticated: boolean }> = ({
                     );
                     return (
                       <div
+                        key={i}
                         className={
-                          'bg-foreground px-4 py-3 rounded-[16px] shadow-card h-11'
+                          'bg-foreground px-4 py-4 rounded-[16px] shadow-card'
                         }
                       >
                         {item.href ? (
@@ -215,8 +196,10 @@ export const MobileMenu: FC<{ isAuthenticated: boolean }> = ({
                     );
                   })}
                 </div>
-                <hr />
-              </>
+                {i !== menu.length - 1 ? (
+                  <hr className={'border-secondary/15'} />
+                ) : null}
+              </Fragment>
             );
           })}
         </div>
