@@ -54,29 +54,30 @@
   --color-ring: var(--midnight-400);
   --color-destructive: var(--error-500);
   --color-success: var(--success-500);
-
+  --color-button-muted: var(--periwinkle-200);
+  --color-button-muted-foreground: var(--midnight-600);
 }
 
 :root {
   /* custom: */
-  --midnight-600: #2C466A;
-  --midnight-500: #446087;
-  --midnight-400: #6E87AA;
-  --midnight-200: #CBDBEF;
-  --midnight-100: #F2F9FF;
+  --midnight-600: oklch(0.391 0.069 257);
+  --midnight-500: oklch(0.484 0.072 257);
+  --midnight-400: oklch(0.617 0.061 257);
+  --midnight-200: oklch(0.886 0.033 254);
+  --midnight-100: oklch(0.979 0.011 244);
 
-  --periwinkle-300: #C3CDF0;
-  --periwinkle-200: #D9DFF3;
-  --periwinkle-100: #ECEFFC;
+  --periwinkle-300: oklch(0.852 0.050 273);
+  --periwinkle-200: oklch(0.905 0.028 272);
+  --periwinkle-100: oklch(0.954 0.018 276);
 
-  --vanilla-100: #FFFCF8;
-  --vanilla-200: #FCF8F1;
+  --vanilla-100: oklch(0.992 0.006 75);
+  --vanilla-200: oklch(0.980 0.010 82);
 
-  --white: #FFFFFF;
+  --white: oklch(1 0 0);
 
-  --error-500: #FF5454;
-  --warning-500: #FFC854;
-  --success-500: #82DC61;
+  --error-500: oklch(0.681 0.207 25);
+  --warning-500: oklch(0.861 0.144 83);
+  --success-500: oklch(0.811 0.182 138);
 
   --background: var(--vanilla-200);
   --foreground: var(--white);
@@ -168,4 +169,8 @@
 
 .shadow-card {
   box-shadow: 0 4px 10px 0 rgb(68 96 135 / 3%);
+}
+
+.content-container {
+  @apply mx-auto w-full max-w-5xl;
 }
