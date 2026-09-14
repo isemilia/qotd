@@ -51,7 +51,7 @@ export const SignUpForm: FC = () => {
         </Text>
       </div>
 
-      <form className={'mt-4 '}>
+      <form className={'mt-4'}>
         <div className={'space-y-4'}>
           <ControlledInput
             name={'name'}

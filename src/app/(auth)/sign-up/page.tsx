@@ -3,7 +3,7 @@ import { SignUpForm } from '@/features/auth/components/sign-up-form';
 
 const Page = () => {
   return (
-    <Surface className={'p-8 w-full max-w-126'}>
+    <Surface className={'p-8 w-full max-w-126 max-md:px-5'}>
       <SignUpForm />
     </Surface>
   );
