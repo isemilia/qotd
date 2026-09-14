@@ -13,8 +13,11 @@ import { ProfileLinearIcon } from '@/ui/icons/linear/profile-linear.icon';
 import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
 import Link from 'next/link';
 import { LogoutLinearIcon } from '@/ui/icons/linear/logout-linear.icon';
+import { useLogout } from '@/features/auth/api/mutations';
 
 export const UserDropdown = ({ user }: { user: UserRow }) => {
+  const logout = useLogout();
+
   const menuItems = [
     {
       label: 'Manage account',
@@ -34,8 +37,8 @@ export const UserDropdown = ({ user }: { user: UserRow }) => {
       label: 'Log out',
       icon: LogoutLinearIcon,
       color: 'error',
-      onClick: () => {
-        console.log('log out');
+      onClick: async () => {
+        await logout.mutateAsync();
       },
       closeOnClick: false,
     },
