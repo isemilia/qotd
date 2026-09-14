@@ -5,15 +5,12 @@ import { Text } from '@/ui/primitives/text';
 import { Button } from '@/ui/primitives/button';
 import { getCurrentUser } from '@/server/utils/session';
 import { UserDropdown } from '@/widgets/header/components/user-dropdown';
-import { MenuLinearIcon } from '@/ui/icons/linear/menu-linear.icon';
 import { MobileMenu } from '@/widgets/header/components/mobile-menu';
 
 export const Header: FC = async () => {
   const me = await getCurrentUser();
 
   const isAuthenticated = Boolean(me);
-
-  console.log(me);
 
   return (
     <div
@@ -60,7 +57,7 @@ export const Header: FC = async () => {
         )}
       </div>
       <div className={'md:hidden'}>
-        <MobileMenu />
+        <MobileMenu isAuthenticated={isAuthenticated} />
       </div>
     </div>
   );
