@@ -47,7 +47,7 @@ export const UserDropdown = ({ user }: { user: UserRow }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className={'cursor-pointer'}>
-        <div className={'flex items-center gap-3'}>
+        <div className={'flex items-center gap-4'}>
           <Text
             className={'text-[14px]'}
             color={'secondary'}
