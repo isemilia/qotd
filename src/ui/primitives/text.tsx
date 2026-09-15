@@ -10,6 +10,7 @@ const fonts = {
 const colors = {
   primary: 'text-primary',
   secondary: 'text-secondary',
+  error: 'text-destructive',
   inherit: 'text-inherit',
 };
 
@@ -27,6 +28,8 @@ const decorations = {
   lineThrough: 'line-through',
 };
 
+export type TextColor = keyof typeof colors | undefined;
+
 export const Text = <T extends ElementType = 'p'>({
   component,
   font = 'sans',
@@ -41,7 +44,7 @@ export const Text = <T extends ElementType = 'p'>({
   {
     children: ReactNode;
     font?: keyof typeof fonts;
-    color?: keyof typeof colors;
+    color?: TextColor;
     weight?: keyof typeof weights;
     decoration?: keyof typeof decorations;
   }

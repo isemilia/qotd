@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { createAccount, signIn } from '@/features/auth/api/requests';
+import { createAccount, logout, signIn } from '@/features/auth/api/requests';
 import { toast } from '@/ui/primitives/toast';
 import { useRouter } from 'next/navigation';
 
@@ -48,6 +48,23 @@ export const useSignIn = () => {
         description: 'Signed in successfully',
       });
       router.replace('/');
+    },
+  });
+};
+
+export const useLogout = () => {
+  return useMutation({
+    mutationFn: logout,
+    mutationKey: ['logout'],
+    onError: () => {
+      toast.add({
+        type: 'error',
+        title: 'Could not logout',
+        description: 'Something went wrong. Please try again later',
+      });
+    },
+    onSuccess: () => {
+      window.location.href = '/';
     },
   });
 };

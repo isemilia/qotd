@@ -36,7 +36,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
     >
       <body className='min-h-full flex flex-col text-primary leading-[1.2]'>
         <QueryProvider>{children}</QueryProvider>
-        <Toaster timeout={10000000} />
+        <Toaster />
       </body>
     </html>
   );
