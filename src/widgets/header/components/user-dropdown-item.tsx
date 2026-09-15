@@ -32,18 +32,22 @@ export const UserDropdownItem: FC<
     </Text>
   );
 
+  const itemClasses = 'px-5 py-4 cursor-pointer block w-full';
+
   return (
     <DropdownMenuItem
       className={cn(
-        'px-5 py-4 cursor-pointer',
+        'p-0',
         loading && 'pointer-events-none cursor-not-allowed opacity-70',
       )}
       closeOnClick={closeOnClick}
     >
       {href ? (
-        <Link href={href}>{content}</Link>
+        <Link href={href} className={itemClasses}>
+          {content}
+        </Link>
       ) : (
-        <button type='button' className={'block w-full'} onClick={onClick}>
+        <button type='button' className={itemClasses} onClick={onClick}>
           {content}
         </button>
       )}
