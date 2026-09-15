@@ -16,3 +16,5 @@ export type MenuItem = {
       onClick: () => void;
     }
 );
+
+export type UserDropdownItemType = MenuItem & { closeOnClick?: boolean };

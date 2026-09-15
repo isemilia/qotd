@@ -14,11 +14,13 @@ import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
 import Link from 'next/link';
 import { LogoutLinearIcon } from '@/ui/icons/linear/logout-linear.icon';
 import { useLogout } from '@/features/auth/api/mutations';
+import { UserDropdownItemType } from '../model/types';
+import { UserDropdownItem } from '@/widgets/header/components/user-dropdown-item';
 
 export const UserDropdown = ({ user }: { user: UserRow }) => {
   const logout = useLogout();
 
-  const menuItems = [
+  const menuItems: UserDropdownItemType[] = [
     {
       label: 'Manage account',
       href: '#',
@@ -33,16 +35,11 @@ export const UserDropdown = ({ user }: { user: UserRow }) => {
       color: 'primary',
       closeOnClick: true,
     },
-    {
-      label: 'Log out',
-      icon: LogoutLinearIcon,
-      color: 'error',
-      onClick: async () => {
-        await logout.mutateAsync();
-      },
-      closeOnClick: false,
-    },
   ];
+
+  const handleLogout = async () => {
+    await logout.mutateAsync();
+  };
 
   return (
     <DropdownMenu>
@@ -64,39 +61,16 @@ export const UserDropdown = ({ user }: { user: UserRow }) => {
         className={'shadow-card min-w-[232px]'}
       >
         {menuItems.map((item, i) => {
-          const Icon = item.icon;
-
-          const content = (
-            <Text
-              className='flex items-center gap-3 text-[14px]'
-              weight={'medium'}
-              color={item.color as TextColor}
-              tabIndex={-1}
-            >
-              <Icon className='size-5 pointer-events-none' />
-              <span>{item.label}</span>
-            </Text>
-          );
-
-          return (
-            <DropdownMenuItem
-              className={'px-5 py-4 cursor-pointer'}
-              closeOnClick={item.closeOnClick}
-            >
-              {item.href ? (
-                <Link href={item.href}>{content}</Link>
-              ) : (
-                <button
-                  type='button'
-                  className={'block w-full'}
-                  onClick={item.onClick}
-                >
-                  {content}
-                </button>
-              )}
-            </DropdownMenuItem>
-          );
+          return <UserDropdownItem key={i} {...item} />;
         })}
+        <UserDropdownItem
+          label={'Log out'}
+          icon={LogoutLinearIcon}
+          color={'error'}
+          closeOnClick={false}
+          onClick={handleLogout}
+          loading={logout.isPending}
+        />
       </DropdownMenuContent>
     </DropdownMenu>
   );
