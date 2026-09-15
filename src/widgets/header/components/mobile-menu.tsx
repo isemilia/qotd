@@ -15,10 +15,16 @@ import { MenuItem } from '@/widgets/header/model/types';
 import { MobileMenuItem } from '@/widgets/header/components/mobile-menu-item';
 import { mobileMenuGroups } from '@/widgets/header/model/constants';
 import { LogoutLinearIcon } from '@/ui/icons/linear/logout-linear.icon';
+import { useLogout } from '@/features/auth/api/mutations';
+import { Text } from '@/ui/primitives/text';
+import { ProfileFilledIcon } from '@/ui/icons/filled/profile-filled.icon';
 
-export const MobileMenu: FC<{ isAuthenticated: boolean }> = ({
-  isAuthenticated,
-}) => {
+export const MobileMenu: FC<{
+  isAuthenticated: boolean;
+  username?: string | null;
+}> = ({ isAuthenticated, username }) => {
+  const logout = useLogout();
+
   const menu: MenuItem[][] = [
     isAuthenticated
       ? mobileMenuGroups.authenticated
@@ -26,16 +32,29 @@ export const MobileMenu: FC<{ isAuthenticated: boolean }> = ({
     ...mobileMenuGroups.shared,
   ];
 
-  const handleLogout = () => {
-    console.log('logout');
+  const handleLogout = async () => {
+    await logout.mutateAsync();
   };
 
   return (
     <Dialog>
       <DialogTrigger>
-        <MenuLinearIcon
-          className={'size-6 text-secondary pointer-events-none'}
-        />
+        {isAuthenticated ? (
+          <div className={'flex items-center gap-3'}>
+            <Text
+              className={'text-[14px]'}
+              color={'secondary'}
+              weight={'semibold'}
+            >
+              {username}
+            </Text>
+            <ProfileFilledIcon className={'size-7'} />
+          </div>
+        ) : (
+          <MenuLinearIcon
+            className={'size-6 text-secondary pointer-events-none'}
+          />
+        )}
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
@@ -81,6 +100,7 @@ export const MobileMenu: FC<{ isAuthenticated: boolean }> = ({
                 icon={LogoutLinearIcon}
                 color={'error'}
                 onClick={handleLogout}
+                loading={logout.isPending}
               />
             </>
           ) : null}

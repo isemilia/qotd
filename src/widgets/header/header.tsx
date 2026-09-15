@@ -57,7 +57,7 @@ export const Header: FC = async () => {
         )}
       </div>
       <div className={'md:hidden'}>
-        <MobileMenu isAuthenticated={isAuthenticated} />
+        <MobileMenu isAuthenticated={isAuthenticated} username={me?.name} />
       </div>
     </div>
   );
