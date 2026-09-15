@@ -25,6 +25,8 @@ export const MobileMenu: FC<{
 }> = ({ isAuthenticated, username }) => {
   const logout = useLogout();
 
+  const currentYear = new Date().getFullYear();
+
   const menu: MenuItem[][] = [
     isAuthenticated
       ? mobileMenuGroups.authenticated
@@ -77,7 +79,7 @@ export const MobileMenu: FC<{
           </DialogClose>
         </DialogHeader>
 
-        <div className={'space-y-4 px-5 h-full overflow-auto pb-6'}>
+        <div className={'flex flex-col gap-4 px-5 h-full overflow-auto pb-6'}>
           {menu.map((group, i) => {
             return (
               <Fragment key={i}>
@@ -104,6 +106,9 @@ export const MobileMenu: FC<{
               />
             </>
           ) : null}
+          <Text className={'text-center opacity-40 text-[12px] mt-auto'}>
+            © {currentYear} QOTD | All rights reserved
+          </Text>
         </div>
       </DialogContent>
     </Dialog>
