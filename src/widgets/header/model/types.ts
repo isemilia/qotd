@@ -4,8 +4,8 @@ import { TextColor } from '@/ui/primitives/text';
 export type MenuItem = {
   label: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
-  color: TextColor;
-  closeOnClick: boolean;
+  color?: TextColor;
+  // closeOnClick: boolean;
 } & (
   | {
       href: string;
