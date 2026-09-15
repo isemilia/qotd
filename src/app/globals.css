@@ -164,7 +164,8 @@
 }
 
 .bg-auth {
-  background: url("/bg-auth.png");
+  background: url("/bg-auth.png") center center no-repeat;
+  background-size: cover;
 }
 
 .shadow-card {
