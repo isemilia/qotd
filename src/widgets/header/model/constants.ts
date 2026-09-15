@@ -28,13 +28,13 @@ export const mobileMenuGroups = {
   unauthenticated: [
     {
       label: 'Sign in',
-      href: '#',
+      href: '/sign-in',
       icon: LoginLinearIcon,
       color: 'primary',
     },
     {
       label: 'Create an account',
-      href: '#',
+      href: '/sign-up',
       icon: AddUserLinearIcon,
       color: 'primary',
     },
