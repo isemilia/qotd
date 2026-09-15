@@ -20,18 +20,27 @@ export const GET = async () => {
     const answers = (
       await db.query<{
         id: string;
-        questionId: string;
+        question: {
+          id: string;
+          question: string;
+          date: string;
+        };
         answer: string;
         createdAt: string;
       }>(
         `
-      SELECT 
-        id, 
-        question_id as "questionId",
-        answer,
-        created_at as "createdAt"
-      FROM answers
-      WHERE question_id = $1
+        SELECT
+          a.id,
+          a.answer,
+          json_build_object(
+            'id', q.id,
+            'question', q.question,
+            'date', q.date
+          ) AS question,
+          a.created_at as "createdAt"
+        FROM answers a
+        LEFT JOIN questions q ON a.question_id = q.id
+        WHERE question_id = $1
     `,
         [currentQuestion.id],
       )
