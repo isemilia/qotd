@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { RequestStatus } from '@/server/model/types';
 import { db } from '@/server/utils/db';
+import {
+  getCurrentQuestion,
+  getQuestionById,
+  isExpiredQuestion,
+} from '@/server/utils/questions';
+import { postAnswerBodySchema } from '@/features/answers/model/schemas';
+import { z } from 'zod';
 
 const buildWhereClause = (params: URLSearchParams) => {
   const questionId = params.get('questionId');
@@ -64,6 +71,67 @@ export const GET = async (request: NextRequest) => {
       message: 'Fetched answers successfully',
       data: answers,
     });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      {
+        status: RequestStatus.ERROR,
+        message: 'Something went wrong',
+      },
+      { status: 500 },
+    );
+  }
+};
+
+export const POST = async (request: NextRequest) => {
+  try {
+    const body = await request.json();
+
+    const parseResult = postAnswerBodySchema.safeParse(body);
+
+    if (parseResult.error) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'Invalid input',
+          errors: z.flattenError(parseResult.error),
+        },
+        { status: 400 },
+      );
+    }
+
+    const parsedData = parseResult.data;
+
+    const isExpired = await isExpiredQuestion(parsedData.questionId);
+
+    if (isExpired === null) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'Question not found',
+        },
+        { status: 404 },
+      );
+    }
+
+    if (isExpired) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'Question has expired',
+        },
+        { status: 400 },
+      );
+    }
+
+    return NextResponse.json(
+      {
+        status: RequestStatus.SUCCESS,
+        message: 'Answer submitted successfully',
+        data: { isExpired },
+      },
+      { status: 201 },
+    );
   } catch (e) {
     console.error(e);
     return NextResponse.json(
