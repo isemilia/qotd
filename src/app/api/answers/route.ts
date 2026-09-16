@@ -44,6 +44,7 @@ export const GET = async (request: NextRequest) => {
           date: string;
         };
         createdAt: string;
+        likeCount: number;
       }>(
         `
           SELECT
@@ -54,9 +55,18 @@ export const GET = async (request: NextRequest) => {
               'question', q.question,
               'date', q.date
             ) AS question,
-            a.created_at as "createdAt"
+            a.created_at as "createdAt",
+            COUNT(l.answer_id) as "likeCount"
           FROM answers a
           LEFT JOIN questions q ON a.question_id = q.id
+          LEFT JOIN answer_likes l ON a.id = l.answer_id
+          GROUP BY
+            a.id,
+            a.answer,
+            q.id,
+            q.question,
+            q.date,
+            a.created_at;
           ${where.clause}
     `,
         where.values,
