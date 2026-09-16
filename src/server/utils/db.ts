@@ -9,6 +9,6 @@ const pool = new Pool({
 });
 
 export const db = {
-  query: <Return extends QueryResultRow>(text: string, params: any[]) =>
+  query: <Return extends QueryResultRow>(text: string, params?: any[]) =>
     pool.query<Return>(text, params),
 };
