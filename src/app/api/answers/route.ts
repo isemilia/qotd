@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { RequestStatus } from '@/server/model/types';
 import { db } from '@/server/utils/db';
-import {
-  getCurrentQuestion,
-  getQuestionById,
-  isExpiredQuestion,
-} from '@/server/utils/questions';
+import { isExpiredQuestion } from '@/server/utils/questions';
 import { postAnswerBodySchema } from '@/features/answers/model/schemas';
 import { z } from 'zod';
+import { getCurrentUser } from '@/server/utils/session';
 
 const buildWhereClause = (params: URLSearchParams) => {
   const questionId = params.get('questionId');
@@ -85,8 +82,19 @@ export const GET = async (request: NextRequest) => {
 
 export const POST = async (request: NextRequest) => {
   try {
-    const body = await request.json();
+    const user = await getCurrentUser();
 
+    if (!user) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'Unauthorized',
+        },
+        { status: 401 },
+      );
+    }
+
+    const body = await request.json();
     const parseResult = postAnswerBodySchema.safeParse(body);
 
     if (parseResult.error) {
@@ -124,15 +132,41 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
+    // if all checks passed, create answer
+    const createdAnswer = (
+      await db.query<{ id: string; answer: string }>(
+        `
+      INSERT INTO answers (user_id, question_id, answer) 
+      VALUES ($1, $2, $3)
+      RETURNING id, answer
+    `,
+        [user.id, parsedData.questionId, parsedData.answer],
+      )
+    ).rows[0];
+
     return NextResponse.json(
       {
         status: RequestStatus.SUCCESS,
         message: 'Answer submitted successfully',
-        data: { isExpired },
+        data: createdAnswer,
       },
       { status: 201 },
     );
   } catch (e) {
+    if (
+      e instanceof Error &&
+      'constraint' in e &&
+      e.constraint === 'answers_question_id_user_id_key'
+    ) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'You have already answered this question',
+        },
+        { status: 409 },
+      );
+    }
+
     console.error(e);
     return NextResponse.json(
       {

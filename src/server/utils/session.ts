@@ -107,12 +107,13 @@ export const getCurrentUser = async () => {
   const user = (
     await db.query<UserRow>(
       `
-      SELECT id,
-             name,
-             email,
-             role,
-             status,
-             created_at AS "createdAt"
+      SELECT 
+        id,
+        name,
+        email,
+        role,
+        status,
+        created_at AS "createdAt"
       FROM users 
       WHERE id = $1
     `,
