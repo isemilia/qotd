@@ -11,3 +11,11 @@ export type UserRow = {
   status: string;
   createdAt: string;
 };
+
+export type CurrentQuestion = {
+  id: string;
+  question: string;
+  date: string;
+  createdAt: string;
+  answerCount: number;
+};

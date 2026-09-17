@@ -1,14 +1,9 @@
 import { db } from '@/server/utils/db';
+import { CurrentQuestion } from '@/server/model/types';
 
 export const getCurrentQuestion = async () => {
   return (
-    await db.query<{
-      id: string;
-      question: string;
-      date: string;
-      createdAt: string;
-      answerCount: number;
-    }>(
+    await db.query<CurrentQuestion>(
       `
         SELECT
           id,
