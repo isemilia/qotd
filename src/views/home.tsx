@@ -133,23 +133,32 @@ export const HomeView = ({
           </div>
         </div>
       </div>
-      <div className={'mt-10 content-container'}>
-        <Text weight={'medium'} className={'text-[32px]'}>
-          Community answers
-        </Text>
+      <div className={'mt-10 px-15 max-md:px-5'}>
+        <div className={'content-container'}>
+          <Text
+            weight={'semibold'}
+            className={'text-[32px] max-md:text-[28px]'}
+          >
+            Community answers
+          </Text>
 
-        <div className={'grid grid-cols-3 gap-4 mt-8 pb-10'}>
-          {answers.map((item) => {
-            return (
-              <AnswerCard
-                answer={item.answer}
-                question={item.question}
-                createdAt={item.createdAt}
-                likeCount={item.likeCount}
-                color={item.color}
-              />
-            );
-          })}
+          <div
+            className={
+              'grid grid-cols-3 gap-4 mt-8 pb-10 max-md:mt-6 max-md:grid-cols-2 max-sm:grid-cols-1'
+            }
+          >
+            {answers.map((item) => {
+              return (
+                <AnswerCard
+                  answer={item.answer}
+                  question={item.question}
+                  createdAt={item.createdAt}
+                  likeCount={item.likeCount}
+                  color={item.color}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </>
