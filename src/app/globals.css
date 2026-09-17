@@ -56,6 +56,13 @@
   --color-success: var(--success-500);
   --color-button-muted: var(--periwinkle-200);
   --color-button-muted-foreground: var(--midnight-600);
+
+  --color-lavender: var(--lavender-500);
+  --color-cornflower: var(--cornflower-500);
+  --color-mint: var(--mint-500);
+  --color-peach: var(--peach-500);
+  --color-coral: var(--coral-500);
+  --color-sand: var(--sand-500);
 }
 
 :root {
@@ -72,6 +79,13 @@
 
   --vanilla-100: oklch(0.992 0.006 75);
   --vanilla-200: oklch(0.980 0.010 82);
+
+  --lavender-500: #BFB2EE;
+  --cornflower-500: #78B5E0;
+  --mint-500: #98C2A9;
+  --peach-500: #FCB191;
+  --coral-500: #FE8DA2;
+  --sand-500: #FFE89A;
 
   --white: oklch(1 0 0);
 
