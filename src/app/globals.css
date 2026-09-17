@@ -164,7 +164,9 @@
 }
 
 .bg-auth {
-  background: url("/bg-auth.png") center center no-repeat;
+  background: url("/bg-auth.png");
+  background-position: center center;
+  background-repeat: no-repeat;
   background-size: cover;
 }
 
@@ -173,5 +175,27 @@
 }
 
 .content-container {
-  @apply mx-auto w-full max-w-5xl;
+  @apply w-full mx-auto;
+
+  @media (min-width: 640px) {
+    @apply max-w-[640px];
+  }
+
+  @media (min-width: 768px) {
+    @apply max-w-[768px];
+  }
+
+  @media (min-width: 1024px) {
+    @apply max-w-[1024px];
+  }
+}
+
+.bg-home-hero {
+  background-image: url("/bg-home-hero-mobile.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  @media (min-width: 640px) {
+    background-image: url("/bg-home-hero.png");
+  }
 }
