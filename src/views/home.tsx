@@ -6,6 +6,7 @@ import {
   AnswerCard,
   AnswerCardProps,
 } from '@/features/answers/components/answer-card';
+import { Footer } from '@/widgets/footer';
 
 export const HomeView = ({
   currentQuestion,
@@ -133,7 +134,7 @@ export const HomeView = ({
           </div>
         </div>
       </div>
-      <div className={'mt-10 px-15 max-md:px-5'}>
+      <div className={'mt-10 px-15 max-md:px-5 max-md:pb-15'}>
         <div className={'content-container'}>
           <Text
             weight={'semibold'}
@@ -144,12 +145,13 @@ export const HomeView = ({
 
           <div
             className={
-              'grid grid-cols-3 gap-4 mt-8 pb-10 max-md:mt-6 max-md:grid-cols-2 max-sm:grid-cols-1'
+              'grid grid-cols-3 gap-4 mt-8 max-md:mt-6 max-md:grid-cols-2 max-sm:grid-cols-1'
             }
           >
             {answers.map((item) => {
               return (
                 <AnswerCard
+                  key={item.id}
                   answer={item.answer}
                   question={item.question}
                   createdAt={item.createdAt}
@@ -161,6 +163,8 @@ export const HomeView = ({
           </div>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 };
