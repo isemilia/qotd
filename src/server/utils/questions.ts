@@ -7,10 +7,22 @@ export const getCurrentQuestion = async () => {
       question: string;
       date: string;
       createdAt: string;
+      answerCount: number;
     }>(
-      `SELECT id, question, date::text AS date, created_at AS "createdAt"
-      FROM questions 
-      WHERE date = (NOW() AT TIME ZONE 'UTC')::date`,
+      `
+        SELECT
+          id,
+          question,
+          date::text AS date,
+          created_at AS "createdAt",
+        (
+          SELECT COUNT(*)::int
+          FROM answers a
+          WHERE a.question_id = q.id
+        ) AS "answerCount"
+        FROM questions q
+        WHERE date = (NOW() AT TIME ZONE 'UTC')::date;
+      `,
     )
   ).rows[0];
 };

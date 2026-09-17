@@ -1,11 +1,26 @@
 import { Text } from '@/ui/primitives/text';
 import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
 import { Button } from '@/ui/primitives/button';
+import { getCurrentQuestion } from '@/server/utils/questions';
 
-export default function Home() {
-  const date = 'September 9, 2026';
-  const question = 'If you had to teach something, \nwhat would you teach?';
-  const answerCount = 128;
+export default async function Home() {
+  const currentQuestion = await getCurrentQuestion();
+
+  const formattedDate = new Date(
+    `${currentQuestion.date}T00:00:00`,
+  ).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  }); // 'September 9, 2026';
+
+  const answerCount = currentQuestion.answerCount;
+  const peopleAnswered =
+    answerCount === 0
+      ? 'Be the first one to answer'
+      : answerCount === 1
+        ? '1 person already answered'
+        : `${answerCount} people already answered`;
 
   return (
     <div
@@ -27,7 +42,7 @@ export default function Home() {
           Today's question
         </Text>
         <Text color={'secondary'} className={'mt-2 max-lg:text-[14px]'}>
-          {date}
+          {formattedDate}
         </Text>
 
         <Text
@@ -37,7 +52,7 @@ export default function Home() {
           }
           weight={'semibold'}
         >
-          {question}
+          {currentQuestion.question}
         </Text>
         <Text
           color={'secondary'}
@@ -45,8 +60,8 @@ export default function Home() {
             'flex items-center gap-2 mt-4 max-lg:text-[14px] max-sm:mt-4'
           }
         >
-          <MessageLinearIcon />
-          <span>{answerCount} people already answered</span>
+          <MessageLinearIcon className={'size-4'} />
+          <span>{peopleAnswered}</span>
         </Text>
 
         <div className={'flex items-center gap-6 mt-6 max-sm:mt-9'}>
