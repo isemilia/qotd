@@ -7,11 +7,10 @@ export const useCreateAnswer = () => {
     mutationFn: createAnswer,
     mutationKey: ['createAnswer'],
     onError: (e) => {
-      console.log(e);
       toast.add({
         type: 'error',
         title: 'Couldn’t post your answer',
-        description: 'Something went wrong',
+        description: e.message || 'Something went wrong',
       });
     },
     onSuccess: () => {

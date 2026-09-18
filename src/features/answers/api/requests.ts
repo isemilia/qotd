@@ -12,9 +12,11 @@ export const createAnswer = async (
     body: JSON.stringify(body),
   });
 
+  const result = await response.json();
+
   if (!response.ok) {
-    throw new Error(response.statusText);
+    throw new Error(result.message);
   }
 
-  return response.json();
+  return result;
 };
