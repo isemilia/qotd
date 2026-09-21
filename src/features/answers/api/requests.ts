@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { postAnswerBodySchema } from '@/features/answers/model/schemas';
+import { Answer, RequestStatus } from '@/server/model/types';
 
 export const createAnswer = async (
   body: z.infer<typeof postAnswerBodySchema>,
@@ -13,6 +14,19 @@ export const createAnswer = async (
   });
 
   const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
+};
+
+export const getCurrentAnswers = async () => {
+  const response = await fetch(`${process.env.API_URL}/api/answers/current`);
+
+  const result: { status: RequestStatus; message: string; data: Answer[] } =
+    await response.json();
 
   if (!response.ok) {
     throw new Error(result.message);

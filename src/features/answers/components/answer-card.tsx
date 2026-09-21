@@ -15,7 +15,6 @@ export type AnswerCardProps = {
   color?: AnswerCardColor;
   createdAt: string;
   likeCount: number;
-  onLikeClick?: () => void;
   isLiked?: boolean;
 };
 export const AnswerCard: FC<AnswerCardProps> = ({
@@ -24,7 +23,6 @@ export const AnswerCard: FC<AnswerCardProps> = ({
   answer,
   likeCount,
   createdAt,
-  onLikeClick,
   isLiked,
 }) => {
   const timestamp = getTimeGap(createdAt);
@@ -70,10 +68,7 @@ export const AnswerCard: FC<AnswerCardProps> = ({
           className={'flex items-center gap-1.5 leading-none'}
         >
           <span>{peopleLiked}</span>
-          <button
-            className={cn('cursor-pointer', isLiked && cardClasses.text)}
-            onClick={onLikeClick}
-          >
+          <button className={cn('cursor-pointer', isLiked && cardClasses.text)}>
             <LikeIcon className={'size-4'} />
           </button>
         </Text>

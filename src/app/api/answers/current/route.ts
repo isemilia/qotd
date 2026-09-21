@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { RequestStatus } from '@/server/model/types';
+import { Answer, RequestStatus } from '@/server/model/types';
 import { db } from '@/server/utils/db';
 import { getCurrentQuestion } from '@/server/utils/questions';
 
@@ -18,17 +18,7 @@ export const GET = async () => {
     }
 
     const answers = (
-      await db.query<{
-        id: string;
-        question: {
-          id: string;
-          question: string;
-          date: string;
-        };
-        answer: string;
-        createdAt: string;
-        likeCount: number;
-      }>(
+      await db.query<Answer>(
         `
         SELECT
           a.id,
@@ -50,7 +40,8 @@ export const GET = async () => {
           q.id,
           q.question,
           q.date,
-          a.created_at;
+          a.created_at
+        ORDER BY a.created_at DESC;
         `,
         [currentQuestion.id],
       )
