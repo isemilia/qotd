@@ -27,7 +27,7 @@ export const SignInForm: FC = () => {
 
   const handleSubmit = async (data: z.infer<typeof signInClientSchema>) => {
     await signIn.mutateAsync({
-      email: data.email,
+      email: data.email.trim().toLowerCase(),
       password: data.password,
     });
   };

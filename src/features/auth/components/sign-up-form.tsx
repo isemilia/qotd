@@ -36,7 +36,7 @@ export const SignUpForm: FC = () => {
 
     await createAccount.mutateAsync({
       name: data.name,
-      email: data.email,
+      email: data.email.trim().toLowerCase(),
       password: data.password,
       termsAndGuidelinesAccepted: data.termsAndGuidelinesAccepted,
     });
