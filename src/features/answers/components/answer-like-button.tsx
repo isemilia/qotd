@@ -9,8 +9,8 @@ import { HeartLinearIcon } from '@/ui/icons/linear/heart-linear.icon';
 import { AnswerCardColor } from '@/features/answers/components/answer-card';
 import { useToggleAnswerLike } from '@/features/answers/api/mutations';
 import { useRouter } from 'next/navigation';
-import { useMe } from '@/features/auth/api/queries';
 import { toast } from '@/ui/primitives/toast';
+import { useAuth } from '@/shared/providers/auth-provider';
 
 export const AnswerLikeButton: FC<{
   count: number;
@@ -25,8 +25,7 @@ export const AnswerLikeButton: FC<{
 }) => {
   const router = useRouter();
 
-  const getMe = useMe();
-  const isAuthenticated = Boolean(getMe.isSuccess && getMe.data.data.id);
+  const { isAuthenticated } = useAuth();
 
   const toggleLike = useToggleAnswerLike();
 
