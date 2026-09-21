@@ -26,6 +26,7 @@ export const CreateAnswer: FC<{
       answer: '',
     },
     resolver: zodResolver(postAnswerClientSchema),
+    mode: 'all',
   });
 
   const handleSubmit = async (data: z.infer<typeof postAnswerClientSchema>) => {
@@ -33,6 +34,7 @@ export const CreateAnswer: FC<{
       questionId: question.id,
       answer: data.answer,
     });
+    form.reset();
     router.refresh();
     close();
   };
