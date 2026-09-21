@@ -11,12 +11,14 @@ import { postAnswerClientSchema } from '@/features/answers/model/schemas';
 import { z } from 'zod';
 import { useCreateAnswer } from '@/features/answers/api/mutations';
 import { ResponsiveModal } from '@/ui/components/responsive-modal';
+import { useRouter } from 'next/navigation';
 
 export const CreateAnswer: FC<{
   question: { id: string; question: string };
   isOpen: boolean;
   close: Function;
 }> = ({ question, isOpen, close }) => {
+  const router = useRouter();
   const submitAnswer = useCreateAnswer();
 
   const form = useForm({
@@ -31,6 +33,7 @@ export const CreateAnswer: FC<{
       questionId: question.id,
       answer: data.answer,
     });
+    router.refresh();
     close();
   };
 
