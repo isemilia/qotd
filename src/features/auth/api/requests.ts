@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { signInSchema, signUpSchema } from '@/features/auth/model/schemas';
+import { PublicUser, RequestStatus } from '@/server/model/types';
 
 export const createAccount = async (body: z.infer<typeof signUpSchema>) => {
   const response = await fetch('/api/auth/register', {
@@ -41,4 +42,17 @@ export const logout = async () => {
   }
 
   return response.json();
+};
+
+export const getMe = async () => {
+  const response = await fetch('/api/auth/me');
+
+  const result: { message: string; status: RequestStatus; data: PublicUser } =
+    await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
 };
