@@ -30,4 +30,5 @@ export type Answer = {
   answer: string;
   createdAt: string;
   likeCount: number;
+  isLiked: boolean;
 };

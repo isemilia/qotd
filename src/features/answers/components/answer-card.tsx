@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import { Text } from '@/ui/primitives/text';
-import { HeartLinearIcon } from '@/ui/icons/linear/heart-linear.icon';
 import { getTimeGap } from '@/shared/utils/get-time-gap';
 import { cardColors } from '@/features/answers/model/constants';
 import { cn } from '@/shared/utils/cn';
-import { HeartFilledIcon } from '@/ui/icons/filled/heart-filled.icon';
+import { AnswerLikeButton } from '@/features/answers/components/answer-like-button';
 
 export type AnswerCardColor =
   'lavender' | 'cornflower' | 'mint' | 'peach' | 'coral' | 'sand';
@@ -16,6 +15,7 @@ export type AnswerCardProps = {
   createdAt: string;
   likeCount: number;
   isLiked?: boolean;
+  id: string;
 };
 export const AnswerCard: FC<AnswerCardProps> = ({
   color = 'cornflower',
@@ -24,19 +24,10 @@ export const AnswerCard: FC<AnswerCardProps> = ({
   likeCount,
   createdAt,
   isLiked,
+  id,
 }) => {
   const timestamp = getTimeGap(createdAt);
-
-  const peopleLiked =
-    likeCount === 0
-      ? ''
-      : likeCount === 1
-        ? '1 person liked'
-        : `${likeCount} people liked`;
-
   const cardClasses = cardColors[color];
-
-  const LikeIcon = isLiked ? HeartFilledIcon : HeartLinearIcon;
 
   return (
     <div
@@ -62,16 +53,12 @@ export const AnswerCard: FC<AnswerCardProps> = ({
 
       <div className={'flex items-center justify-between mt-3 text-[12px]'}>
         <Text color={'secondary'}>{timestamp}</Text>
-        <Text
-          component={'div'}
-          color={'secondary'}
-          className={'flex items-center gap-1.5 leading-none'}
-        >
-          <span>{peopleLiked}</span>
-          <button className={cn('cursor-pointer', isLiked && cardClasses.text)}>
-            <LikeIcon className={'size-4'} />
-          </button>
-        </Text>
+        <AnswerLikeButton
+          answerId={id}
+          count={likeCount}
+          color={color}
+          isLiked={isLiked}
+        />
       </div>
     </div>
   );

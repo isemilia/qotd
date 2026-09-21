@@ -23,9 +23,22 @@ export const createAnswer = async (
 };
 
 export const getCurrentAnswers = async () => {
-  const response = await fetch(`${process.env.API_URL}/api/answers/current`);
+  const response = await fetch('/api/answers/current');
 
   const result: { status: RequestStatus; message: string; data: Answer[] } =
+    await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
+};
+
+export const toggleAnswerLike = async (id: string) => {
+  const response = await fetch(`/api/answers/${id}/likes`, { method: 'POST' });
+
+  const result: { status: RequestStatus; message: string } =
     await response.json();
 
   if (!response.ok) {
