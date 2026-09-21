@@ -11,6 +11,7 @@ export const signUpSchema = z.object({
 
 export const signUpClientSchema = signUpSchema
   .extend({
+    termsAndGuidelinesAccepted: z.boolean().refine((value) => value === true),
     confirmPassword: z.string().min(5).max(30),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
