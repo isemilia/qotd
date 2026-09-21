@@ -16,6 +16,13 @@ import { useCreateAccount } from '@/features/auth/api/mutations';
 
 export const SignUpForm: FC = () => {
   const form = useForm({
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      termsAndGuidelinesAccepted: false,
+    },
     resolver: zodResolver(signUpClientSchema),
     mode: 'all',
   });
@@ -23,6 +30,10 @@ export const SignUpForm: FC = () => {
   const createAccount = useCreateAccount();
 
   const handleSubmit = async (data: z.infer<typeof signUpClientSchema>) => {
+    if (!data.termsAndGuidelinesAccepted) {
+      return;
+    }
+
     await createAccount.mutateAsync({
       name: data.name,
       email: data.email,

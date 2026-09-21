@@ -2,13 +2,10 @@ import { Text } from '@/ui/primitives/text';
 import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
 import { Button } from '@/ui/primitives/button';
 import { CurrentQuestion } from '@/server/model/types';
-import {
-  AnswerCard,
-  AnswerCardProps,
-} from '@/features/answers/components/answer-card';
 import { Footer } from '@/widgets/footer';
 import { ContentContainer } from '@/ui/primitives/content-container';
 import { CreateAnswerTrigger } from '@/widgets/create-answer-trigger';
+import { CurrentAnswers } from '@/features/answers/components/current-answers';
 
 export const HomeView = ({
   currentQuestion,
@@ -30,62 +27,6 @@ export const HomeView = ({
       : answerCount === 1
         ? '1 person already answered'
         : `${answerCount} people already answered`;
-
-  const answers: (AnswerCardProps & { id: string })[] = [
-    {
-      id: 'a1f7c3d2-8b41-4e6a-9f25-1c73b5d90418',
-      question: 'What is something small that made you happy today?',
-      answer:
-        'I found a really good bakery on my way home and bought a pastry I had never tried before.',
-      color: 'lavender',
-      createdAt: '2026-09-17T08:42:00Z',
-      likeCount: 12,
-    },
-    {
-      id: 'b6d29e41-53fa-47c8-a102-9e64c7f31520',
-      question: 'What is something small that made you happy today?',
-      answer:
-        'My cat decided to sit next to me while I was working. She usually pretends I do not exist.',
-      color: 'cornflower',
-      createdAt: '2026-09-17T09:15:00Z',
-      likeCount: 7,
-    },
-    {
-      id: 'c8e51a73-26bd-4f09-b684-2d91a7e50346',
-      question: 'What is something small that made you happy today?',
-      answer:
-        'The weather was finally cool enough to open all the windows in the morning.',
-      color: 'mint',
-      createdAt: '2026-09-17T10:03:00Z',
-      likeCount: 1,
-    },
-    {
-      id: 'd3a947e2-71cf-45b8-8a16-6c52f9d80437',
-      question: 'What is something small that made you happy today?',
-      answer:
-        'Someone held the door open for me when my hands were full. Tiny thing, but it made my morning.',
-      color: 'peach',
-      createdAt: '2026-09-17T10:37:00Z',
-      likeCount: 18,
-    },
-    {
-      id: 'e5c218f6-94da-4b37-a801-73f62d9ce145',
-      question: 'What is something small that made you happy today?',
-      answer: 'I finally finished a book I had been reading for months.',
-      color: 'coral',
-      createdAt: '2026-09-17T11:21:00Z',
-      likeCount: 0,
-    },
-    {
-      id: 'f7426b19-38de-4ca5-95e7-821d4a603257',
-      question: 'What is something small that made you happy today?',
-      answer:
-        'I called an old friend I had not spoken to in a while, and it felt like no time had passed.',
-      color: 'sand',
-      createdAt: '2026-09-17T12:06:00Z',
-      likeCount: 23,
-    },
-  ];
 
   return (
     <>
@@ -143,24 +84,7 @@ export const HomeView = ({
           Community answers
         </Text>
 
-        <div
-          className={
-            'grid grid-cols-3 gap-4 mt-8 max-md:mt-6 max-md:grid-cols-2 max-sm:grid-cols-1'
-          }
-        >
-          {answers.map((item) => {
-            return (
-              <AnswerCard
-                key={item.id}
-                answer={item.answer}
-                question={item.question}
-                createdAt={item.createdAt}
-                likeCount={item.likeCount}
-                color={item.color}
-              />
-            );
-          })}
-        </div>
+        <CurrentAnswers />
       </ContentContainer>
 
       <Footer />

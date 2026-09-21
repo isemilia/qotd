@@ -4,6 +4,7 @@ import './globals.css';
 import { cn } from '@/shared/utils/cn';
 import { QueryProvider } from '@/shared/providers/query-provider';
 import { Toaster } from '@/ui/primitives/toast';
+import { AuthProvider } from '@/shared/providers/auth-provider';
 
 const dmSans = DM_Sans({
   variable: '--font-dm-sans',
@@ -35,7 +36,9 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       )}
     >
       <body className='min-h-full flex flex-col text-primary leading-[1.2]'>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </QueryProvider>
         <Toaster />
       </body>
     </html>

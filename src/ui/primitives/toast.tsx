@@ -145,7 +145,7 @@ function ToastIcon({ type }: { type: string | undefined }) {
   }
 
   if (type === 'info') {
-    icon = <InfoIcon aria-hidden='true' />;
+    icon = <InfoIcon aria-hidden='true' className={'text-primary'} />;
   }
 
   if (type === 'warning') {

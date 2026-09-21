@@ -19,3 +19,16 @@ export type CurrentQuestion = {
   createdAt: string;
   answerCount: number;
 };
+
+export type Answer = {
+  id: string;
+  question: {
+    id: string;
+    question: string;
+    date: string;
+  };
+  answer: string;
+  createdAt: string;
+  likeCount: number;
+  isLiked: boolean;
+};

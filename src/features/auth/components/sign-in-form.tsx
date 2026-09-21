@@ -15,6 +15,10 @@ import { useSignIn } from '@/features/auth/api/mutations';
 
 export const SignInForm: FC = () => {
   const form = useForm({
+    defaultValues: {
+      password: '',
+      email: '',
+    },
     resolver: zodResolver(signInClientSchema),
     mode: 'all',
   });

@@ -47,10 +47,16 @@ export const logout = async () => {
 export const getMe = async () => {
   const response = await fetch('/api/auth/me');
 
-  const result: { message: string; status: RequestStatus; data: PublicUser } =
-    await response.json();
+  const result: {
+    message: string;
+    status: RequestStatus;
+    data: PublicUser | null;
+  } = await response.json();
 
   if (!response.ok) {
+    if (response.status === 401) {
+      return { ...result, data: null };
+    }
     throw new Error(result.message);
   }
 
