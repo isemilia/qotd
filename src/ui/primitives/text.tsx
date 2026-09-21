@@ -54,6 +54,7 @@ export const Text = <T extends ElementType = 'p'>({
   return (
     <Component
       className={cn(
+        'transition-colors',
         fonts[font],
         colors[color],
         weights[weight],
