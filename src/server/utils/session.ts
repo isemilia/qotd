@@ -1,7 +1,7 @@
 import { db } from '@/server/utils/db';
 import { cookies } from 'next/headers';
 import { UserRole } from '@/features/auth/model/types';
-import { UserRow } from '@/server/model/types';
+import { PublicUser } from '@/server/model/types';
 
 export const COOKIE_SESSION_KEY = 'sessionId';
 
@@ -105,7 +105,7 @@ export const getCurrentUser = async () => {
   }
 
   const user = (
-    await db.query<UserRow>(
+    await db.query<PublicUser>(
       `
       SELECT 
         id,

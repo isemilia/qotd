@@ -3,7 +3,7 @@ export enum RequestStatus {
   ERROR = 'error',
 }
 
-export type UserRow = {
+export type PublicUser = {
   id: string;
   name: string;
   email: string;

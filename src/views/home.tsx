@@ -8,6 +8,7 @@ import {
 } from '@/features/answers/components/answer-card';
 import { Footer } from '@/widgets/footer';
 import { ContentContainer } from '@/ui/primitives/content-container';
+import { CreateAnswerTrigger } from '@/widgets/create-answer-trigger';
 
 export const HomeView = ({
   currentQuestion,
@@ -125,7 +126,14 @@ export const HomeView = ({
         </Text>
 
         <div className={'flex items-center gap-6 mt-6 max-sm:mt-9'}>
-          <Button>Share your answer</Button>
+          <CreateAnswerTrigger
+            question={{
+              id: currentQuestion.id,
+              question: currentQuestion.question,
+            }}
+          >
+            <Button>Share your answer</Button>
+          </CreateAnswerTrigger>
           <Button variant={'text'}>Suggest a question</Button>
         </div>
       </ContentContainer>
