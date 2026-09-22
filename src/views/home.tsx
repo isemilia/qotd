@@ -57,9 +57,11 @@ export const HomeView = ({
           {currentQuestion.question}
         </Text>
         <Text
+          component={'a'}
+          href={'#answers'}
           color={'secondary'}
           className={
-            'flex items-center gap-2 mt-4 max-lg:text-[14px] max-sm:mt-4'
+            'flex items-center gap-2 mt-4 max-lg:text-[14px] max-sm:mt-4 hover:text-primary'
           }
         >
           <MessageLinearIcon className={'size-4'} />
@@ -80,7 +82,11 @@ export const HomeView = ({
       </ContentContainer>
 
       <ContentContainer className={'mt-10 max-md:pb-15'}>
-        <Text weight={'semibold'} className={'text-[32px] max-md:text-[28px]'}>
+        <Text
+          weight={'semibold'}
+          className={'text-[32px] max-md:text-[28px]'}
+          id={'answers'}
+        >
           Community answers
         </Text>
 

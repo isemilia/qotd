@@ -1,10 +1,11 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createAccount, logout, signIn } from '@/features/auth/api/requests';
 import { toast } from '@/ui/primitives/toast';
 import { useRouter } from 'next/navigation';
 
 export const useCreateAccount = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: createAccount,
@@ -17,12 +18,14 @@ export const useCreateAccount = () => {
           'Something went wrong while creating your account. Please try again later',
       });
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.add({
         type: 'success',
         title: 'Account created',
         description: 'Welcome! Your account is ready to go',
       });
+      await queryClient.invalidateQueries({ queryKey: ['me'] });
+
       router.replace('/');
     },
   });
@@ -30,6 +33,7 @@ export const useCreateAccount = () => {
 
 export const useSignIn = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: signIn,
@@ -41,12 +45,14 @@ export const useSignIn = () => {
         description: 'Something went wrong. Please try again later',
       });
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.add({
         type: 'success',
         title: 'Welcome back!',
         description: 'Signed in successfully',
       });
+      await queryClient.invalidateQueries({ queryKey: ['me'] });
+
       router.replace('/');
     },
   });
