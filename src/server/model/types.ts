@@ -1,3 +1,5 @@
+import { AnswerCardColor } from '@/features/answers/components/answer-card';
+
 export enum RequestStatus {
   SUCCESS = 'success',
   ERROR = 'error',
@@ -28,6 +30,7 @@ export type Answer = {
     date: string;
   };
   answer: string;
+  color: AnswerCardColor;
   createdAt: string;
   likeCount: number;
   isLiked: boolean;
