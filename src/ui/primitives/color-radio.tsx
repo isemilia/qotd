@@ -1,0 +1,53 @@
+import { FC } from 'react';
+import { cn } from '@/shared/utils/cn';
+import { FieldLabel } from '@/ui/primitives/field';
+import { RadioGroup, RadioGroupItem } from '@/ui/primitives/radio-group';
+
+export type ColorOption = {
+  value: string;
+  bg: string;
+};
+
+type ColorRadioProps = {
+  options: ColorOption[];
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+  name?: string;
+};
+
+export const ColorRadio: FC<ColorRadioProps> = ({
+  options,
+  value,
+  defaultValue,
+  onValueChange,
+  name,
+}) => {
+  return (
+    <RadioGroup
+      name={name}
+      value={value}
+      defaultValue={defaultValue}
+      onValueChange={onValueChange}
+      className='flex items-center'
+    >
+      {options.map((option) => (
+        <FieldLabel
+          key={option.value}
+          htmlFor={option.value}
+          className='cursor-pointer'
+        >
+          <RadioGroupItem
+            value={option.value}
+            id={option.value}
+            className='peer hidden'
+          />
+
+          <div className='flex items-center justify-center rounded-full border-2 border-transparent p-1 peer-aria-checked:border-primary'>
+            <div className={cn(option.bg, 'size-5 rounded-full')} />
+          </div>
+        </FieldLabel>
+      ))}
+    </RadioGroup>
+  );
+};

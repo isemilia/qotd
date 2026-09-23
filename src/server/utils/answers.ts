@@ -22,6 +22,7 @@ export const getCurrentAnswers = async () => {
             'question', q.question,
             'date', q.date
           ) AS question,
+          a.color,
           a.created_at as "createdAt",
         COUNT(l.answer_id)::int as "likeCount",
         EXISTS (

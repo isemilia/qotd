@@ -5,6 +5,7 @@ import { isExpiredQuestion } from '@/server/utils/questions';
 import { postAnswerBodySchema } from '@/features/answers/model/schemas';
 import { z } from 'zod';
 import { getCurrentUser } from '@/server/utils/session';
+import { AnswerCardColor } from '@/features/answers/components/answer-card';
 
 const buildWhereClause = (params: URLSearchParams) => {
   const questionId = params.get('questionId');
@@ -144,13 +145,13 @@ export const POST = async (request: NextRequest) => {
 
     // if all checks passed, create answer
     const createdAnswer = (
-      await db.query<{ id: string; answer: string }>(
+      await db.query<{ id: string; answer: string; color: AnswerCardColor }>(
         `
-      INSERT INTO answers (user_id, question_id, answer) 
-      VALUES ($1, $2, $3)
-      RETURNING id, answer
+      INSERT INTO answers (user_id, question_id, answer, color) 
+      VALUES ($1, $2, $3, $4)
+      RETURNING id, answer, color
     `,
-        [user.id, parsedData.questionId, parsedData.answer],
+        [user.id, parsedData.questionId, parsedData.answer, parsedData.color],
       )
     ).rows[0];
 

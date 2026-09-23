@@ -1,8 +1,18 @@
+CREATE TYPE answer_color AS ENUM (
+    'lavender',
+    'cornflower',
+    'mint',
+    'peach',
+    'coral',
+    'sand'
+);
+
 CREATE TABLE answers (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     question_id UUID NOT NULL REFERENCES questions(id),
     user_id UUID NOT NULL REFERENCES users(id),
     answer VARCHAR(200) NOT NULL,
+    color answer_color DEFAULT 'cornflower',
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
     UNIQUE (question_id, user_id)

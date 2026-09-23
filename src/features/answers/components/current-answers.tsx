@@ -31,7 +31,7 @@ export const CurrentAnswers: FC = async () => {
               createdAt={item.createdAt}
               likeCount={item.likeCount}
               isLiked={item.isLiked}
-              color={'cornflower'}
+              color={item.color}
             />
           );
         })}

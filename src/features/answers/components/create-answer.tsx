@@ -12,6 +12,8 @@ import { z } from 'zod';
 import { useCreateAnswer } from '@/features/answers/api/mutations';
 import { ResponsiveModal } from '@/ui/components/responsive-modal';
 import { useRouter } from 'next/navigation';
+import { AnswerCardColor } from '@/features/answers/components/answer-card';
+import { ControlledColorRadio } from '@/ui/components/controlled-color-radio';
 
 export const CreateAnswer: FC<{
   question: { id: string; question: string };
@@ -24,6 +26,7 @@ export const CreateAnswer: FC<{
   const form = useForm({
     defaultValues: {
       answer: '',
+      color: 'cornflower' as AnswerCardColor,
     },
     resolver: zodResolver(postAnswerClientSchema),
     mode: 'all',
@@ -33,11 +36,22 @@ export const CreateAnswer: FC<{
     await submitAnswer.mutateAsync({
       questionId: question.id,
       answer: data.answer,
+      color: data.color,
     });
     form.reset();
     router.refresh();
     close();
   };
+
+  const colorOptions: { value: AnswerCardColor; label: string; bg: string }[] =
+    [
+      { value: 'cornflower', label: 'Cornflower', bg: 'bg-cornflower' },
+      { value: 'coral', label: 'Coral', bg: 'bg-coral' },
+      { value: 'mint', label: 'Mint', bg: 'bg-mint' },
+      { value: 'sand', label: 'Sand', bg: 'bg-sand' },
+      { value: 'peach', label: 'Peach', bg: 'bg-peach' },
+      { value: 'lavender', label: 'Lavender', bg: 'bg-lavender' },
+    ];
 
   return (
     <ResponsiveModal
@@ -64,6 +78,15 @@ export const CreateAnswer: FC<{
           placeholder={'Enter your answer...'}
           maxLength={200}
         />
+
+        <ControlledColorRadio
+          className={'mt-4'}
+          name={'color'}
+          label={'Choose a color for your answer'}
+          control={form.control}
+          options={colorOptions}
+        />
+
         <Text className={'mt-4 text-[12px]'} color={'secondary'}>
           Please keep it respectful. By submitting your answer, you confirm that
           you've read and agree to our{' '}

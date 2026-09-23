@@ -5,8 +5,16 @@ import { cardColors } from '@/features/answers/model/constants';
 import { cn } from '@/shared/utils/cn';
 import { AnswerLikeButton } from '@/features/answers/components/answer-like-button';
 
-export type AnswerCardColor =
-  'lavender' | 'cornflower' | 'mint' | 'peach' | 'coral' | 'sand';
+export const answerCardColors = [
+  'lavender',
+  'cornflower',
+  'mint',
+  'peach',
+  'coral',
+  'sand',
+] as const;
+
+export type AnswerCardColor = (typeof answerCardColors)[number];
 
 export type AnswerCardProps = {
   question: string;
