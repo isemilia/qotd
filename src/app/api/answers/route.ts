@@ -61,14 +61,15 @@ export const GET = async (request: NextRequest) => {
           FROM answers a
           LEFT JOIN questions q ON a.question_id = q.id
           LEFT JOIN answer_likes l ON a.id = l.answer_id
+          ${where.clause}
           GROUP BY
             a.id,
             a.answer,
             q.id,
             q.question,
             q.date,
-            a.created_at;
-          ${where.clause}
+            a.created_at
+          ORDER BY a.created_at DESC
     `,
         where.values,
       )
