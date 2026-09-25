@@ -107,16 +107,21 @@ export const getCurrentUser = async () => {
   const user = (
     await db.query<PublicUser>(
       `
-      SELECT 
-        id,
-        name,
-        email,
-        role,
-        status,
-        created_at AS "createdAt"
-      FROM users 
-      WHERE id = $1
-    `,
+        SELECT
+          u.id,
+          u.name,
+          u.email,
+          u.role,
+          u.status,
+          u.created_at AS "createdAt",
+          (
+            SELECT COUNT(*)
+            FROM answers a
+            WHERE a.user_id = u.id
+          )::int AS "answerCount"
+        FROM users u
+        WHERE u.id = $1
+      `,
       [session.user_id],
     )
   ).rows[0];

@@ -6,73 +6,15 @@ import { postAnswerBodySchema } from '@/features/answers/model/schemas';
 import { z } from 'zod';
 import { getCurrentUser } from '@/server/utils/session';
 import { AnswerCardColor } from '@/features/answers/components/answer-card';
-
-const buildWhereClause = (params: URLSearchParams) => {
-  const questionId = params.get('questionId');
-  const userId = params.get('userId');
-
-  const values: string[] = [];
-  const conditions: string[] = [];
-
-  if (questionId) {
-    values.push(questionId);
-    conditions.push(`a.question_id = $${values.length}`);
-  }
-
-  if (userId) {
-    values.push(userId);
-    conditions.push(`a.user_id = $${values.length}`);
-  }
-
-  return {
-    values,
-    clause: conditions.length ? `WHERE ${conditions.join(' AND ')}` : '',
-  };
-};
+import { getAnswers } from '@/server/utils/answers';
 
 export const GET = async (request: NextRequest) => {
   try {
     const { searchParams } = request.nextUrl;
-    const where = buildWhereClause(searchParams);
-
-    const answers = (
-      await db.query<{
-        id: string;
-        answer: string;
-        question: {
-          id: string;
-          question: string;
-          date: string;
-        };
-        createdAt: string;
-        likeCount: number;
-      }>(
-        `
-          SELECT
-            a.id,
-            a.answer,
-            json_build_object(
-              'id', q.id,
-              'question', q.question,
-              'date', q.date
-            ) AS question,
-            a.created_at as "createdAt",
-            COUNT(l.answer_id) as "likeCount"
-          FROM answers a
-          LEFT JOIN questions q ON a.question_id = q.id
-          LEFT JOIN answer_likes l ON a.id = l.answer_id
-          GROUP BY
-            a.id,
-            a.answer,
-            q.id,
-            q.question,
-            q.date,
-            a.created_at;
-          ${where.clause}
-    `,
-        where.values,
-      )
-    ).rows;
+    const answers = await getAnswers({
+      questionId: searchParams.get('questionId'),
+      userId: searchParams.get('userId'),
+    });
 
     return NextResponse.json({
       status: RequestStatus.SUCCESS,

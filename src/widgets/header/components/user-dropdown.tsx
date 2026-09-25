@@ -28,7 +28,7 @@ export const UserDropdown = ({ user }: { user: PublicUser }) => {
     },
     {
       label: 'My answers',
-      href: '#',
+      href: '/profile/answers',
       icon: MessageLinearIcon,
       color: 'primary',
       closeOnClick: true,

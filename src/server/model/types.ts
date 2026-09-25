@@ -12,6 +12,7 @@ export type PublicUser = {
   role: string;
   status: string;
   createdAt: string;
+  answerCount: number;
 };
 
 export type CurrentQuestion = {

@@ -20,7 +20,7 @@ export const mobileMenuGroups = {
     },
     {
       label: 'My answers',
-      href: '#',
+      href: '/profile/answers',
       icon: MessageLinearIcon,
       color: 'primary',
     },

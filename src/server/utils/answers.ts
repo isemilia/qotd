@@ -49,3 +49,82 @@ export const getCurrentAnswers = async () => {
 
   return answers.rows;
 };
+
+const buildWhereClause = (
+  args: {
+    questionId?: string | null;
+    userId?: string | null;
+  } = {},
+) => {
+  const { questionId, userId } = args;
+
+  const values: string[] = [];
+  const conditions: string[] = [];
+
+  if (questionId) {
+    values.push(questionId);
+    conditions.push(`a.question_id = $${values.length}`);
+  }
+
+  if (userId) {
+    values.push(userId);
+    conditions.push(`a.user_id = $${values.length}`);
+  }
+
+  return {
+    values,
+    clause: conditions.length ? `WHERE ${conditions.join(' AND ')}` : '',
+  };
+};
+
+export const getAnswers = async (
+  args: {
+    questionId?: string | null;
+    userId?: string | null;
+  } = {},
+) => {
+  const { questionId, userId } = args;
+
+  const currentUser = await getCurrentUser();
+  const where = buildWhereClause({ questionId, userId });
+  const values = [...where.values, currentUser?.id ?? null];
+  const currentUserParam = `$${values.length}`;
+
+  const answers = await db.query<Answer>(
+    `
+          SELECT
+            a.id,
+            a.answer,
+            json_build_object(
+              'id', q.id,
+              'question', q.question,
+              'date', q.date
+            ) AS question,
+            a.color,
+            a.created_at as "createdAt",
+            COUNT(l.answer_id)::int as "likeCount",
+            EXISTS (
+              SELECT 1
+              FROM answer_likes al
+              WHERE al.answer_id = a.id
+              AND al.user_id = ${currentUserParam}
+            ) AS "isLiked"
+          FROM answers a
+          LEFT JOIN questions q ON a.question_id = q.id
+          LEFT JOIN answer_likes l ON a.id = l.answer_id
+          ${where.clause}
+          GROUP BY
+            a.id,
+            a.answer,
+            q.id,
+            q.question,
+            q.date,
+            a.created_at,
+            a.color
+          ORDER BY a.created_at DESC
+    `,
+    values,
+  );
+
+  return answers.rows;
+};
