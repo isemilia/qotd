@@ -8,5 +8,5 @@ export const ProfileNavigation: FC = () => {
     { label: 'Account', name: 'account', href: '/profile/account' },
   ];
 
-  return <TabLinks items={items} />;
+  return <TabLinks items={items} className={'mt-8 max-md:mt-5'} />;
 };

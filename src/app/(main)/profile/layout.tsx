@@ -14,7 +14,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <div className={'mt-10'}>
+    <div className={'mt-10 max-md:mt-5'}>
       <ContentContainer>
         <div className={'flex items-center gap-5'}>
           <ProfileFilledIcon className={'size-15'} />
