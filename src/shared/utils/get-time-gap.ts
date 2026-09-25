@@ -5,7 +5,6 @@ export const getTimeGap = (date: string) => {
   const ms = Math.abs(created - now);
   const minutes = Math.floor(ms / 1000 / 60);
   const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
 
   if (minutes < 1) {
     return 'now';
@@ -19,5 +18,11 @@ export const getTimeGap = (date: string) => {
     return `${hours}h`;
   }
 
-  return `${days}d`;
+  const formatter = new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+
+  return formatter.format(new Date(date)).replaceAll('/', '.');
 };
