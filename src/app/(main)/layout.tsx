@@ -6,7 +6,7 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <>
       <Header />
-      {children}
+      <div className={'flex-1'}>{children}</div>
       <Footer />
     </>
   );
