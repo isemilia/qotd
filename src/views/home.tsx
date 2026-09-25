@@ -2,7 +2,6 @@ import { Text } from '@/ui/primitives/text';
 import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
 import { Button } from '@/ui/primitives/button';
 import { CurrentQuestion } from '@/server/model/types';
-import { Footer } from '@/widgets/footer';
 import { ContentContainer } from '@/ui/primitives/content-container';
 import { CreateAnswerTrigger } from '@/widgets/create-answer-trigger';
 import { CurrentAnswers } from '@/features/answers/components/current-answers';
@@ -92,8 +91,6 @@ export const HomeView = ({
 
         <CurrentAnswers />
       </ContentContainer>
-
-      <Footer />
     </>
   );
 };
