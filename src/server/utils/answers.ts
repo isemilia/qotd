@@ -54,9 +54,10 @@ const buildWhereClause = (
   args: {
     questionId?: string | null;
     userId?: string | null;
+    likedByUserId?: string | null;
   } = {},
 ) => {
-  const { questionId, userId } = args;
+  const { questionId, userId, likedByUserId } = args;
 
   const values: string[] = [];
   const conditions: string[] = [];
@@ -71,6 +72,18 @@ const buildWhereClause = (
     conditions.push(`a.user_id = $${values.length}`);
   }
 
+  if (likedByUserId) {
+    values.push(likedByUserId);
+    conditions.push(`
+      EXISTS (
+        SELECT 1
+        FROM answer_likes al
+        WHERE al.answer_id = a.id
+          AND al.user_id = $${values.length}
+      )
+    `);
+  }
+
   return {
     values,
     clause: conditions.length ? `WHERE ${conditions.join(' AND ')}` : '',
@@ -81,12 +94,13 @@ export const getAnswers = async (
   args: {
     questionId?: string | null;
     userId?: string | null;
+    likedByUserId?: string | null;
   } = {},
 ) => {
-  const { questionId, userId } = args;
+  const { questionId, userId, likedByUserId } = args;
 
   const currentUser = await getCurrentUser();
-  const where = buildWhereClause({ questionId, userId });
+  const where = buildWhereClause({ questionId, userId, likedByUserId });
   const values = [...where.values, currentUser?.id ?? null];
   const currentUserParam = `$${values.length}`;
 
