@@ -32,7 +32,7 @@ export const PersonalDetailsForm: FC<{
   };
 
   return (
-    <form className={cn(className, '')}>
+    <form className={className}>
       <div className={'space-y-4'}>
         <ControlledInput
           name={'name'}
