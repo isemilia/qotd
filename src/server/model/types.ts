@@ -15,6 +15,15 @@ export type PublicUser = {
   answerCount: number;
 };
 
+export type PublicUserShort = {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  status: string;
+  createdAt: string;
+};
+
 export type CurrentQuestion = {
   id: string;
   question: string;
