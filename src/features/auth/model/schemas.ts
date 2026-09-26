@@ -39,3 +39,8 @@ export const changePersonalDetailsClientSchema =
   changePersonalDetailsSchema.extend({
     email: z.email().optional(),
   });
+
+export const changePasswordSchema = z.object({
+  currentPassword: z.string(),
+  newPassword: z.string().min(5).max(30),
+});
