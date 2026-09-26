@@ -1,5 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createAccount, logout, signIn } from '@/features/auth/api/requests';
+import {
+  changePersonalDetails,
+  createAccount,
+  logout,
+  signIn,
+} from '@/features/auth/api/requests';
 import { toast } from '@/ui/primitives/toast';
 import { useRouter } from 'next/navigation';
 
@@ -71,6 +76,31 @@ export const useLogout = () => {
     },
     onSuccess: () => {
       window.location.href = '/';
+    },
+  });
+};
+
+export const useChangePersonalDetails = () => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: changePersonalDetails,
+    mutationKey: ['changePersonalDetails'],
+    onError: () => {
+      toast.add({
+        type: 'error',
+        title: 'Could not update personal details',
+        description: 'Something went wrong. Please try again later',
+      });
+    },
+    onSuccess: async () => {
+      toast.add({
+        type: 'success',
+        title: 'Personal details updated successfully',
+      });
+      await queryClient.invalidateQueries({ queryKey: ['me'] });
+      router.refresh();
     },
   });
 };

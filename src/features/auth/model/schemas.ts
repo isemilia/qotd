@@ -34,3 +34,8 @@ export const signInClientSchema = signInSchema.extend({});
 export const changePersonalDetailsSchema = z.object({
   name: nameSchema,
 });
+
+export const changePersonalDetailsClientSchema =
+  changePersonalDetailsSchema.extend({
+    email: z.email().optional(),
+  });

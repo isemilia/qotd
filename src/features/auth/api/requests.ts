@@ -1,6 +1,11 @@
 import { z } from 'zod';
 import { signInSchema, signUpSchema } from '@/features/auth/model/schemas';
-import { PublicUser, RequestStatus } from '@/server/model/types';
+import {
+  PublicUser,
+  PublicUserShort,
+  RequestStatus,
+} from '@/server/model/types';
+import { PersonalDetailsFormValues } from '@/features/auth/model/types';
 
 export const createAccount = async (body: z.infer<typeof signUpSchema>) => {
   const response = await fetch('/api/auth/register', {
@@ -57,6 +62,30 @@ export const getMe = async () => {
     if (response.status === 401) {
       return { ...result, data: null };
     }
+    throw new Error(result.message);
+  }
+
+  return result;
+};
+
+export const changePersonalDetails = async (body: {
+  name: PersonalDetailsFormValues['name'];
+}) => {
+  const response = await fetch('/api/auth/me', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  const result: {
+    message: string;
+    status: RequestStatus;
+    data: PublicUserShort;
+  } = await response.json();
+
+  if (!response.ok) {
     throw new Error(result.message);
   }
 
