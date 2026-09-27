@@ -6,17 +6,30 @@ import {
 } from '@/ui/primitives/field';
 import { Input } from '@/ui/primitives/input';
 import { Controller } from 'react-hook-form';
-import { FC, HTMLInputTypeAttribute } from 'react';
+import { ComponentPropsWithoutRef, FC, HTMLInputTypeAttribute } from 'react';
 
-export const ControlledInput: FC<{
-  name: string;
-  control: any;
-  required?: boolean;
-  label?: string;
-  placeholder?: string;
-  description?: string;
-  type?: HTMLInputTypeAttribute;
-}> = ({ label, placeholder, description, name, required, control, type }) => {
+export const ControlledInput: FC<
+  {
+    name: string;
+    control: any;
+    required?: boolean;
+    label?: string;
+    placeholder?: string;
+    description?: string;
+    type?: HTMLInputTypeAttribute;
+    disabled?: boolean;
+  } & Pick<ComponentPropsWithoutRef<typeof Input>, 'variant'>
+> = ({
+  label,
+  placeholder,
+  description,
+  name,
+  required,
+  control,
+  type,
+  variant,
+  disabled,
+}) => {
   return (
     <Controller
       name={name}
@@ -33,6 +46,8 @@ export const ControlledInput: FC<{
               aria-invalid={fieldState.invalid}
               placeholder={placeholder}
               type={type}
+              variant={variant}
+              disabled={disabled}
             />
             {description && <FieldDescription>{description}</FieldDescription>}
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

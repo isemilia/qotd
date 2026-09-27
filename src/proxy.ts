@@ -2,8 +2,14 @@ import { getSession } from '@/server/utils/session';
 import { NextRequest, NextResponse } from 'next/server';
 import { UserRole } from '@/features/auth/model/types';
 
+// todo: refactor later
 const routes = {
-  user: ['/profile'],
+  user: [
+    '/profile',
+    '/profile/account',
+    '/profile/answers',
+    '/profile/favorites',
+  ],
   moderator: ['/admin'],
   admin: ['/admin'],
 };
