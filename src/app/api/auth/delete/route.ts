@@ -1,18 +1,15 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { RequestStatus } from '@/server/model/types';
-import { cookies } from 'next/headers';
-import {
-  COOKIE_SESSION_KEY,
-  deleteAllSessionsByUserId,
-} from '@/server/utils/session';
+import { deleteAllSessionsByUserId, getSession } from '@/server/utils/session';
 import { db } from '@/server/utils/db';
+import { accountDeletionSchema } from '@/features/auth/model/schemas';
+import { z } from 'zod';
 
-export const POST = async () => {
+export const POST = async (request: NextRequest) => {
   try {
-    const cookieStore = await cookies();
-    const sessionId = cookieStore.get(COOKIE_SESSION_KEY)?.value;
+    const session = await getSession();
 
-    if (!sessionId) {
+    if (!session) {
       return NextResponse.json(
         {
           status: RequestStatus.ERROR,
@@ -22,20 +19,27 @@ export const POST = async () => {
       );
     }
 
-    // get current session
-    const sessionRes = await db.query<{ user_id: string }>(
-      `SELECT * FROM sessions WHERE id = $1`,
-      [sessionId],
-    );
-    const session = sessionRes.rows[0];
+    const body = await request.json();
+    const parseResult = accountDeletionSchema.safeParse(body);
 
-    if (!session) {
+    if (parseResult.error) {
       return NextResponse.json(
         {
           status: RequestStatus.ERROR,
-          message: 'Unauthorized',
+          message: 'Invalid input',
+          errors: z.flattenError(parseResult.error),
         },
-        { status: 401 },
+        { status: 400 },
+      );
+    }
+
+    if (parseResult.data?.reason) {
+      await db.query(
+        `
+        INSERT INTO account_deletion_reasons (user_id, reason)
+        VALUES ($1, $2);
+      `,
+        [session.user_id, parseResult.data.reason],
       );
     }
 

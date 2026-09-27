@@ -58,3 +58,9 @@ export const changePasswordClientSchema = changePasswordSchema
       });
     }
   });
+
+export const accountDeletionSchema = z.object({
+  reason: z.string().max(500).optional(),
+});
+
+export const accountDeletionClientSchema = accountDeletionSchema;

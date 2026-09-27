@@ -1,5 +1,9 @@
 import { z } from 'zod';
-import { signInSchema, signUpSchema } from '@/features/auth/model/schemas';
+import {
+  accountDeletionClientSchema,
+  signInSchema,
+  signUpSchema,
+} from '@/features/auth/model/schemas';
 import {
   PublicUser,
   PublicUserShort,
@@ -108,6 +112,29 @@ export const changePassword = async (body: {
     message: string;
     status: RequestStatus;
     data: { id: string; name: string };
+  } = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
+};
+
+export const deleteAccount = async (body: {
+  reason: z.infer<typeof accountDeletionClientSchema>['reason'];
+}) => {
+  const response = await fetch('/api/auth/delete', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  const result: {
+    message: string;
+    status: RequestStatus;
   } = await response.json();
 
   if (!response.ok) {
