@@ -4,6 +4,7 @@ import { Text } from '@/ui/primitives/text';
 import { getCurrentUser } from '@/server/utils/session';
 import NotFound from 'next/dist/client/components/builtin/not-found';
 import { ChangePasswordForm } from '@/features/auth/components/change-password-form';
+import { DeleteAccountModal } from '@/features/auth/components/delete-account-modal';
 
 const Page = async () => {
   const user = await getCurrentUser();
@@ -30,6 +31,18 @@ const Page = async () => {
             Change password
           </Text>
           <ChangePasswordForm className={'mt-6'} />
+        </div>
+
+        <div>
+          <Text weight={'medium'} className={'text-[24px]'}>
+            Danger zone
+          </Text>
+          <Text color={'secondary'} className={'text-[14px] mt-3'}>
+            Deleting your account will permanently remove your account and
+            personal information. Your anonymous answers will remain on the
+            platform
+          </Text>
+          <DeleteAccountModal triggerClassName={'mt-4'} />
         </div>
       </div>
     </ContentContainer>
