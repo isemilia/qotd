@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
+  changePassword,
   changePersonalDetails,
   createAccount,
   logout,
@@ -101,6 +102,19 @@ export const useChangePersonalDetails = () => {
       });
       await queryClient.invalidateQueries({ queryKey: ['me'] });
       router.refresh();
+    },
+  });
+};
+
+export const useChangePassword = () => {
+  return useMutation({
+    mutationFn: changePassword,
+    mutationKey: ['changePassword'],
+    onSuccess: () => {
+      toast.add({
+        type: 'success',
+        title: 'Password changed successfully',
+      });
     },
   });
 };

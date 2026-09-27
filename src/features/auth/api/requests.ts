@@ -91,3 +91,28 @@ export const changePersonalDetails = async (body: {
 
   return result;
 };
+
+export const changePassword = async (body: {
+  currentPassword: string;
+  newPassword: string;
+}) => {
+  const response = await fetch('/api/auth/me/password', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  const result: {
+    message: string;
+    status: RequestStatus;
+    data: { id: string; name: string };
+  } = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
+};

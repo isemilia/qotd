@@ -44,3 +44,17 @@ export const changePasswordSchema = z.object({
   currentPassword: z.string(),
   newPassword: z.string().min(5).max(30),
 });
+
+export const changePasswordClientSchema = changePasswordSchema
+  .extend({
+    confirmNewPassword: z.string().min(5).max(30),
+  })
+  .superRefine(({ confirmNewPassword, newPassword }, ctx) => {
+    if (confirmNewPassword !== newPassword) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Passwords do not match',
+        path: ['confirmNewPassword'],
+      });
+    }
+  });
