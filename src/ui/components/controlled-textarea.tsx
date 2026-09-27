@@ -8,6 +8,7 @@ import { Controller } from 'react-hook-form';
 import { FC } from 'react';
 import { Textarea } from '@/ui/primitives/textarea';
 import { Text } from '@/ui/primitives/text';
+import { cn } from '@/shared/utils/cn';
 
 export const ControlledTextarea: FC<{
   name: string;
@@ -17,6 +18,7 @@ export const ControlledTextarea: FC<{
   placeholder?: string;
   description?: string;
   maxLength?: number;
+  className?: string;
 }> = ({
   label,
   placeholder,
@@ -25,6 +27,7 @@ export const ControlledTextarea: FC<{
   required,
   control,
   maxLength,
+  className,
 }) => {
   return (
     <Controller
@@ -45,7 +48,7 @@ export const ControlledTextarea: FC<{
                 id={field.name}
                 aria-invalid={fieldState.invalid}
                 placeholder={placeholder}
-                className={'min-h-[140px]'}
+                className={cn('min-h-[140px]', className)}
               />
               {maxLength ? (
                 <Text

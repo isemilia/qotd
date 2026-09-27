@@ -20,6 +20,7 @@ export const ResponsiveModal: FC<{
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent
           className={cn('p-8 pb-9 gap-5', classNames?.dialogContent)}
+          showCloseButton={false}
         >
           {children}
         </DialogContent>

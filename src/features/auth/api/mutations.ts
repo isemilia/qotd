@@ -3,6 +3,7 @@ import {
   changePassword,
   changePersonalDetails,
   createAccount,
+  deleteAccount,
   logout,
   signIn,
 } from '@/features/auth/api/requests';
@@ -102,6 +103,30 @@ export const useChangePersonalDetails = () => {
       });
       await queryClient.invalidateQueries({ queryKey: ['me'] });
       router.refresh();
+    },
+  });
+};
+
+export const useDeleteAccount = () => {
+  return useMutation({
+    mutationFn: deleteAccount,
+    mutationKey: ['deleteAccount'],
+    onError: () => {
+      toast.add({
+        type: 'error',
+        title: 'Could not delete account',
+        description: 'Something went wrong. Please try again later',
+      });
+    },
+    onSuccess: async () => {
+      toast.add({
+        type: 'success',
+        title: 'Account deleted successfully',
+      });
+
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1000);
     },
   });
 };
