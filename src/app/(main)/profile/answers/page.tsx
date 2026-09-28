@@ -1,4 +1,3 @@
-import { ContentContainer } from '@/ui/primitives/content-container';
 import { getAnswers } from '@/server/utils/answers';
 import { getCurrentUser } from '@/server/utils/session';
 import { AnswerCard } from '@/features/answers/components/answer-card';

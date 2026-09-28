@@ -1,4 +1,3 @@
-import { ContentContainer } from '@/ui/primitives/content-container';
 import { PersonalDetailsForm } from '@/features/auth/components/personal-details-form';
 import { Text } from '@/ui/primitives/text';
 import { getCurrentUser } from '@/server/utils/session';
