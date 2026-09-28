@@ -9,12 +9,13 @@ import { ListLinearIcon } from '@/ui/icons/linear/list-linear.icon';
 import { NoteLinearIcon } from '@/ui/icons/linear/note-linear.icon';
 import { UserDocumentLinearIcon } from '@/ui/icons/linear/user-document-linear.icon';
 import { MailLinearIcon } from '@/ui/icons/linear/mail-linear.icon';
+import { HeartLinearIcon } from '@/ui/icons/linear/heart-linear.icon';
 
 export const mobileMenuGroups = {
   authenticated: [
     {
       label: 'Manage account',
-      href: '#',
+      href: '/profile/account',
       icon: ProfileLinearIcon,
       color: 'primary',
     },
@@ -22,6 +23,12 @@ export const mobileMenuGroups = {
       label: 'My answers',
       href: '/profile/answers',
       icon: MessageLinearIcon,
+      color: 'primary',
+    },
+    {
+      label: 'Favorites',
+      href: '/profile/favorites',
+      icon: HeartLinearIcon,
       color: 'primary',
     },
   ] as MenuItem[],

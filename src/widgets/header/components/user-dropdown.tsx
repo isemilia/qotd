@@ -14,6 +14,7 @@ import { LogoutLinearIcon } from '@/ui/icons/linear/logout-linear.icon';
 import { useLogout } from '@/features/auth/api/mutations';
 import { UserDropdownItemType } from '../model/types';
 import { UserDropdownItem } from '@/widgets/header/components/user-dropdown-item';
+import { HeartLinearIcon } from '@/ui/icons/linear/heart-linear.icon';
 
 export const UserDropdown = ({ user }: { user: PublicUser }) => {
   const logout = useLogout();
@@ -21,7 +22,7 @@ export const UserDropdown = ({ user }: { user: PublicUser }) => {
   const menuItems: UserDropdownItemType[] = [
     {
       label: 'Manage account',
-      href: '#',
+      href: '/profile/account',
       icon: ProfileLinearIcon,
       color: 'primary',
       closeOnClick: true,
@@ -30,6 +31,13 @@ export const UserDropdown = ({ user }: { user: PublicUser }) => {
       label: 'My answers',
       href: '/profile/answers',
       icon: MessageLinearIcon,
+      color: 'primary',
+      closeOnClick: true,
+    },
+    {
+      label: 'Favorites',
+      href: '/profile/favorites',
+      icon: HeartLinearIcon,
       color: 'primary',
       closeOnClick: true,
     },
