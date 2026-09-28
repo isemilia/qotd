@@ -31,7 +31,9 @@ const Layout = async ({ children }: { children: ReactNode }) => {
         <ProfileNavigation />
       </ContentContainer>
 
-      {children}
+      <ContentContainer className={'mt-8 max-md:mt-6 max-md:pb-10'}>
+        {children}
+      </ContentContainer>
     </div>
   );
 };
