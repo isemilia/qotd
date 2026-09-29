@@ -3,7 +3,7 @@
 import { cloneElement, FC, ReactElement, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/shared/providers/auth-provider';
-import { SuggestQuestion } from '@/features/questions/components/suggest-question';
+import { SuggestQuestion } from '@/features/question-suggestions/components/suggest-question';
 
 export const SuggestQuestionTrigger: FC<{
   children: ReactElement<{ onClick?: Function }>;

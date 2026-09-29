@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { RequestStatus } from '@/server/model/types';
 import { getCurrentUser } from '@/server/utils/session';
-import { suggestQuestionSchema } from '@/features/questions/model/schemas';
+import { suggestQuestionSchema } from '@/features/question-suggestions/model/schemas';
 import { z } from 'zod';
 import { db } from '@/server/utils/db';
 import { UserRole } from '@/features/auth/model/types';

@@ -8,12 +8,36 @@ import { ControlledTextarea } from '@/ui/components/controlled-textarea';
 import { ControlledInput } from '@/ui/components/controlled-input';
 import Link from 'next/link';
 import { Button } from '@/ui/primitives/button';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { suggestQuestionClientSchema } from '@/features/question-suggestions/model/schemas';
+import { z } from 'zod';
+import { useCreateQuestionSuggestion } from '@/features/question-suggestions/api/mutations';
 
 export const SuggestQuestion: FC<{ isOpen: boolean; close: Function }> = ({
   isOpen,
   close,
 }) => {
-  const form = useForm();
+  const form = useForm({
+    defaultValues: {
+      question: '',
+      creditName: '',
+    },
+    resolver: zodResolver(suggestQuestionClientSchema),
+  });
+
+  const suggestQuestion = useCreateQuestionSuggestion();
+
+  const handleSubmit = async (
+    data: z.infer<typeof suggestQuestionClientSchema>,
+  ) => {
+    await suggestQuestion.mutateAsync({
+      creditName: data.creditName || null,
+      question: data.question,
+    });
+
+    close();
+  };
+
   return (
     <ResponsiveModal
       open={isOpen}
@@ -46,7 +70,7 @@ export const SuggestQuestion: FC<{ isOpen: boolean; close: Function }> = ({
             maxLength={200}
           />
           <ControlledInput
-            name={'credit'}
+            name={'creditName'}
             label={'Want to be credited? (Optional)'}
             subtitle={
               'If we feature your question, you can have your name displayed alongside it'
@@ -74,15 +98,15 @@ export const SuggestQuestion: FC<{ isOpen: boolean; close: Function }> = ({
           }
         >
           <Button
-            // disabled={submitAnswer.isPending}
+            disabled={suggestQuestion.isPending}
             onClick={() => close()}
             variant={'outline'}
           >
             Cancel
           </Button>
           <Button
-          // loading={submitAnswer.isPending}
-          // onClick={form.handleSubmit(handleSubmit)}
+            loading={suggestQuestion.isPending}
+            onClick={form.handleSubmit(handleSubmit)}
           >
             Submit your question
           </Button>
