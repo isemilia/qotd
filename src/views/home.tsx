@@ -5,6 +5,7 @@ import { CurrentQuestion } from '@/server/model/types';
 import { ContentContainer } from '@/ui/primitives/content-container';
 import { CreateAnswerTrigger } from '@/widgets/create-answer-trigger';
 import { CurrentAnswers } from '@/features/answers/components/current-answers';
+import { SuggestQuestionTrigger } from '@/widgets/suggest-question-trigger';
 
 export const HomeView = ({
   currentQuestion,
@@ -76,7 +77,9 @@ export const HomeView = ({
           >
             <Button>Share your answer</Button>
           </CreateAnswerTrigger>
-          <Button variant={'text'}>Suggest a question</Button>
+          <SuggestQuestionTrigger>
+            <Button variant={'text'}>Suggest a question</Button>
+          </SuggestQuestionTrigger>
         </div>
       </ContentContainer>
 
