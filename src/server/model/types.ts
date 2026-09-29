@@ -1,4 +1,5 @@
 import { AnswerCardColor } from '@/features/answers/components/answer-card';
+import { UserRole } from '@/features/auth/model/types';
 
 export enum RequestStatus {
   SUCCESS = 'success',
@@ -9,7 +10,7 @@ export type PublicUser = {
   id: string;
   name: string;
   email: string;
-  role: string;
+  role: UserRole;
   status: string;
   createdAt: string;
   answerCount: number;
