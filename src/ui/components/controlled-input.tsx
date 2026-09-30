@@ -7,6 +7,7 @@ import {
 import { Input } from '@/ui/primitives/input';
 import { Controller } from 'react-hook-form';
 import { ComponentPropsWithoutRef, FC, HTMLInputTypeAttribute } from 'react';
+import { Text } from '@/ui/primitives/text';
 
 export const ControlledInput: FC<
   {
@@ -18,6 +19,7 @@ export const ControlledInput: FC<
     description?: string;
     type?: HTMLInputTypeAttribute;
     disabled?: boolean;
+    subtitle?: string;
   } & Pick<ComponentPropsWithoutRef<typeof Input>, 'variant'>
 > = ({
   label,
@@ -29,6 +31,7 @@ export const ControlledInput: FC<
   type,
   variant,
   disabled,
+  subtitle,
 }) => {
   return (
     <Controller
@@ -40,6 +43,11 @@ export const ControlledInput: FC<
             <FieldLabel htmlFor={field.name}>
               {label} {required && '*'}
             </FieldLabel>
+            {subtitle && (
+              <Text className={'-mt-1'} color={'secondary'}>
+                {subtitle}
+              </Text>
+            )}
             <Input
               {...field}
               id={field.name}

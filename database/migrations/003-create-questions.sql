@@ -2,7 +2,8 @@ CREATE TABLE questions (
    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
    question TEXT NOT NULL,
    date DATE NOT NULL UNIQUE, -- UTC (+00:00) calendar date
-   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+   credit_name VARCHAR(100)
 );
 
 -- to determine today's question:
