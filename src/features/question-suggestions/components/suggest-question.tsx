@@ -35,6 +35,8 @@ export const SuggestQuestion: FC<{ isOpen: boolean; close: Function }> = ({
       question: data.question,
     });
 
+    form.reset();
+
     close();
   };
 
