@@ -31,11 +31,7 @@ export const Header: FC = async () => {
 
         <ul className={'flex items-center gap-4 text-[14px] max-md:hidden'}>
           <li>
-            <Text
-              component={Link}
-              href={'/previous-questions'}
-              color={'secondary'}
-            >
+            <Text component={Link} href={'/questions'} color={'secondary'}>
               Previous questions
             </Text>
           </li>

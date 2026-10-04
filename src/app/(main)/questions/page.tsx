@@ -2,14 +2,18 @@ import { ContentContainer } from '@/ui/primitives/content-container';
 import { Text } from '@/ui/primitives/text';
 import { QuestionCard } from '@/features/questions/components/question-card';
 import { getPreviousQuestions } from '@/server/utils/questions';
+import { DynamicPagination } from '@/ui/components/dynamic-pagination';
 
-const Page = async () => {
-  const { questions, pagination } = await getPreviousQuestions();
+const Page = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ page: string }>;
+}) => {
+  const params = await searchParams;
+  const page = Math.max(1, Number(params.page || 1));
 
-  // {
-  //   page,
-  //     pageSize,
-  // }
+  const { questions, pagination } = await getPreviousQuestions({ page });
+
   return (
     <ContentContainer className={'mt-10 max-md:pb-15'}>
       <Text
@@ -37,6 +41,12 @@ const Page = async () => {
           );
         })}
       </div>
+
+      <DynamicPagination
+        currentPage={pagination.page}
+        totalPages={pagination.totalPages}
+        className={'mt-8'}
+      />
     </ContentContainer>
   );
 };
