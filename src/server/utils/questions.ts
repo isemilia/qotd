@@ -60,3 +60,60 @@ export const isExpiredQuestion = async (id: string) => {
 
   return isExpired;
 };
+
+export const getPreviousQuestions = async (
+  args: { page?: number; pageSize?: number } = {},
+) => {
+  const { page: _page, pageSize: _pageSize } = args;
+  const page = Math.max(1, Number(_page || 1));
+
+  const requestedPageSize = Number(_pageSize || 9);
+  const pageSize = Math.min(Math.max(requestedPageSize, 1), 50);
+
+  const [questionsResult, countResult] = await Promise.all([
+    db.query<{
+      id: string;
+      question: string;
+      date: string;
+      answerCount: number;
+    }>(
+      `
+        SELECT
+          q.id,
+          q.question,
+          q.date::text AS date,
+        COUNT(a.id)::int AS "answerCount"
+        FROM questions q
+          LEFT JOIN answers a ON a.question_id = q.id
+        WHERE q.date < CURRENT_DATE
+        GROUP BY q.id
+        ORDER BY q.date DESC
+        LIMIT $1
+        OFFSET $2;
+      `,
+      [pageSize, (page - 1) * pageSize],
+    ),
+
+    db.query<{ count: string }>(
+      `
+        SELECT COUNT(*) AS count
+        FROM questions
+        WHERE date < CURRENT_DATE;
+      `,
+    ),
+  ]);
+
+  const questions = questionsResult.rows;
+  const totalRows = Number(countResult.rows[0].count);
+  const totalPages = Math.ceil(totalRows / pageSize);
+
+  return {
+    questions,
+    pagination: {
+      page,
+      pageSize,
+      totalRows,
+      totalPages,
+    },
+  };
+};

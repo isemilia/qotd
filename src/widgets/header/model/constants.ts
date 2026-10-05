@@ -50,7 +50,7 @@ export const mobileMenuGroups = {
     [
       {
         label: 'Previous questions',
-        href: '#',
+        href: '/questions',
         icon: ChronologyLinearIcon,
         color: 'primary',
       },
