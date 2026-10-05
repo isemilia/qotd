@@ -67,7 +67,7 @@ export const getPreviousQuestions = async (
   const { page: _page, pageSize: _pageSize } = args;
   const page = Math.max(1, Number(_page || 1));
 
-  const requestedPageSize = Number(_pageSize || 3);
+  const requestedPageSize = Number(_pageSize || 9);
   const pageSize = Math.min(Math.max(requestedPageSize, 1), 50);
 
   const [questionsResult, countResult] = await Promise.all([

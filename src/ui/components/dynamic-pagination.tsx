@@ -69,7 +69,7 @@ export const DynamicPagination: FC<{
   return (
     <div
       className={cn(
-        'flex items-center gap-2 text-[14px] font-medium',
+        'flex items-center gap-2 text-[14px] font-medium max-md:justify-center',
         className,
       )}
     >
