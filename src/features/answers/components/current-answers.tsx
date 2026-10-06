@@ -27,7 +27,7 @@ export const CurrentAnswers: FC = async () => {
               key={item.id}
               id={item.id}
               answer={item.answer}
-              question={item.question.question}
+              question={item.question}
               createdAt={item.createdAt}
               likeCount={item.likeCount}
               isLiked={item.isLiked}

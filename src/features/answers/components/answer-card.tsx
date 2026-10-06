@@ -4,6 +4,7 @@ import { getTimeGap } from '@/shared/utils/get-time-gap';
 import { cardColors } from '@/features/answers/model/constants';
 import { cn } from '@/shared/utils/cn';
 import { AnswerLikeButton } from '@/features/answers/components/answer-like-button';
+import Link from 'next/link';
 
 export const answerCardColors = [
   'lavender',
@@ -17,7 +18,7 @@ export const answerCardColors = [
 export type AnswerCardColor = (typeof answerCardColors)[number];
 
 export type AnswerCardProps = {
-  question: string;
+  question: { id: string; question: string; date: string };
   answer: string;
   color?: AnswerCardColor;
   createdAt: string;
@@ -44,14 +45,18 @@ export const AnswerCard: FC<AnswerCardProps> = ({
       }
     >
       <Text
-        className={'flex items-center gap-2.5 text-[12px]'}
+        component={Link}
+        href={`/questions/${question.id}`}
+        className={
+          'flex items-center gap-2.5 text-[12px] transition-colors hover:text-primary'
+        }
         color={'secondary'}
       >
         <span
           className={cn('rounded-full size-2.5 shrink-0', cardClasses.bg)}
         />
-        <span className={'truncate w-full'} title={question}>
-          {question}
+        <span className={'truncate w-full'} title={question.question}>
+          {question.question}
         </span>
       </Text>
 
