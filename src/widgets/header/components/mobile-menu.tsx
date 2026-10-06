@@ -85,7 +85,11 @@ export const MobileMenu: FC<{
               <Fragment key={i}>
                 <div className={'space-y-4'}>
                   {group.map((item, i) => {
-                    return <MobileMenuItem {...item} key={i} />;
+                    return (
+                      <DialogClose key={i} className={'block w-full'}>
+                        <MobileMenuItem {...item} />
+                      </DialogClose>
+                    );
                   })}
                 </div>
                 {i !== menu.length - 1 ? (
