@@ -35,11 +35,11 @@ export const Header: FC = async () => {
               Previous questions
             </Text>
           </li>
-          <li>
-            <Text component={Link} href={'#'} color={'secondary'}>
-              Suggest a question
-            </Text>
-          </li>
+          {/*<li>*/}
+          {/*  <Text component={Link} href={'#'} color={'secondary'}>*/}
+          {/*    Suggest a question*/}
+          {/*  </Text>*/}
+          {/*</li>*/}
         </ul>
       </nav>
       <div className={'max-md:hidden'}>

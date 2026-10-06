@@ -4,7 +4,7 @@ import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
 import { LoginLinearIcon } from '@/ui/icons/linear/login-linear.icon';
 import { AddUserLinearIcon } from '@/ui/icons/linear/add-user-linear.icon';
 import { ChronologyLinearIcon } from '@/ui/icons/linear/chronology-linear.icon';
-import { CommentLinearIcon } from '@/ui/icons/linear/comment-linear.icon';
+// import { CommentLinearIcon } from '@/ui/icons/linear/comment-linear.icon';
 import { ListLinearIcon } from '@/ui/icons/linear/list-linear.icon';
 import { NoteLinearIcon } from '@/ui/icons/linear/note-linear.icon';
 import { UserDocumentLinearIcon } from '@/ui/icons/linear/user-document-linear.icon';
@@ -54,12 +54,12 @@ export const mobileMenuGroups = {
         icon: ChronologyLinearIcon,
         color: 'primary',
       },
-      {
-        label: 'Suggest a question',
-        href: '#',
-        icon: CommentLinearIcon,
-        color: 'primary',
-      },
+      // {
+      //   label: 'Suggest a question',
+      //   href: '#',
+      //   icon: CommentLinearIcon,
+      //   color: 'primary',
+      // },
     ],
     [
       {
