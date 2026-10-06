@@ -28,14 +28,25 @@ export const getQuestionById = async (id: string) => {
       id: string;
       question: string;
       date: string;
+      creditName: string;
       createdAt: string;
+      answerCount: number;
     }>(
       `
-    SELECT 
-      id, question, date::text AS date, created_at AS "createdAt"
-    FROM questions
-    WHERE id = $1
-  `,
+        SELECT
+          q.id,
+          q.question,
+          q.date::text AS date,
+          q.credit_name AS "creditName",
+          q.created_at AS "createdAt",
+        (
+          SELECT COUNT(*)
+          FROM answers a
+          WHERE a.question_id = q.id
+        )::int AS "answerCount"
+        FROM questions q
+        WHERE q.id = $1
+      `,
       [id],
     )
   ).rows[0];

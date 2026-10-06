@@ -5,7 +5,7 @@ import { Text } from '@/ui/primitives/text';
 
 const Page = async () => {
   const user = await getCurrentUser();
-  const answers = await getAnswers({ userId: user?.id });
+  const { answers } = await getAnswers({ userId: user?.id });
 
   if (!answers.length) {
     return (
@@ -25,7 +25,7 @@ const Page = async () => {
             key={item.id}
             id={item.id}
             answer={item.answer}
-            question={item.question.question}
+            question={item.question}
             createdAt={item.createdAt}
             likeCount={item.likeCount}
             isLiked={item.isLiked}

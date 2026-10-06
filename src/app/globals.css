@@ -214,3 +214,13 @@
     background-image: url("/bg-home-hero.png");
   }
 }
+
+.bg-single-question-hero {
+  background-image: url("/bg-single-question-hero.png");
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /*@media (min-width: 640px) {*/
+  /*  background-image: url("/bg-home-hero.png");*/
+  /*}*/
+}
