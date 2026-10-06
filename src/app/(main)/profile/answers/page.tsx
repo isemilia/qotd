@@ -5,7 +5,7 @@ import { Text } from '@/ui/primitives/text';
 
 const Page = async () => {
   const user = await getCurrentUser();
-  const answers = await getAnswers({ userId: user?.id });
+  const { answers } = await getAnswers({ userId: user?.id });
 
   if (!answers.length) {
     return (

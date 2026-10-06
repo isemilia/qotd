@@ -11,15 +11,22 @@ import { getAnswers } from '@/server/utils/answers';
 export const GET = async (request: NextRequest) => {
   try {
     const { searchParams } = request.nextUrl;
-    const answers = await getAnswers({
-      questionId: searchParams.get('questionId'),
-      userId: searchParams.get('userId'),
+
+    const questionId = searchParams.get('questionId');
+    const userId = searchParams.get('userId');
+    const page = searchParams.get('page');
+
+    const { answers, pagination } = await getAnswers({
+      questionId,
+      userId,
+      page: page ? +page : null,
+      pageSize: 9,
     });
 
     return NextResponse.json({
       status: RequestStatus.SUCCESS,
       message: 'Fetched answers successfully',
-      data: answers,
+      data: { answers, pagination },
     });
   } catch (e) {
     console.error(e);
