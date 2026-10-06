@@ -1,7 +1,11 @@
 import { FC } from 'react';
-import { AnswerCard } from '@/features/answers/components/answer-card';
+import {
+  AnswerCard,
+  AnswerCardSkeleton,
+} from '@/features/answers/components/answer-card';
 import { Text } from '@/ui/primitives/text';
 import { getCurrentAnswers } from '@/server/utils/answers';
+import { CardGrid } from '@/ui/primitives/card-grid';
 
 export const CurrentAnswers: FC = async () => {
   try {
@@ -16,11 +20,7 @@ export const CurrentAnswers: FC = async () => {
     }
 
     return (
-      <div
-        className={
-          'grid grid-cols-3 gap-4 mt-8 max-md:mt-6 max-md:grid-cols-2 max-sm:grid-cols-1'
-        }
-      >
+      <CardGrid className={'mt-8 max-md:mt-6'}>
         {answers.map((item) => {
           return (
             <AnswerCard
@@ -35,7 +35,7 @@ export const CurrentAnswers: FC = async () => {
             />
           );
         })}
-      </div>
+      </CardGrid>
     );
   } catch (e) {
     console.error(e);
@@ -45,4 +45,14 @@ export const CurrentAnswers: FC = async () => {
       </Text>
     );
   }
+};
+
+export const CurrentAnswersSkeleton = () => {
+  return (
+    <CardGrid className={'mt-8 max-md:mt-6'}>
+      <AnswerCardSkeleton />
+      <AnswerCardSkeleton />
+      <AnswerCardSkeleton />
+    </CardGrid>
+  );
 };

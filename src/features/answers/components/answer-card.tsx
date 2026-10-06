@@ -5,6 +5,7 @@ import { cardColors } from '@/features/answers/model/constants';
 import { cn } from '@/shared/utils/cn';
 import { AnswerLikeButton } from '@/features/answers/components/answer-like-button';
 import Link from 'next/link';
+import { Skeleton } from '@/ui/primitives/skeleton';
 
 export const answerCardColors = [
   'lavender',
@@ -75,4 +76,8 @@ export const AnswerCard: FC<AnswerCardProps> = ({
       </div>
     </div>
   );
+};
+
+export const AnswerCardSkeleton: FC = () => {
+  return <Skeleton className={'w-full h-[146px]'} />;
 };

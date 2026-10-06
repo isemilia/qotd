@@ -1,17 +1,19 @@
 import { Text } from '@/ui/primitives/text';
 import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
 import { Button } from '@/ui/primitives/button';
-import { CurrentQuestion } from '@/server/model/types';
 import { ContentContainer } from '@/ui/primitives/content-container';
 import { CreateAnswerTrigger } from '@/widgets/create-answer-trigger';
-import { CurrentAnswers } from '@/features/answers/components/current-answers';
+import {
+  CurrentAnswers,
+  CurrentAnswersSkeleton,
+} from '@/features/answers/components/current-answers';
 import { SuggestQuestionTrigger } from '@/widgets/suggest-question-trigger';
+import { Suspense } from 'react';
+import { getCurrentQuestion } from '@/server/utils/questions';
 
-export const HomeView = ({
-  currentQuestion,
-}: {
-  currentQuestion: CurrentQuestion;
-}) => {
+export const HomeView = async () => {
+  const currentQuestion = await getCurrentQuestion();
+
   const formattedDate = new Date(
     `${currentQuestion.date}T00:00:00`,
   ).toLocaleDateString('en-US', {
@@ -92,7 +94,9 @@ export const HomeView = ({
           Community answers
         </Text>
 
-        <CurrentAnswers />
+        <Suspense fallback={<CurrentAnswersSkeleton />}>
+          <CurrentAnswers />
+        </Suspense>
       </ContentContainer>
     </>
   );
