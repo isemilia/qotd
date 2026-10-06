@@ -1,13 +1,13 @@
 import { getQuestionById } from '@/server/utils/questions';
 import { ContentContainer } from '@/ui/primitives/content-container';
 import { Text } from '@/ui/primitives/text';
-import { ArrowLeft, Calendar } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
 import { formatLongDate } from '@/shared/utils/format-long-date';
-import Link from 'next/link';
 import { getAnswers } from '@/server/utils/answers';
 import { AnswerCard } from '@/features/answers/components/answer-card';
 import { DynamicPagination } from '@/ui/components/dynamic-pagination';
+import { BackLink } from '@/ui/components/back-link';
 
 const Page = async ({
   params,
@@ -39,7 +39,9 @@ const Page = async ({
   const renderAnswers = () => {
     if (!answers.length) {
       return (
-        <Text className={'text-[16px] mt-4'}>&#127811; No answers here</Text>
+        <Text className={'text-[16px] mt-4'}>
+          &#127811; This question went unanswered
+        </Text>
       );
     }
 
@@ -71,15 +73,7 @@ const Page = async ({
     <div>
       <div className={'bg-single-question-hero'}>
         <ContentContainer className={'py-17.5 max-md:py-10'}>
-          <Text
-            component={Link}
-            href={'/questions'}
-            color={'secondary'}
-            className={'text-[14px] flex items-center gap-2'}
-          >
-            <ArrowLeft className={'size-4'} />
-            Previous questions
-          </Text>
+          <BackLink />
           <Text
             component={'h1'}
             className={
