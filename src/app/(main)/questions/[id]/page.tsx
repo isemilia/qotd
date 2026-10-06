@@ -92,13 +92,15 @@ const Page = async ({
               <Calendar className={'size-4'} />
               {date}
             </Text>
-            <Text
-              color={'secondary'}
-              className={'text-[14px] flex items-center gap-2'}
-            >
-              <MessageLinearIcon className={'size-4'} />
-              {answerCountText}
-            </Text>
+            {question.answerCount > 1 ? (
+              <Text
+                color={'secondary'}
+                className={'text-[14px] flex items-center gap-2'}
+              >
+                <MessageLinearIcon className={'size-4'} />
+                {answerCountText}
+              </Text>
+            ) : null}
           </div>
         </ContentContainer>
       </div>
