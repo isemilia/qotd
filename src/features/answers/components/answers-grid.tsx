@@ -1,5 +1,4 @@
-import { getCurrentUser } from '@/server/utils/session';
-import { getAnswers } from '@/server/utils/answers';
+import { getAnswers, GetAnswersArgs } from '@/server/utils/answers';
 import { Text } from '@/ui/primitives/text';
 import {
   AnswerCard,
@@ -12,14 +11,17 @@ import {
 } from '@/ui/components/dynamic-pagination';
 import { FC } from 'react';
 
-export const MyAnswers: FC<{ page: number }> = async ({ page }) => {
-  const user = await getCurrentUser();
-  const { answers, pagination } = await getAnswers({ userId: user?.id, page });
+export const AnswersGrid: FC<
+  { emptyStateText?: string } & GetAnswersArgs
+> = async ({ emptyStateText, ...args }) => {
+  const { answers, pagination } = await getAnswers({
+    ...args,
+  });
 
   if (!answers.length) {
     return (
       <Text className={'text-[16px] mt-4'}>
-        &#127811; Your answers will appear here. Start with today's question
+        &#127811; {emptyStateText || 'No answers here'}
       </Text>
     );
   }
@@ -53,7 +55,7 @@ export const MyAnswers: FC<{ page: number }> = async ({ page }) => {
   );
 };
 
-export const MyAnswersSkeleton = () => {
+export const AnswersGridSkeleton = () => {
   return (
     <div>
       <CardGrid className={'mt-8 max-md:mt-6'}>
