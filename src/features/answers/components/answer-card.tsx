@@ -79,5 +79,5 @@ export const AnswerCard: FC<AnswerCardProps> = ({
 };
 
 export const AnswerCardSkeleton: FC = () => {
-  return <Skeleton className={'w-full h-[146px]'} />;
+  return <Skeleton className={'w-full h-[146px] rounded-[16px]'} />;
 };
