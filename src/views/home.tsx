@@ -8,10 +8,10 @@ import {
   CurrentAnswersSkeleton,
 } from '@/features/answers/components/current-answers';
 import { SuggestQuestionTrigger } from '@/widgets/suggest-question-trigger';
-import { Suspense } from 'react';
+import { FC, Suspense } from 'react';
 import { getCurrentQuestion } from '@/server/utils/questions';
 
-export const HomeView = async () => {
+export const HomeView: FC<{ page: number }> = async ({ page }) => {
   const currentQuestion = await getCurrentQuestion();
 
   const formattedDate = new Date(
@@ -95,7 +95,7 @@ export const HomeView = async () => {
         </Text>
 
         <Suspense fallback={<CurrentAnswersSkeleton />}>
-          <CurrentAnswers />
+          <CurrentAnswers page={page} />
         </Suspense>
       </ContentContainer>
     </>

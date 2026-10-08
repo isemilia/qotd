@@ -6,10 +6,13 @@ import {
 import { Text } from '@/ui/primitives/text';
 import { getCurrentAnswers } from '@/server/utils/answers';
 import { CardGrid } from '@/ui/primitives/card-grid';
+import { DynamicPagination } from '@/ui/components/dynamic-pagination';
 
-export const CurrentAnswers: FC = async () => {
+export const CurrentAnswers: FC<{ page: number }> = async ({ page }) => {
   try {
-    const answers = await getCurrentAnswers();
+    const { answers, pagination } = await getCurrentAnswers({
+      page,
+    });
 
     if (!answers.length) {
       return (
@@ -20,22 +23,31 @@ export const CurrentAnswers: FC = async () => {
     }
 
     return (
-      <CardGrid className={'mt-8 max-md:mt-6'}>
-        {answers.map((item) => {
-          return (
-            <AnswerCard
-              key={item.id}
-              id={item.id}
-              answer={item.answer}
-              question={item.question}
-              createdAt={item.createdAt}
-              likeCount={item.likeCount}
-              isLiked={item.isLiked}
-              color={item.color}
-            />
-          );
-        })}
-      </CardGrid>
+      <div>
+        <CardGrid className={'mt-8 max-md:mt-6'}>
+          {answers.map((item) => {
+            return (
+              <AnswerCard
+                key={item.id}
+                id={item.id}
+                answer={item.answer}
+                question={item.question}
+                createdAt={item.createdAt}
+                likeCount={item.likeCount}
+                isLiked={item.isLiked}
+                color={item.color}
+              />
+            );
+          })}
+        </CardGrid>
+        {pagination.totalPages > 1 ? (
+          <DynamicPagination
+            currentPage={pagination.page}
+            totalPages={pagination.totalPages}
+            className={'mt-8'}
+          />
+        ) : null}
+      </div>
     );
   } catch (e) {
     console.error(e);
