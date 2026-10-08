@@ -70,9 +70,9 @@ export const MobileMenu: FC<{
           <Image
             src={'/logo.svg'}
             alt={'Logo'}
-            width={77}
-            height={23}
-            className={'max-w-[58px]'}
+            width={104}
+            height={18}
+            className={'max-w-[104px]'}
           />
           <DialogClose>
             <XIcon className={'size-6 text-secondary'} />
