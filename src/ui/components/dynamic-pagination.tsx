@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { cn } from '@/shared/utils/cn';
 import { Text } from '@/ui/primitives/text';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Skeleton } from '@/ui/primitives/skeleton';
 
 export const DynamicPagination: FC<{
   currentPage: number;
@@ -113,4 +114,10 @@ export const DynamicPagination: FC<{
       </Text>
     </div>
   );
+};
+
+export const DynamicPaginationSkeleton: FC<{ className?: string }> = ({
+  className,
+}) => {
+  return <Skeleton className={cn('h-8 w-[200px]', className)} />;
 };

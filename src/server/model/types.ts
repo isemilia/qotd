@@ -46,3 +46,8 @@ export type Answer = {
   likeCount: number;
   isLiked: boolean;
 };
+
+export type PaginationConfig = {
+  page?: number | null;
+  pageSize?: number | null;
+};

@@ -1,11 +1,18 @@
 import { FC } from 'react';
-import { AnswerCard } from '@/features/answers/components/answer-card';
+import {
+  AnswerCard,
+  AnswerCardSkeleton,
+} from '@/features/answers/components/answer-card';
 import { Text } from '@/ui/primitives/text';
 import { getCurrentAnswers } from '@/server/utils/answers';
+import { CardGrid } from '@/ui/primitives/card-grid';
+import { DynamicPagination } from '@/ui/components/dynamic-pagination';
 
-export const CurrentAnswers: FC = async () => {
+export const CurrentAnswers: FC<{ page: number }> = async ({ page }) => {
   try {
-    const answers = await getCurrentAnswers();
+    const { answers, pagination } = await getCurrentAnswers({
+      page,
+    });
 
     if (!answers.length) {
       return (
@@ -16,25 +23,30 @@ export const CurrentAnswers: FC = async () => {
     }
 
     return (
-      <div
-        className={
-          'grid grid-cols-3 gap-4 mt-8 max-md:mt-6 max-md:grid-cols-2 max-sm:grid-cols-1'
-        }
-      >
-        {answers.map((item) => {
-          return (
-            <AnswerCard
-              key={item.id}
-              id={item.id}
-              answer={item.answer}
-              question={item.question}
-              createdAt={item.createdAt}
-              likeCount={item.likeCount}
-              isLiked={item.isLiked}
-              color={item.color}
-            />
-          );
-        })}
+      <div>
+        <CardGrid className={'mt-8 max-md:mt-6'}>
+          {answers.map((item) => {
+            return (
+              <AnswerCard
+                key={item.id}
+                id={item.id}
+                answer={item.answer}
+                question={item.question}
+                createdAt={item.createdAt}
+                likeCount={item.likeCount}
+                isLiked={item.isLiked}
+                color={item.color}
+              />
+            );
+          })}
+        </CardGrid>
+        {pagination.totalPages > 1 ? (
+          <DynamicPagination
+            currentPage={pagination.page}
+            totalPages={pagination.totalPages}
+            className={'mt-8'}
+          />
+        ) : null}
       </div>
     );
   } catch (e) {
@@ -45,4 +57,14 @@ export const CurrentAnswers: FC = async () => {
       </Text>
     );
   }
+};
+
+export const CurrentAnswersSkeleton = () => {
+  return (
+    <CardGrid className={'mt-8 max-md:mt-6'}>
+      <AnswerCardSkeleton />
+      <AnswerCardSkeleton />
+      <AnswerCardSkeleton />
+    </CardGrid>
+  );
 };
