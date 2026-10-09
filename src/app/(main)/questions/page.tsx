@@ -3,6 +3,13 @@ import { Text } from '@/ui/primitives/text';
 import { QuestionCard } from '@/features/questions/components/question-card';
 import { getPreviousQuestions } from '@/server/utils/questions';
 import { DynamicPagination } from '@/ui/components/dynamic-pagination';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Previous questions',
+  description:
+    'Browse previous daily questions and read the answers people shared.',
+};
 
 const Page = async ({
   searchParams,
