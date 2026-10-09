@@ -27,9 +27,9 @@ export const Footer = () => {
           <Image
             src={'/logo.svg'}
             alt={'Logo'}
-            width={77}
-            height={23}
-            className={'max-w-[58px]'}
+            width={104}
+            height={18}
+            className={'max-w-[104px]'}
           />
         </Link>
         <Text color={'secondary'} className={'text-[14px] mt-2'}>

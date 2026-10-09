@@ -36,7 +36,13 @@ export const SignInForm: FC = () => {
     <div>
       <div className={'flex flex-col items-center gap-1.5'}>
         <Link href={'/'}>
-          <Image src={'/logo.svg'} alt={'Logo'} width={77} height={23} />
+          <Image
+            src={'/logo.svg'}
+            alt={'Logo'}
+            width={104}
+            height={18}
+            className={'w-[130px]'}
+          />
         </Link>
         <Text color={'secondary'} className={'text-[14px]'}>
           One question, countless perspectives
