@@ -29,7 +29,7 @@ export const SidebarProfile: FC = async () => {
             </Text>
             <Text
               color={'secondary'}
-              className={'text-[12px] mt-px capitalize'}
+              className={'text-[12px] mt-px capitalize -ml-1'}
             >
               {user?.role}
             </Text>

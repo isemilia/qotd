@@ -2,6 +2,7 @@ import { ComponentType, FC, SVGProps } from 'react';
 import Link from 'next/link';
 import { Text, TextColor } from '@/ui/primitives/text';
 import { cn } from '@/shared/utils/cn';
+import { Spinner } from '@/ui/primitives/spinner';
 
 export const SidebarItem: FC<{
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -9,7 +10,8 @@ export const SidebarItem: FC<{
   href?: string;
   onClick?: () => void;
   color?: TextColor;
-}> = ({ icon, label, href, onClick, color = 'primary' }) => {
+  loading?: boolean;
+}> = ({ icon, label, href, onClick, color = 'primary', loading }) => {
   const Icon = icon;
 
   return (
@@ -22,7 +24,7 @@ export const SidebarItem: FC<{
       )}
       color={color}
     >
-      <Icon className={'size-4'} />
+      {loading ? <Spinner /> : <Icon className={'size-4'} />}
       {label}
     </Text>
   );
