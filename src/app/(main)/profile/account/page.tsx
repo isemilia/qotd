@@ -4,6 +4,12 @@ import { getCurrentUser } from '@/server/utils/session';
 import NotFound from 'next/dist/client/components/builtin/not-found';
 import { ChangePasswordForm } from '@/features/auth/components/change-password-form';
 import { DeleteAccountModal } from '@/features/auth/components/delete-account-modal';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Account',
+  description: 'Manage your account details',
+};
 
 const Page = async () => {
   const user = await getCurrentUser();

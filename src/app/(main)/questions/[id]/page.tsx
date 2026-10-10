@@ -8,6 +8,21 @@ import { getAnswers } from '@/server/utils/answers';
 import { AnswerCard } from '@/features/answers/components/answer-card';
 import { DynamicPagination } from '@/ui/components/dynamic-pagination';
 import { BackLink } from '@/ui/components/back-link';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const question = await getQuestionById(id);
+
+  return {
+    title: question.question,
+    description: `Read the answers to "${question.question}" and see what others think`,
+  };
+}
 
 const Page = async ({
   params,

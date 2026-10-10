@@ -5,6 +5,14 @@ import { Text } from '@/ui/primitives/text';
 import { getCurrentUser } from '@/server/utils/session';
 import NotFound from 'next/dist/client/components/builtin/not-found';
 import { ProfileNavigation } from '@/features/profile/components/profile-navigation';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 const Layout = async ({ children }: { children: ReactNode }) => {
   const user = await getCurrentUser();

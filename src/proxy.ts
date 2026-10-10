@@ -10,8 +10,7 @@ const routes = {
     '/profile/answers',
     '/profile/favorites',
   ],
-  moderator: ['/admin'],
-  admin: ['/admin'],
+  staff: ['/admin'],
 };
 
 export const proxy = async (request: NextRequest) => {
@@ -41,22 +40,14 @@ const middlewareAuth = async (request: NextRequest) => {
     }
   }
 
-  if (routes.moderator.includes(pathname)) {
+  if (routes.staff.includes(pathname)) {
     if (!session) {
       return NextResponse.redirect(new URL('/sign-in', request.url));
     }
 
-    if (session.role !== UserRole.MODERATOR) {
-      return NextResponse.redirect(new URL('/', request.url));
-    }
-  }
+    const allowedRoles = [UserRole.MODERATOR, UserRole.ADMIN];
 
-  if (routes.admin.includes(pathname)) {
-    if (!session) {
-      return NextResponse.redirect(new URL('/sign-in', request.url));
-    }
-
-    if (session.role !== UserRole.ADMIN) {
+    if (!allowedRoles.includes(session.user_role)) {
       return NextResponse.redirect(new URL('/', request.url));
     }
   }

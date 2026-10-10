@@ -78,7 +78,7 @@ export const getSessionById = async (sessionId: string) => {
     user_id: string;
     id: string;
     expires_at: string;
-    role: UserRole;
+    user_role: UserRole;
   }>(`SELECT * FROM sessions WHERE id = $1`, [sessionId]);
   const session = res.rows[0];
 

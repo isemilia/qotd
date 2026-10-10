@@ -18,9 +18,12 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'QOTD',
+  title: {
+    default: 'Commonly',
+    template: '%s | Commonly',
+  },
   description:
-    'A question every day. Share your answer and see what the community has to say. Your answers are always anonymous.',
+    "One question a day. Share your thoughts, read others' answers, and discover perspectives beyond your own.",
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
