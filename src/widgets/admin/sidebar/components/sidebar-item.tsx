@@ -11,7 +11,8 @@ export const SidebarItem: FC<{
   onClick?: () => void;
   color?: TextColor;
   loading?: boolean;
-}> = ({ icon, label, href, onClick, color = 'primary', loading }) => {
+  isActive?: boolean;
+}> = ({ icon, label, href, onClick, color = 'primary', loading, isActive }) => {
   const Icon = icon;
 
   return (
@@ -19,8 +20,9 @@ export const SidebarItem: FC<{
       component={href ? Link : 'button'}
       {...(href ? { href } : { onClick })}
       className={cn(
-        'flex items-center gap-2 p-2 w-full cursor-pointer rounded-[8px] hover:bg-primary-foreground/70 text-[14px]',
+        'flex items-center gap-2 p-2 w-full cursor-pointer rounded-[8px] hover:bg-primary-foreground/60 text-[14px]',
         color === 'error' && 'hover:bg-destructive/5',
+        isActive && 'bg-primary-foreground font-medium',
       )}
       color={color}
     >
