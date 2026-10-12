@@ -14,7 +14,7 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div className={'h-full p-3 flex gap-3 flex-1'}>
       <Sidebar />
-      <main className={'flex-1 bg-white shadow-card rounded-[12px] py-4 px-3'}>
+      <main className={'flex-1 bg-white shadow-card rounded-[12px] p-4'}>
         {children}
       </main>
     </div>

@@ -51,6 +51,7 @@
   /* custom */
   --color-primary: var(--midnight-500);
   --color-primary-foreground: var(--midnight-100);
+  --color-table-divider: var(--midnight-200);
   --color-secondary: var(--midnight-400);
   --color-input: var(--midnight-100);
   --color-ring: var(--midnight-400);
@@ -59,12 +60,24 @@
   --color-button-muted: var(--periwinkle-200);
   --color-button-muted-foreground: var(--midnight-600);
 
+  --color-lavender-800: var(--lavender-800);
   --color-lavender: var(--lavender-500);
+  --color-lavender-200: var(--lavender-200);
+
+  --color-cornflower-800: var(--cornflower-800);
   --color-cornflower: var(--cornflower-500);
+  --color-cornflower-200: var(--cornflower-200);
+
+  --color-mint-800: var(--mint-800);
   --color-mint: var(--mint-500);
+  --color-mint-200: var(--mint-200);
+
   --color-peach: var(--peach-500);
   --color-coral: var(--coral-500);
+
+  --color-sand-800: var(--sand-800);
   --color-sand: var(--sand-500);
+  --color-sand-200: var(--sand-200);
 }
 
 :root {
@@ -82,12 +95,24 @@
   --vanilla-100: oklch(0.992 0.006 75);
   --vanilla-200: oklch(0.980 0.010 82);
 
+  --lavender-800: #4E3C89;
   --lavender-500: #BFB2EE;
+  --lavender-200: #E9E3FD;
+
+  --cornflower-800: #255B82;
   --cornflower-500: #78B5E0;
+  --cornflower-200: #DCECF8;
+
+  --mint-800: #286E0F;
   --mint-500: #98C2A9;
+  --mint-200: #E3F5DC;
+
   --peach-500: #FCB191;
   --coral-500: #FE8DA2;
+
+  --sand-800: #765308;
   --sand-500: #FFE89A;
+  --sand-200: #FEEDC7;
 
   --white: oklch(1 0 0);
 
