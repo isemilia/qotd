@@ -2,7 +2,14 @@ import { FC } from 'react';
 import { cn } from '@/shared/utils/cn';
 import { Text } from '@/ui/primitives/text';
 
-export type QuestionStatus = 'previous' | 'next' | 'active' | 'scheduled';
+export const questionStatuses = [
+  'previous',
+  'active',
+  'next',
+  'scheduled',
+] as const;
+
+export type QuestionStatus = (typeof questionStatuses)[number];
 
 export const propertyMap: Record<
   QuestionStatus,

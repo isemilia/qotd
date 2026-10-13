@@ -7,6 +7,8 @@ export enum UserRole {
   USER = 'user',
 }
 
+export const staffRoles = [UserRole.ADMIN, UserRole.MODERATOR];
+
 export type PersonalDetailsFormValues = z.infer<
   typeof changePersonalDetailsClientSchema
 >;
