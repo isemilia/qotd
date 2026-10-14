@@ -20,8 +20,12 @@ export const DataTable: FC<{
 }> = ({ columns, rows, className }) => {
   return (
     <Table className={className}>
-      <TableHeader className={'bg-primary-foreground'}>
-        <TableRow className={'border-table-divider'}>
+      <TableHeader>
+        <TableRow
+          className={
+            'border-table-divider bg-primary-foreground hover:bg-primary-foreground'
+          }
+        >
           {columns.map((column) => {
             return (
               <TableHead
