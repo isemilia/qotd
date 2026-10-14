@@ -10,6 +10,9 @@ import { useGetAdminQuestions } from '@/features/admin/questions/api/queries';
 import { DynamicPagination } from '@/ui/components/dynamic-pagination';
 import { FilterChipGroup } from '@/ui/components/filter-chip-group';
 import { parseAsInteger, useQueryState } from 'nuqs';
+import { Input } from '@/ui/primitives/input';
+import { SearchIcon } from 'lucide-react';
+import { useDebounce } from '@/shared/hooks/use-debounce';
 
 const columns = [
   {
@@ -37,13 +40,18 @@ const columns = [
 
 const Page = () => {
   const [filter, setFilter] = useQueryState('filter', { defaultValue: 'all' });
-  const [_page] = useQueryState('page', parseAsInteger.withDefault(1));
+
+  const [_page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
   const page = Math.max(1, Number(_page || 1));
+
+  const [search, setSearch] = useQueryState('search', { defaultValue: '' });
+  const debouncedSearch = useDebounce(search);
 
   const questionsRequest = useGetAdminQuestions({
     page,
     pageSize: 12,
     status: (filter === 'all' ? undefined : filter) as QuestionStatus,
+    search: debouncedSearch,
   });
 
   const questions = questionsRequest.data?.data?.questions || [];
@@ -58,8 +66,8 @@ const Page = () => {
         Manage scheduled and published questions
       </Text>
 
-      <div className={'mt-4 flex-1 flex flex-col gap-4'}>
-        <div className={'flex items-center gap-4'}>
+      <div className={'mt-6 flex-1 flex flex-col gap-4'}>
+        <div className={'flex items-center justify-between gap-4'}>
           <FilterChipGroup
             value={filter}
             options={[
@@ -71,6 +79,18 @@ const Page = () => {
             ]}
             onChange={({ value }) => {
               setFilter(value);
+              setPage(1);
+            }}
+          />
+
+          <Input
+            icon={<SearchIcon className={'size-4'} />}
+            placeholder={'Search questions'}
+            className={'h-[34px] w-[300px]'}
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setPage(1);
             }}
           />
         </div>
@@ -98,6 +118,7 @@ const Page = () => {
           <DynamicPagination
             currentPage={pagination?.page || 1}
             totalPages={pagination?.totalPages || 0}
+            onPageChange={setPage}
           />
         </div>
       </div>
