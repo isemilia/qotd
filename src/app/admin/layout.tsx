@@ -3,7 +3,10 @@ import { FC, ReactNode } from 'react';
 import { Sidebar } from '@/widgets/admin/sidebar';
 
 export const metadata: Metadata = {
-  title: 'Admin panel',
+  title: {
+    default: 'Admin panel',
+    template: '%s | Admin panel | Commonly',
+  },
   robots: {
     index: false,
     follow: false,
