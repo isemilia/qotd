@@ -16,3 +16,9 @@ export const adminQuestionResponseSchema = z.object({
 });
 
 export type AdminQuestion = z.infer<typeof adminQuestionSchema>;
+
+export const createAdminQuestionSchema = z.object({
+  question: z.string().max(200).min(1),
+  date: z.iso.date(),
+  creditName: z.string().max(50).optional().nullable(),
+});
