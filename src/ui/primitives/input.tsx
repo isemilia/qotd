@@ -9,23 +9,41 @@ const variants: Record<InputVariant, string> = {
   foreground: 'bg-foreground shadow-card',
 };
 
+type InputProps = React.ComponentProps<'input'> & {
+  variant?: InputVariant;
+  icon?: React.ReactNode;
+};
+
 function Input({
   className,
   type,
   variant = 'default',
+  icon,
   ...props
-}: React.ComponentProps<'input'> & { variant?: InputVariant }) {
-  return (
+}: InputProps) {
+  const input = (
     <InputPrimitive
       type={type}
       data-slot='input'
       className={cn(
         'h-[42px] w-full min-w-0 rounded-[12px] border border-transparent px-4 py-3 text-[14px] text-primary transition-[color,box-shadow] duration-200 outline-none placeholder:text-secondary focus-visible:border-ring focus-visible:ring-1 focus-visible:!ring-secondary disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-70 aria-invalid:border-destructive aria-invalid:ring-1 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40',
         variants[variant],
+        icon && 'pl-9',
         className,
       )}
       {...props}
     />
+  );
+
+  if (!icon) return input;
+
+  return (
+    <div className='relative'>
+      <span className='absolute left-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none'>
+        {icon}
+      </span>
+      {input}
+    </div>
   );
 }
 

@@ -5,6 +5,7 @@ import { cn } from '@/shared/utils/cn';
 import { QueryProvider } from '@/shared/providers/query-provider';
 import { Toaster } from '@/ui/primitives/toast';
 import { AuthProvider } from '@/shared/providers/auth-provider';
+import { NuqsAdapter } from 'nuqs/adapters/next';
 
 const dmSans = DM_Sans({
   variable: '--font-dm-sans',
@@ -39,10 +40,12 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       )}
     >
       <body className='min-h-full flex flex-col text-primary leading-[1.2]'>
-        <QueryProvider>
-          <AuthProvider>{children}</AuthProvider>
-        </QueryProvider>
-        <Toaster />
+        <NuqsAdapter>
+          <QueryProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </QueryProvider>
+          <Toaster />
+        </NuqsAdapter>
       </body>
     </html>
   );
