@@ -6,3 +6,10 @@ export const questionStatuses = [
 ] as const;
 
 export type QuestionStatus = (typeof questionStatuses)[number];
+
+export type GetAdminQuestionsParams = {
+  status?: QuestionStatus;
+  search?: string;
+  page?: number;
+  pageSize?: number;
+};

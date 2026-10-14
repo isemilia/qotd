@@ -4,7 +4,7 @@ import { RequestStatus } from '@/server/model/types';
 import {
   QuestionStatus,
   questionStatuses,
-} from '@/features/questions/model/types';
+} from '@/features/admin/questions/model/types';
 import { getSession } from '@/server/utils/session';
 import { staffRoles } from '@/features/auth/model/types';
 
@@ -82,7 +82,7 @@ export const GET = async (request: NextRequest) => {
             $2::text IS NULL
             OR question ILIKE '%' || $2 || '%'
           )
-          ORDER BY date DESC
+          ORDER BY date ASC
           LIMIT $3
           OFFSET $4;
         `,

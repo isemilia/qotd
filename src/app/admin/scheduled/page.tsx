@@ -5,42 +5,11 @@ import { DataTable } from '@/ui/components/data-table';
 import {
   QuestionStatus,
   QuestionStatusChip,
-} from '@/ui/components/question-status-chip';
-
-const data = [
-  {
-    id: '7a9e2d46-3f81-4b25-a6c9-1d8e5f0b7a34',
-    uuid: '7a9e2d46-3f81-4b25-a6c9-1d8e5f0b7a34',
-    question: 'What advice would you give your younger self?',
-    creditName: '-',
-    date: 'Sept 13, 2026',
-    status: 'previous',
-  },
-  {
-    id: 'c2f87b31-6a44-4f90-9d12-8e3b7a1c5d20',
-    uuid: 'c2f87b31-6a44-4f90-9d12-8e3b7a1c5d20',
-    question: 'What is something small that makes your day better?',
-    creditName: 'Emilia',
-    date: 'Sept 14, 2026',
-    status: 'active',
-  },
-  {
-    id: '00453107-e990-4064-8238-2b512f0a8e99',
-    uuid: '00453107-e990-4064-8238-2b512f0a8e99',
-    question: 'If you could instantly learn one skill, what would it be?',
-    creditName: '-',
-    date: 'Sept 15, 2026',
-    status: 'next',
-  },
-  {
-    id: '85156c84-df92-4e29-aa71-50f53ddd5e8e',
-    uuid: '85156c84-df92-4e29-aa71-50f53ddd5e8e',
-    question: 'What place would you love to visit again?',
-    creditName: '-',
-    date: 'Sept 16, 2026',
-    status: 'scheduled',
-  },
-];
+} from '@/features/admin/questions/components/question-status-chip';
+import { useGetAdminQuestions } from '@/features/admin/questions/api/queries';
+import { DynamicPagination } from '@/ui/components/dynamic-pagination';
+import { FilterChipGroup } from '@/ui/components/filter-chip-group';
+import { parseAsInteger, useQueryState } from 'nuqs';
 
 const columns = [
   {
@@ -67,8 +36,21 @@ const columns = [
 ];
 
 const Page = () => {
+  const [filter, setFilter] = useQueryState('filter', { defaultValue: 'all' });
+  const [_page] = useQueryState('page', parseAsInteger.withDefault(1));
+  const page = Math.max(1, Number(_page || 1));
+
+  const questionsRequest = useGetAdminQuestions({
+    page,
+    pageSize: 12,
+    status: (filter === 'all' ? undefined : filter) as QuestionStatus,
+  });
+
+  const questions = questionsRequest.data?.data?.questions || [];
+  const pagination = questionsRequest.data?.data?.pagination;
+
   return (
-    <div>
+    <div className={'flex-1 h-full flex flex-col'}>
       <Text weight={'medium'} className={'text-[24px]'}>
         All questions
       </Text>
@@ -76,18 +58,48 @@ const Page = () => {
         Manage scheduled and published questions
       </Text>
 
-      <div className={'mt-4'}>
-        <DataTable
-          columns={columns}
-          rows={data.map((item) => {
-            return {
-              ...item,
-              status: (
-                <QuestionStatusChip variant={item.status as QuestionStatus} />
-              ),
-            };
-          })}
-        />
+      <div className={'mt-4 flex-1 flex flex-col gap-4'}>
+        <div className={'flex items-center gap-4'}>
+          <FilterChipGroup
+            value={filter}
+            options={[
+              { label: 'All', value: 'all' },
+              { label: 'Previous', value: 'previous' },
+              { label: 'Active', value: 'active' },
+              { label: 'Next', value: 'next' },
+              { label: 'Scheduled', value: 'scheduled' },
+            ]}
+            onChange={({ value }) => {
+              setFilter(value);
+            }}
+          />
+        </div>
+        <div className={'flex-1'}>
+          <DataTable
+            columns={columns}
+            rows={questions?.map((item) => {
+              return {
+                id: item.id,
+                uuid: item.id,
+                question: item.question,
+                creditName: item.creditName || '-',
+                date: item.date,
+                status: (
+                  <QuestionStatusChip variant={item.status as QuestionStatus} />
+                ),
+              };
+            })}
+          />
+        </div>
+        <div className={'mt-auto flex items-center justify-end gap-6'}>
+          <Text color={'secondary'} className={'text-[14px]'}>
+            Showing {questions.length} out of {pagination?.totalRows}
+          </Text>
+          <DynamicPagination
+            currentPage={pagination?.page || 1}
+            totalPages={pagination?.totalPages || 0}
+          />
+        </div>
       </div>
     </div>
   );

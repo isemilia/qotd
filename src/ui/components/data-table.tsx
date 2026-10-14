@@ -16,9 +16,10 @@ export const DataTable: FC<{
     className?: string;
   }[];
   rows: (Record<string, ReactNode> & { id: string })[];
-}> = ({ columns, rows }) => {
+  className?: string;
+}> = ({ columns, rows, className }) => {
   return (
-    <Table>
+    <Table className={className}>
       <TableHeader className={'bg-primary-foreground'}>
         <TableRow className={'border-table-divider'}>
           {columns.map((column) => {
