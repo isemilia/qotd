@@ -1,11 +1,14 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ControlledTextarea } from '@/ui/components/controlled-textarea';
+import { DatePickerInput } from '@/ui/components/controlled-calendar-input';
 
 export const QuestionForm: FC = () => {
   const form = useForm();
+
+  const [date, setDate] = useState<Date | null | undefined>(new Date());
 
   return (
     <div>
@@ -17,6 +20,8 @@ export const QuestionForm: FC = () => {
           control={form.control}
           maxLength={200}
         />
+
+        <DatePickerInput label={'Date'} value={date} onChange={setDate} />
       </form>
     </div>
   );
