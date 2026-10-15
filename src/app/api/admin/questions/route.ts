@@ -5,7 +5,10 @@ import {
   QuestionStatus,
   questionStatuses,
 } from '@/features/admin/questions/model/types';
-import { createAdminQuestionSchema } from '@/features/admin/questions/model/schema';
+import {
+  createAdminQuestionSchema,
+  editAdminQuestionSchema,
+} from '@/features/admin/questions/model/schema';
 import { z } from 'zod';
 import { checkAdminAccess } from '@/server/utils/admin';
 
@@ -165,6 +168,77 @@ export const POST = async (request: NextRequest) => {
       status: RequestStatus.SUCCESS,
       message: 'yay',
       data: createdQuestion,
+    });
+  } catch (e) {
+    if (
+      e instanceof Error &&
+      'constraint' in e &&
+      e.constraint === 'questions_date_key'
+    ) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'Question for this date already exists',
+        },
+        { status: 409 },
+      );
+    }
+
+    console.error(e);
+    return NextResponse.json(
+      {
+        status: RequestStatus.ERROR,
+        message: 'Something went wrong',
+      },
+      { status: 500 },
+    );
+  }
+};
+
+export const PUT = async (request: NextRequest) => {
+  try {
+    await checkAdminAccess();
+
+    const body = await request.json();
+
+    const parseResult = editAdminQuestionSchema.safeParse(body);
+
+    if (parseResult.error) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'Invalid input',
+          errors: z.flattenError(parseResult.error),
+        },
+        { status: 400 },
+      );
+    }
+
+    const parsedData = parseResult.data;
+
+    const updatedQuestion = (
+      await db.query(
+        `
+           UPDATE questions
+           SET question = $2,
+               date = $3,
+               credit_name = $4
+           WHERE id = $1
+           RETURNING id, question, date::text as date, credit_name
+         `,
+        [
+          parsedData.id,
+          parsedData.question,
+          parsedData.date,
+          parsedData.creditName,
+        ],
+      )
+    ).rows[0];
+
+    return NextResponse.json({
+      status: RequestStatus.SUCCESS,
+      message: 'Question updated successfully',
+      data: updatedQuestion,
     });
   } catch (e) {
     if (
