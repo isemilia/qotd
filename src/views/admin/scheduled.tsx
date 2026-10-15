@@ -1,7 +1,7 @@
 'use client';
 
 import { Text } from '@/ui/primitives/text';
-import { DataTable } from '@/ui/components/data-table';
+import { DataTable, RowClickArgs } from '@/ui/components/data-table';
 import {
   QuestionStatus,
   QuestionStatusChip,
@@ -64,6 +64,10 @@ export const ScheduledView = () => {
   const questions = questionsRequest.data?.data?.questions || [];
   const pagination = questionsRequest.data?.data?.pagination;
 
+  const handleRowClick = ({ row }: RowClickArgs) => {
+    console.log(row.id);
+  };
+
   return (
     <>
       <div className={'flex-1 h-full flex flex-col'}>
@@ -113,6 +117,7 @@ export const ScheduledView = () => {
           </div>
           <div className={'flex-1'}>
             <DataTable
+              onRowClick={handleRowClick}
               columns={columns}
               rows={questions?.map((item) => {
                 return {
