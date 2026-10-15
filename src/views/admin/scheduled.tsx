@@ -14,6 +14,8 @@ import { Input } from '@/ui/primitives/input';
 import { SearchIcon } from 'lucide-react';
 import { useDebounce } from '@/shared/hooks/use-debounce';
 import { CreateQuestionModal } from '@/features/admin/questions/components/create-question-modal';
+import { useState } from 'react';
+import { Button } from '@/ui/primitives/button';
 
 const columns = [
   {
@@ -40,6 +42,10 @@ const columns = [
 ];
 
 export const ScheduledView = () => {
+  // modals
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+
+  // api states
   const [filter, setFilter] = useQueryState('filter', { defaultValue: 'all' });
 
   const [_page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
@@ -85,16 +91,25 @@ export const ScheduledView = () => {
               }}
             />
 
-            <Input
-              icon={<SearchIcon className={'size-4'} />}
-              placeholder={'Search questions'}
-              className={'h-[34px] w-[300px]'}
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setPage(1);
-              }}
-            />
+            <div className={'flex items-center gap-3'}>
+              <Input
+                icon={<SearchIcon className={'size-4'} />}
+                placeholder={'Search questions'}
+                className={'h-[34px] w-[300px]'}
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setPage(1);
+                }}
+              />
+              <Button
+                onClick={() => {
+                  setIsCreateOpen(true);
+                }}
+              >
+                Create question
+              </Button>
+            </div>
           </div>
           <div className={'flex-1'}>
             <DataTable
@@ -127,7 +142,10 @@ export const ScheduledView = () => {
           </div>
         </div>
       </div>
-      <CreateQuestionModal />
+      <CreateQuestionModal
+        isOpen={isCreateOpen}
+        close={() => setIsCreateOpen(false)}
+      />
     </>
   );
 };
