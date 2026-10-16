@@ -17,12 +17,12 @@ import { CreateQuestionModal } from '@/features/admin/questions/components/creat
 import { useState } from 'react';
 import { Button } from '@/ui/primitives/button';
 import { EditQuestionModal } from '@/features/admin/questions/components/edit-question-modal';
+import { CopyableText } from '@/ui/components/copyable-text';
 
 const columns = [
   {
     header: 'UUID',
     accessor: 'uuid',
-    className: 'truncate max-w-[80px]',
   },
   {
     header: 'Question',
@@ -66,7 +66,11 @@ export const ScheduledView = () => {
   const questions = questionsRequest.data?.data?.questions || [];
   const pagination = questionsRequest.data?.data?.pagination;
 
-  const handleRowClick = ({ row }: RowClickArgs) => {
+  const handleRowClick = ({ row, column }: RowClickArgs) => {
+    if (column === 'uuid') {
+      return;
+    }
+
     setEditId(row.id);
   };
 
@@ -124,7 +128,13 @@ export const ScheduledView = () => {
               rows={questions?.map((item) => {
                 return {
                   id: item.id,
-                  uuid: item.id,
+                  uuid: (
+                    <CopyableText
+                      className={'[&_span]:truncate [&_span]:max-w-[50px]'}
+                    >
+                      {item.id}
+                    </CopyableText>
+                  ),
                   question: item.question,
                   creditName: item.creditName || '-',
                   date: item.date,
