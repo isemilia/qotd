@@ -5,26 +5,13 @@ import {
   QuestionStatus,
   questionStatuses,
 } from '@/features/admin/questions/model/types';
-import { getSession } from '@/server/utils/session';
-import { staffRoles } from '@/features/auth/model/types';
+import { createAdminQuestionSchema } from '@/features/admin/questions/model/schema';
+import { z } from 'zod';
+import { checkAdminAccess } from '@/server/utils/admin';
 
 export const GET = async (request: NextRequest) => {
   try {
-    const session = await getSession();
-
-    if (!session) {
-      return NextResponse.json(
-        { status: RequestStatus.ERROR, message: 'Unauthorized' },
-        { status: 401 },
-      );
-    }
-
-    if (!staffRoles.includes(session.user_role)) {
-      return NextResponse.json(
-        { status: RequestStatus.ERROR, message: 'Forbidden' },
-        { status: 403 },
-      );
-    }
+    await checkAdminAccess();
 
     const searchParams = request.nextUrl.searchParams;
 
@@ -82,7 +69,7 @@ export const GET = async (request: NextRequest) => {
             $2::text IS NULL
             OR question ILIKE '%' || $2 || '%'
           )
-          ORDER BY date ASC
+          ORDER BY date DESC
           LIMIT $3
           OFFSET $4;
         `,
@@ -131,6 +118,69 @@ export const GET = async (request: NextRequest) => {
       },
     });
   } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      {
+        status: RequestStatus.ERROR,
+        message: 'Something went wrong',
+      },
+      { status: 500 },
+    );
+  }
+};
+
+export const POST = async (request: NextRequest) => {
+  try {
+    await checkAdminAccess();
+
+    const body = await request.json();
+
+    const parseResult = createAdminQuestionSchema.safeParse(body);
+
+    if (parseResult.error) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'Invalid input',
+          errors: z.flattenError(parseResult.error),
+        },
+        { status: 400 },
+      );
+    }
+
+    const parsedData = parseResult.data;
+
+    const createdQuestion = (
+      await db.query(
+        `
+        INSERT INTO questions (question, date, credit_name)
+        VALUES ($1, $2, $3)
+        RETURNING id, question, date, credit_name
+      `,
+        [parsedData.question, parsedData.date, parsedData.creditName],
+      )
+    ).rows[0];
+
+    return NextResponse.json({
+      status: RequestStatus.SUCCESS,
+      message: 'yay',
+      data: createdQuestion,
+    });
+  } catch (e) {
+    if (
+      e instanceof Error &&
+      'constraint' in e &&
+      e.constraint === 'questions_date_key'
+    ) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'Question for this date already exists',
+        },
+        { status: 409 },
+      );
+    }
+
     console.error(e);
     return NextResponse.json(
       {

@@ -4,6 +4,7 @@ import { toSearchParams } from '@/server/utils/search-params';
 import {
   AdminQuestion,
   adminQuestionResponseSchema,
+  CreateAdminQuestionBody,
 } from '@/features/admin/questions/model/schema';
 import { Pagination } from '@/shared/model/schemas';
 
@@ -24,4 +25,22 @@ export const getAdminQuestions = async (params?: GetAdminQuestionsParams) => {
   const parsedData = adminQuestionResponseSchema.safeParse(result.data);
 
   return { ...result, data: parsedData.data };
+};
+
+export const createAdminQuestion = async (body: CreateAdminQuestionBody) => {
+  const response = await fetch('/api/admin/questions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
 };

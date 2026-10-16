@@ -3,7 +3,7 @@ import { ContentContainer } from '@/ui/primitives/content-container';
 import { Text } from '@/ui/primitives/text';
 import { Calendar } from 'lucide-react';
 import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
-import { formatLongDate } from '@/shared/utils/format-long-date';
+import { formatLongDate } from '@/shared/utils/date';
 import { getAnswers } from '@/server/utils/answers';
 import { AnswerCard } from '@/features/answers/components/answer-card';
 import { DynamicPagination } from '@/ui/components/dynamic-pagination';

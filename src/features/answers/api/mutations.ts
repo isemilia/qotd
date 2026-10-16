@@ -12,7 +12,7 @@ export const useCreateAnswer = () => {
     onError: (e) => {
       toast.add({
         type: 'error',
-        title: 'Couldn’t post your answer',
+        title: "Couldn't post your answer",
         description: e.message || 'Something went wrong',
       });
     },
