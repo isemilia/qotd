@@ -166,7 +166,7 @@ export const POST = async (request: NextRequest) => {
 
     return NextResponse.json({
       status: RequestStatus.SUCCESS,
-      message: 'yay',
+      message: 'Question created successfully',
       data: createdQuestion,
     });
   } catch (e) {
@@ -216,6 +216,7 @@ export const PUT = async (request: NextRequest) => {
 
     const parsedData = parseResult.data;
 
+    // allow editing only questions after today's date
     const updatedQuestion = (
       await db.query(
         `
@@ -224,6 +225,7 @@ export const PUT = async (request: NextRequest) => {
                date = $3,
                credit_name = $4
            WHERE id = $1
+           AND date > (NOW() AT TIME ZONE 'UTC')::date
            RETURNING id, question, date::text as date, credit_name
          `,
         [
@@ -234,6 +236,16 @@ export const PUT = async (request: NextRequest) => {
         ],
       )
     ).rows[0];
+
+    if (!updatedQuestion) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'Question not found or cannot be edited',
+        },
+        { status: 409 },
+      );
+    }
 
     return NextResponse.json({
       status: RequestStatus.SUCCESS,

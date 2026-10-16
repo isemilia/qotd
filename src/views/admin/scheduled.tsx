@@ -16,6 +16,7 @@ import { useDebounce } from '@/shared/hooks/use-debounce';
 import { CreateQuestionModal } from '@/features/admin/questions/components/create-question-modal';
 import { useState } from 'react';
 import { Button } from '@/ui/primitives/button';
+import { EditQuestionModal } from '@/features/admin/questions/components/edit-question-modal';
 
 const columns = [
   {
@@ -44,6 +45,7 @@ const columns = [
 export const ScheduledView = () => {
   // modals
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [editId, setEditId] = useState<string | null>(null);
 
   // api states
   const [filter, setFilter] = useQueryState('filter', { defaultValue: 'all' });
@@ -65,7 +67,7 @@ export const ScheduledView = () => {
   const pagination = questionsRequest.data?.data?.pagination;
 
   const handleRowClick = ({ row }: RowClickArgs) => {
-    console.log(row.id);
+    setEditId(row.id);
   };
 
   return (
@@ -150,6 +152,13 @@ export const ScheduledView = () => {
       <CreateQuestionModal
         isOpen={isCreateOpen}
         close={() => setIsCreateOpen(false)}
+      />
+      <EditQuestionModal
+        isOpen={Boolean(editId)}
+        questionId={editId}
+        close={() => {
+          setEditId(null);
+        }}
       />
     </>
   );

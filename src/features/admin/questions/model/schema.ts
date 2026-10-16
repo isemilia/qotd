@@ -32,6 +32,8 @@ export const editAdminQuestionSchema = z.object({
   creditName: z.string().max(50).optional().nullable(),
 });
 
+export type EditAdminQuestionBody = z.infer<typeof editAdminQuestionSchema>;
+
 export const adminQuestionFormSchema = z.object({
   question: z.string().max(200).min(1),
   date: z.date(),
