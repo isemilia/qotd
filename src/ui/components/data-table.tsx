@@ -9,6 +9,11 @@ import {
 } from '@/ui/primitives/table';
 import { cn } from '@/shared/utils/cn';
 
+export type RowClickArgs = {
+  row: Record<string, ReactNode> & { id: string };
+  column: string;
+};
+
 export const DataTable: FC<{
   columns: {
     header: ReactNode;
@@ -17,7 +22,8 @@ export const DataTable: FC<{
   }[];
   rows: (Record<string, ReactNode> & { id: string })[];
   className?: string;
-}> = ({ columns, rows, className }) => {
+  onRowClick?: (args: RowClickArgs) => void;
+}> = ({ columns, rows, className, onRowClick }) => {
   return (
     <Table className={className}>
       <TableHeader>
@@ -50,6 +56,9 @@ export const DataTable: FC<{
                   <TableCell
                     key={column.accessor}
                     className={cn('text-[14px] py-3 px-4', column.className)}
+                    onClick={() => {
+                      onRowClick?.({ row, column: column.accessor });
+                    }}
                   >
                     {/* @ts-ignore */}
                     {row[column.accessor]}

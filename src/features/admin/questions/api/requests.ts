@@ -4,7 +4,9 @@ import { toSearchParams } from '@/server/utils/search-params';
 import {
   AdminQuestion,
   adminQuestionResponseSchema,
+  adminQuestionSchema,
   CreateAdminQuestionBody,
+  EditAdminQuestionBody,
 } from '@/features/admin/questions/model/schema';
 import { Pagination } from '@/shared/model/schemas';
 
@@ -43,4 +45,40 @@ export const createAdminQuestion = async (body: CreateAdminQuestionBody) => {
   }
 
   return result;
+};
+
+export const editAdminQuestion = async (body: EditAdminQuestionBody) => {
+  const response = await fetch('/api/admin/questions', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
+};
+
+export const getAdminQuestionById = async (questionId: string) => {
+  const response = await fetch(`/api/admin/questions/${questionId}`);
+
+  const result: {
+    message: string;
+    status: RequestStatus;
+    data: AdminQuestion;
+  } = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  const parsedData = adminQuestionSchema.safeParse(result.data);
+
+  return { ...result, data: parsedData.data };
 };

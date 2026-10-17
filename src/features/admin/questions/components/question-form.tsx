@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { ControlledTextarea } from '@/ui/components/controlled-textarea';
 import { ControlledDatePickerInput } from '@/ui/components/controlled-date-picker-input';
@@ -18,7 +18,8 @@ export const QuestionForm: FC<{
   onSubmit?: (data: AdminQuestionFormValues) => void;
   onCancel?: () => void;
   isPending?: boolean;
-}> = ({ defaultValues, onSubmit, isPending, onCancel }) => {
+  submitLabel?: string;
+}> = ({ defaultValues, onSubmit, isPending, onCancel, submitLabel }) => {
   const form = useForm({
     defaultValues: defaultValues || {
       question: '',
@@ -27,6 +28,12 @@ export const QuestionForm: FC<{
     },
     resolver: zodResolver(adminQuestionFormSchema),
   });
+
+  useEffect(() => {
+    if (defaultValues) {
+      form.reset(defaultValues);
+    }
+  }, [defaultValues]);
 
   const handleSubmit = (data: AdminQuestionFormValues) => {
     onSubmit?.(data);
@@ -76,7 +83,7 @@ export const QuestionForm: FC<{
             Cancel
           </Button>
           <Button loading={isPending} onClick={form.handleSubmit(handleSubmit)}>
-            Create question
+            {submitLabel || 'Submit'}
           </Button>
         </div>
       </form>

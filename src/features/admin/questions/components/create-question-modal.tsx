@@ -36,6 +36,7 @@ export const CreateQuestionModal: FC<{
         onSubmit={handleSubmit}
         onCancel={close}
         isPending={createRequest.isPending}
+        submitLabel={'Create question'}
       />
     </ResponsiveModal>
   );

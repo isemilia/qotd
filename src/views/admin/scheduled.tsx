@@ -1,7 +1,7 @@
 'use client';
 
 import { Text } from '@/ui/primitives/text';
-import { DataTable } from '@/ui/components/data-table';
+import { DataTable, RowClickArgs } from '@/ui/components/data-table';
 import {
   QuestionStatus,
   QuestionStatusChip,
@@ -16,12 +16,13 @@ import { useDebounce } from '@/shared/hooks/use-debounce';
 import { CreateQuestionModal } from '@/features/admin/questions/components/create-question-modal';
 import { useState } from 'react';
 import { Button } from '@/ui/primitives/button';
+import { EditQuestionModal } from '@/features/admin/questions/components/edit-question-modal';
+import { CopyableText } from '@/ui/components/copyable-text';
 
 const columns = [
   {
     header: 'UUID',
     accessor: 'uuid',
-    className: 'truncate max-w-[80px]',
   },
   {
     header: 'Question',
@@ -44,6 +45,7 @@ const columns = [
 export const ScheduledView = () => {
   // modals
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [editId, setEditId] = useState<string | null>(null);
 
   // api states
   const [filter, setFilter] = useQueryState('filter', { defaultValue: 'all' });
@@ -63,6 +65,14 @@ export const ScheduledView = () => {
 
   const questions = questionsRequest.data?.data?.questions || [];
   const pagination = questionsRequest.data?.data?.pagination;
+
+  const handleRowClick = ({ row, column }: RowClickArgs) => {
+    if (column === 'uuid') {
+      return;
+    }
+
+    setEditId(row.id);
+  };
 
   return (
     <>
@@ -113,11 +123,18 @@ export const ScheduledView = () => {
           </div>
           <div className={'flex-1'}>
             <DataTable
+              onRowClick={handleRowClick}
               columns={columns}
               rows={questions?.map((item) => {
                 return {
                   id: item.id,
-                  uuid: item.id,
+                  uuid: (
+                    <CopyableText
+                      className={'[&_span]:truncate [&_span]:max-w-[50px]'}
+                    >
+                      {item.id}
+                    </CopyableText>
+                  ),
                   question: item.question,
                   creditName: item.creditName || '-',
                   date: item.date,
@@ -145,6 +162,13 @@ export const ScheduledView = () => {
       <CreateQuestionModal
         isOpen={isCreateOpen}
         close={() => setIsCreateOpen(false)}
+      />
+      <EditQuestionModal
+        isOpen={Boolean(editId)}
+        questionId={editId}
+        close={() => {
+          setEditId(null);
+        }}
       />
     </>
   );
