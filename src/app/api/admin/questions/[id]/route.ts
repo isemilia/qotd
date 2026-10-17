@@ -62,3 +62,47 @@ export const GET = async (
     );
   }
 };
+
+export const DELETE = async (
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) => {
+  try {
+    await checkAdminAccess();
+
+    const questionId = (await params).id;
+
+    const result = await db.query(
+      `
+      DELETE FROM questions
+      WHERE id = $1
+      AND date > (NOW() AT TIME ZONE 'UTC')::date
+    `,
+      [questionId],
+    );
+
+    if (result.rowCount === 0) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'Question not found or cannot be deleted',
+        },
+        { status: 409 },
+      );
+    }
+
+    return NextResponse.json({
+      status: RequestStatus.SUCCESS,
+      message: 'Question deleted successfully',
+    });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      {
+        status: RequestStatus.ERROR,
+        message: 'Something went wrong',
+      },
+      { status: 500 },
+    );
+  }
+};
