@@ -18,6 +18,7 @@ import { useState } from 'react';
 import { Button } from '@/ui/primitives/button';
 import { EditQuestionModal } from '@/features/admin/questions/components/edit-question-modal';
 import { CopyableText } from '@/ui/components/copyable-text';
+import { DeleteQuestionModal } from '@/features/admin/questions/components/delete-question-modal';
 
 const columns = [
   {
@@ -46,6 +47,7 @@ export const ScheduledView = () => {
   // modals
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   // api states
   const [filter, setFilter] = useQueryState('filter', { defaultValue: 'all' });
@@ -168,6 +170,19 @@ export const ScheduledView = () => {
         questionId={editId}
         close={() => {
           setEditId(null);
+        }}
+        onDelete={(questionId) => {
+          if (questionId) {
+            setDeleteId(questionId);
+            setEditId(null);
+          }
+        }}
+      />
+      <DeleteQuestionModal
+        isOpen={Boolean(deleteId)}
+        questionId={deleteId}
+        close={() => {
+          setDeleteId(null);
         }}
       />
     </>

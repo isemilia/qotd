@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { ControlledTextarea } from '@/ui/components/controlled-textarea';
 import { ControlledDatePickerInput } from '@/ui/components/controlled-date-picker-input';
@@ -19,7 +19,15 @@ export const QuestionForm: FC<{
   onCancel?: () => void;
   isPending?: boolean;
   submitLabel?: string;
-}> = ({ defaultValues, onSubmit, isPending, onCancel, submitLabel }) => {
+  actions?: ReactNode;
+}> = ({
+  defaultValues,
+  onSubmit,
+  isPending,
+  onCancel,
+  submitLabel,
+  actions,
+}) => {
   const form = useForm({
     defaultValues: defaultValues || {
       question: '',
@@ -76,15 +84,21 @@ export const QuestionForm: FC<{
 
         <div
           className={
-            'mt-6 flex items-center gap-4 justify-end max-md:grid max-md:grid-cols-2 max-md:gap-3'
+            'mt-6 flex items-center gap-4 justify-between max-md:grid max-md:grid-cols-2 max-md:gap-3'
           }
         >
-          <Button disabled={isPending} onClick={onCancel} variant={'outline'}>
-            Cancel
-          </Button>
-          <Button loading={isPending} onClick={form.handleSubmit(handleSubmit)}>
-            {submitLabel || 'Submit'}
-          </Button>
+          <div className={'flex items-center gap-4'}>{actions}</div>
+          <div className={'flex items-center gap-4'}>
+            <Button disabled={isPending} onClick={onCancel} variant={'outline'}>
+              Cancel
+            </Button>
+            <Button
+              loading={isPending}
+              onClick={form.handleSubmit(handleSubmit)}
+            >
+              {submitLabel || 'Submit'}
+            </Button>
+          </div>
         </div>
       </form>
     </div>

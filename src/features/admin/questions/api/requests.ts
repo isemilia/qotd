@@ -82,3 +82,20 @@ export const getAdminQuestionById = async (questionId: string) => {
 
   return { ...result, data: parsedData.data };
 };
+
+export const deleteAdminQuestionById = async (questionId: string) => {
+  const response = await fetch(`/api/admin/questions/${questionId}`, {
+    method: 'DELETE',
+  });
+
+  const result: {
+    message: string;
+    status: RequestStatus;
+  } = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
+};

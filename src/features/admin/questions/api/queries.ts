@@ -12,9 +12,10 @@ export const useGetAdminQuestions = (params?: GetAdminQuestionsParams) => {
     placeholderData: keepPreviousData,
   });
 };
+
 export const useGetAdminQuestionById = (questionId?: string | null) => {
   return useQuery({
-    queryKey: ['adminQuestions', questionId],
+    queryKey: ['getAdminQuestionById', questionId],
     queryFn: () => getAdminQuestionById(questionId!),
     enabled: Boolean(questionId),
   });

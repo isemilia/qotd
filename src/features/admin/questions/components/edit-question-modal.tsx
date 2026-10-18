@@ -3,7 +3,7 @@ import { QuestionForm } from '@/features/admin/questions/components/question-for
 import { ResponsiveModal } from '@/ui/components/responsive-modal';
 import { Text } from '@/ui/primitives/text';
 import { AdminQuestionFormValues } from '@/features/admin/questions/model/schema';
-import { formatDate } from '@/shared/utils/date';
+import { formatDate, isAfterToday } from '@/shared/utils/date';
 import { useEditAdminQuestion } from '@/features/admin/questions/api/mutations';
 import { toast } from '@/ui/primitives/toast';
 import { useGetAdminQuestionById } from '@/features/admin/questions/api/queries';
@@ -13,7 +13,8 @@ export const EditQuestionModal: FC<{
   isOpen: boolean;
   close: () => void;
   questionId?: string | null;
-}> = ({ isOpen, close, questionId }) => {
+  onDelete?: (questionId?: string | null) => void;
+}> = ({ isOpen, close, questionId, onDelete }) => {
   const questionRequest = useGetAdminQuestionById(questionId);
   const editRequest = useEditAdminQuestion();
 
@@ -25,6 +26,10 @@ export const EditQuestionModal: FC<{
         creditName: question.creditName || '',
       }
     : undefined;
+
+  const isFutureQuestion = question?.date
+    ? isAfterToday(new Date(question?.date))
+    : false;
 
   const handleSubmit = async (data: AdminQuestionFormValues) => {
     if (!questionId) {
@@ -45,6 +50,7 @@ export const EditQuestionModal: FC<{
 
     close();
   };
+
   return (
     <ResponsiveModal
       open={isOpen}
@@ -76,6 +82,21 @@ export const EditQuestionModal: FC<{
           onCancel={close}
           isPending={editRequest.isPending}
           submitLabel={'Save changes'}
+          actions={
+            isFutureQuestion &&
+            onDelete && (
+              <Text
+                component={'button'}
+                type={'button'}
+                color={'error'}
+                weight={'medium'}
+                className={'cursor-pointer'}
+                onClick={() => onDelete(questionId)}
+              >
+                Delete question
+              </Text>
+            )
+          }
         />
       )}
     </ResponsiveModal>
