@@ -1,4 +1,4 @@
-import { Pool, QueryResultRow } from 'pg';
+import { Pool, PoolClient, QueryResultRow } from 'pg';
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -11,4 +11,24 @@ const pool = new Pool({
 export const db = {
   query: <Return extends QueryResultRow>(text: string, params?: any[]) =>
     pool.query<Return>(text, params),
+  transaction: async <T>(
+    callback: (client: PoolClient) => Promise<T>,
+  ): Promise<T> => {
+    const client = await pool.connect();
+
+    try {
+      await client.query('BEGIN');
+
+      const result = await callback(client);
+
+      await client.query('COMMIT');
+
+      return result;
+    } catch (error) {
+      await client.query('ROLLBACK').catch(() => {});
+      throw error;
+    } finally {
+      client.release();
+    }
+  },
 };
