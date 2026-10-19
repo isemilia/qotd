@@ -42,6 +42,8 @@ export type DatePickerInputProps = {
   onChange?: (value?: Date | null) => void;
   id?: string;
   disabled?: boolean;
+  unavailableDates?: Date[];
+  minDate?: Date;
 };
 
 export const DatePickerInput: FC<DatePickerInputProps> = ({
@@ -50,6 +52,8 @@ export const DatePickerInput: FC<DatePickerInputProps> = ({
   onChange,
   id,
   disabled,
+  unavailableDates,
+  minDate,
 }) => {
   const value = _value || undefined;
 
@@ -118,7 +122,17 @@ export const DatePickerInput: FC<DatePickerInputProps> = ({
                 setDisplayValue(formatDate(date));
                 setOpen(false);
               }}
-              disabled={disabled}
+              disabled={[
+                ...(unavailableDates ?? []),
+                ...(minDate ? [{ before: minDate }] : []),
+                ...(disabled ? [() => true] : []),
+              ]}
+              modifiers={{
+                unavailable: unavailableDates,
+              }}
+              modifiersClassNames={{
+                unavailable: 'pointer-events-none opacity-70 line-through',
+              }}
             />
           </PopoverContent>
         </Popover>

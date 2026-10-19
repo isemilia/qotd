@@ -32,3 +32,14 @@ export const isAfterToday = (date?: Date) => {
 
   return targetDate > today;
 };
+
+export const isBeforeToday = (date?: Date) => {
+  if (!date) {
+    return false;
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const targetDate = date.toISOString().slice(0, 10);
+
+  return targetDate < today;
+};

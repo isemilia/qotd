@@ -12,6 +12,7 @@ import {
 } from '@/features/admin/questions/model/schema';
 import { Text } from '@/ui/primitives/text';
 import { Button } from '@/ui/primitives/button';
+import { useGetUnavailableQuestionDates } from '@/features/admin/questions/api/queries';
 
 export const QuestionForm: FC<{
   defaultValues?: AdminQuestionFormValues;
@@ -28,6 +29,13 @@ export const QuestionForm: FC<{
   submitLabel,
   actions,
 }) => {
+  const datesRequest = useGetUnavailableQuestionDates();
+  const unavailableDates = datesRequest.data?.data?.map(
+    (date) => new Date(date),
+  );
+
+  console.log(unavailableDates);
+
   const form = useForm({
     defaultValues: defaultValues || {
       question: '',
@@ -62,11 +70,14 @@ export const QuestionForm: FC<{
 
           <div className={'grid grid-cols-2 gap-3'}>
             <ControlledDatePickerInput
+              key={datesRequest.dataUpdatedAt}
               label={'Date'}
               required
               name={'date'}
               control={form.control}
               placeholder={'Select a date...'}
+              unavailableDates={unavailableDates}
+              minDate={new Date()}
             />
             <ControlledInput
               label={'Credit name (optional)'}

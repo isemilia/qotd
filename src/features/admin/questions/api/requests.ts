@@ -99,3 +99,19 @@ export const deleteAdminQuestionById = async (questionId: string) => {
 
   return result;
 };
+
+export const getUnavailableQuestionDates = async () => {
+  const response = await fetch('/api/admin/questions/dates/unavailable');
+
+  const result: {
+    message: string;
+    status: RequestStatus;
+    data: string[];
+  } = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
+};

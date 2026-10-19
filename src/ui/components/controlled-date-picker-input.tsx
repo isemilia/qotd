@@ -24,6 +24,8 @@ export const ControlledDatePickerInput: FC<ControlledDatePickerInputProps> = ({
   placeholder,
   disabled,
   description,
+  unavailableDates,
+  minDate,
 }) => {
   return (
     <Controller
@@ -42,6 +44,8 @@ export const ControlledDatePickerInput: FC<ControlledDatePickerInputProps> = ({
               disabled={disabled}
               value={field.value}
               onChange={field.onChange}
+              unavailableDates={unavailableDates}
+              minDate={minDate}
             />
             {description && <FieldDescription>{description}</FieldDescription>}
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
