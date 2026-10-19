@@ -52,10 +52,11 @@ export const GET = async (request: NextRequest) => {
                 json_build_object(
                   'id', q.id,
                   'question', q.question,
-                  'date', q.date::text
+                  'date', q.date::text,
+                  'creditName', q.credit_name
                 )
               ELSE NULL
-              END AS scheduledQuestion
+              END AS "scheduledQuestion"
           FROM question_suggestions qs
                  LEFT JOIN questions q
                            ON q.id = qs.question_id
