@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { ControlledTextarea } from '@/ui/components/controlled-textarea';
 import { ControlledDatePickerInput } from '@/ui/components/controlled-date-picker-input';
@@ -12,6 +12,7 @@ import {
 } from '@/features/admin/questions/model/schema';
 import { Text } from '@/ui/primitives/text';
 import { Button } from '@/ui/primitives/button';
+import { useGetUnavailableQuestionDates } from '@/features/admin/questions/api/queries';
 
 export const QuestionForm: FC<{
   defaultValues?: AdminQuestionFormValues;
@@ -19,7 +20,22 @@ export const QuestionForm: FC<{
   onCancel?: () => void;
   isPending?: boolean;
   submitLabel?: string;
-}> = ({ defaultValues, onSubmit, isPending, onCancel, submitLabel }) => {
+  actions?: ReactNode;
+}> = ({
+  defaultValues,
+  onSubmit,
+  isPending,
+  onCancel,
+  submitLabel,
+  actions,
+}) => {
+  const datesRequest = useGetUnavailableQuestionDates();
+  const unavailableDates = datesRequest.data?.data?.map(
+    (date) => new Date(date),
+  );
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
   const form = useForm({
     defaultValues: defaultValues || {
       question: '',
@@ -54,11 +70,14 @@ export const QuestionForm: FC<{
 
           <div className={'grid grid-cols-2 gap-3'}>
             <ControlledDatePickerInput
+              key={datesRequest.dataUpdatedAt}
               label={'Date'}
               required
               name={'date'}
               control={form.control}
               placeholder={'Select a date...'}
+              unavailableDates={unavailableDates}
+              minDate={tomorrow}
             />
             <ControlledInput
               label={'Credit name (optional)'}
@@ -76,15 +95,21 @@ export const QuestionForm: FC<{
 
         <div
           className={
-            'mt-6 flex items-center gap-4 justify-end max-md:grid max-md:grid-cols-2 max-md:gap-3'
+            'mt-6 flex items-center gap-4 justify-between max-md:grid max-md:grid-cols-2 max-md:gap-3'
           }
         >
-          <Button disabled={isPending} onClick={onCancel} variant={'outline'}>
-            Cancel
-          </Button>
-          <Button loading={isPending} onClick={form.handleSubmit(handleSubmit)}>
-            {submitLabel || 'Submit'}
-          </Button>
+          <div className={'flex items-center gap-4'}>{actions}</div>
+          <div className={'flex items-center gap-4'}>
+            <Button disabled={isPending} onClick={onCancel} variant={'outline'}>
+              Cancel
+            </Button>
+            <Button
+              loading={isPending}
+              onClick={form.handleSubmit(handleSubmit)}
+            >
+              {submitLabel || 'Submit'}
+            </Button>
+          </div>
         </div>
       </form>
     </div>

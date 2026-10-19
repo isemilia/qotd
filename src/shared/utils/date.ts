@@ -1,4 +1,6 @@
-export const formatLongDate = (date: string) => {
+export const formatLongDate = (date?: string) => {
+  if (!date) return '';
+
   const [year, month, day] = date.split('-').map(Number);
 
   return new Intl.DateTimeFormat('en-US', {
@@ -18,4 +20,26 @@ export const formatDate = (date?: Date | null): string => {
   const day = String(date.getDate()).padStart(2, '0');
 
   return `${year}-${month}-${day}`;
+};
+
+export const isAfterToday = (date?: Date) => {
+  if (!date) {
+    return false;
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const targetDate = date.toISOString().slice(0, 10);
+
+  return targetDate > today;
+};
+
+export const isBeforeToday = (date?: Date) => {
+  if (!date) {
+    return false;
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const targetDate = date.toISOString().slice(0, 10);
+
+  return targetDate < today;
 };

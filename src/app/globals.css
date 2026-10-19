@@ -52,6 +52,7 @@
   --color-primary: var(--midnight-500);
   --color-primary-foreground: var(--midnight-100);
   --color-table-divider: var(--midnight-200);
+  --color-divider: var(--midnight-200);
   --color-secondary: var(--midnight-400);
   --color-input: var(--midnight-100);
   --color-ring: var(--midnight-400);

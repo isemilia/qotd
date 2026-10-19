@@ -2,6 +2,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import {
   getAdminQuestionById,
   getAdminQuestions,
+  getUnavailableQuestionDates,
 } from '@/features/admin/questions/api/requests';
 import { GetAdminQuestionsParams } from '@/features/admin/questions/model/types';
 
@@ -12,10 +13,18 @@ export const useGetAdminQuestions = (params?: GetAdminQuestionsParams) => {
     placeholderData: keepPreviousData,
   });
 };
+
 export const useGetAdminQuestionById = (questionId?: string | null) => {
   return useQuery({
-    queryKey: ['adminQuestions', questionId],
+    queryKey: ['getAdminQuestionById', questionId],
     queryFn: () => getAdminQuestionById(questionId!),
     enabled: Boolean(questionId),
+  });
+};
+
+export const useGetUnavailableQuestionDates = () => {
+  return useQuery({
+    queryKey: ['getUnavailableQuestionDates'],
+    queryFn: getUnavailableQuestionDates,
   });
 };
