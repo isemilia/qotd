@@ -33,8 +33,8 @@ export const QuestionForm: FC<{
   const unavailableDates = datesRequest.data?.data?.map(
     (date) => new Date(date),
   );
-
-  console.log(unavailableDates);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
   const form = useForm({
     defaultValues: defaultValues || {
@@ -77,7 +77,7 @@ export const QuestionForm: FC<{
               control={form.control}
               placeholder={'Select a date...'}
               unavailableDates={unavailableDates}
-              minDate={new Date()}
+              minDate={tomorrow}
             />
             <ControlledInput
               label={'Credit name (optional)'}
