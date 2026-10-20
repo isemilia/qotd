@@ -2,10 +2,7 @@
 
 import { Text } from '@/ui/primitives/text';
 import { DataTable, RowClickArgs } from '@/ui/components/data-table';
-import {
-  QuestionStatus,
-  QuestionStatusChip,
-} from '@/features/admin/questions/components/question-status-chip';
+import { QuestionStatusChip } from '@/features/admin/questions/components/question-status-chip';
 import { useGetAdminQuestions } from '@/features/admin/questions/api/queries';
 import { DynamicPagination } from '@/ui/components/dynamic-pagination';
 import { FilterChipGroup } from '@/ui/components/filter-chip-group';
@@ -19,6 +16,7 @@ import { Button } from '@/ui/primitives/button';
 import { EditQuestionModal } from '@/features/admin/questions/components/edit-question-modal';
 import { CopyableText } from '@/ui/components/copyable-text';
 import { DeleteQuestionModal } from '@/features/admin/questions/components/delete-question-modal';
+import { QuestionStatus } from '@/features/admin/questions/model/types';
 
 const columns = [
   {

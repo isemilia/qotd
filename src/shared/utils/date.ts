@@ -10,16 +10,40 @@ export const formatLongDate = (date?: string) => {
   }).format(new Date(year, month - 1, day));
 };
 
-export const formatDate = (date?: Date | null): string => {
-  if (!date) {
-    return '';
+type DateFormat = 'short' | 'long' | 'iso';
+
+export const formatDate = (
+  date?: Date | null,
+  format: DateFormat = 'iso',
+): string => {
+  if (!date) return '';
+
+  switch (format) {
+    case 'short': {
+      return new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }).format(date);
+    }
+
+    case 'long': {
+      return new Intl.DateTimeFormat('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      }).format(date);
+    }
+
+    case 'iso':
+    default: {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+
+      return `${year}-${month}-${day}`;
+    }
   }
-
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
 };
 
 export const isAfterToday = (date?: Date) => {
