@@ -9,21 +9,28 @@ import {
 } from '@/ui/primitives/table';
 import { cn } from '@/shared/utils/cn';
 
-export type RowClickArgs = {
-  row: Record<string, ReactNode> & { id: string };
+export type RowClickArgs<R extends object = object> = {
+  row: Record<string, ReactNode> & R & { id: string };
   column: string;
 };
 
-export const DataTable: FC<{
+type DataTableProps<R extends object> = {
   columns: {
     header: ReactNode;
     accessor: string;
     className?: string;
   }[];
-  rows: (Record<string, ReactNode> & { id: string })[];
+  rows: RowClickArgs<R>['row'][];
   className?: string;
-  onRowClick?: (args: RowClickArgs) => void;
-}> = ({ columns, rows, className, onRowClick }) => {
+  onRowClick?: (args: RowClickArgs<R>) => void;
+};
+
+export const DataTable = <R extends object = object>({
+  columns,
+  rows,
+  className,
+  onRowClick,
+}: DataTableProps<R>) => {
   return (
     <Table className={className}>
       <TableHeader>

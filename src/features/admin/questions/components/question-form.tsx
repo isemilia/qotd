@@ -13,6 +13,7 @@ import {
 import { Text } from '@/ui/primitives/text';
 import { Button } from '@/ui/primitives/button';
 import { useGetUnavailableQuestionDates } from '@/features/admin/questions/api/queries';
+import { Skeleton } from '@/ui/primitives/skeleton';
 
 export const QuestionForm: FC<{
   defaultValues?: AdminQuestionFormValues;
@@ -21,6 +22,7 @@ export const QuestionForm: FC<{
   isPending?: boolean;
   submitLabel?: string;
   actions?: ReactNode;
+  helperText?: string;
 }> = ({
   defaultValues,
   onSubmit,
@@ -28,6 +30,7 @@ export const QuestionForm: FC<{
   onCancel,
   submitLabel,
   actions,
+  helperText,
 }) => {
   const datesRequest = useGetUnavailableQuestionDates();
   const unavailableDates = datesRequest.data?.data?.map(
@@ -89,8 +92,8 @@ export const QuestionForm: FC<{
         </div>
 
         <Text className={'text-[12px] mt-4'} color={'secondary'}>
-          The question will be published on the selected date. If someone
-          suggested it, you can credit them by adding their name
+          {helperText ||
+            'The question will be published on the selected date. If someone suggested it, you can credit them by adding their name'}
         </Text>
 
         <div
@@ -112,6 +115,22 @@ export const QuestionForm: FC<{
           </div>
         </div>
       </form>
+    </div>
+  );
+};
+
+export const QuestionFormSkeleton = () => {
+  return (
+    <div>
+      <Skeleton className={'h-[164px]'} />
+      <div className={'grid grid-cols-2 gap-3 mt-4'}>
+        <Skeleton className={'h-[74px]'} />
+        <Skeleton className={'h-[74px]'} />
+      </div>
+      <Skeleton className={'mt-4 h-[28px]'} />
+      <div className={'mt-6 flex justify-end'}>
+        <Skeleton className={'h-[34px] w-[220px]'} />
+      </div>
     </div>
   );
 };
