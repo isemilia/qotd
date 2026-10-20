@@ -58,6 +58,13 @@ export const SuggestionsView = () => {
   const suggestions = suggestionsRequest.data?.data?.suggestions || [];
   const pagination = suggestionsRequest.data?.data?.pagination;
 
+  const extraColumns =
+    filter === 'rejected'
+      ? [{ header: 'Reason', accessor: 'reason' }]
+      : filter === 'approved'
+        ? [{ header: 'Scheduled question', accessor: 'scheduledQuestion' }]
+        : [];
+
   return (
     <>
       <div className={'flex-1 h-full flex flex-col'}>
@@ -99,7 +106,7 @@ export const SuggestionsView = () => {
           <div className={'flex-1'}>
             <DataTable
               // onRowClick={handleRowClick}
-              columns={columns}
+              columns={[...columns, ...extraColumns]}
               rows={suggestions?.map((item) => {
                 return {
                   id: item.id,
@@ -114,6 +121,16 @@ export const SuggestionsView = () => {
                   creditName: item.creditName || '-',
                   createdAt: formatDate(new Date(item.createdAt), 'short'),
                   status: <SuggestionStatusChip variant={item.status} />,
+                  reason: item.reason,
+                  scheduledQuestion: (
+                    <Text
+                      className={
+                        'truncate max-w-[80px] cursor-pointer hover:underline'
+                      }
+                    >
+                      {item.scheduledQuestion?.id}
+                    </Text>
+                  ),
                 };
               })}
             />
