@@ -14,3 +14,25 @@ CREATE TABLE question_suggestions (
   reason VARCHAR(200),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- reset suggestion back to pending if associated question is deleted
+CREATE OR REPLACE FUNCTION reset_suggestion_on_question_delete()
+RETURNS TRIGGER AS $$
+BEGIN
+UPDATE question_suggestions
+SET question_id = NULL,
+    status = 'pending',
+    reason = NULL
+WHERE question_id = OLD.id;
+
+RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS question_deleted_reset_suggestions
+ON questions;
+
+CREATE TRIGGER question_deleted_reset_suggestions
+    BEFORE DELETE ON questions
+    FOR EACH ROW
+    EXECUTE FUNCTION reset_suggestion_on_question_delete();

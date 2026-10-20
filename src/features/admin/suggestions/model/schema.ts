@@ -9,6 +9,10 @@ export const approveSuggestionSchema = z.object({
   creditName: z.string().max(50).optional().nullable(),
 });
 
+export type ApproveAdminSuggestionBody = z.infer<
+  typeof approveSuggestionSchema
+>;
+
 export const rejectSuggestionSchema = z.object({
   reason: z.string().trim().min(1).max(200),
 });

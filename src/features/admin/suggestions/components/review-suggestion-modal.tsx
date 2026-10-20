@@ -10,6 +10,7 @@ import {
 } from '@/features/admin/questions/components/question-form';
 import { Skeleton } from '@/ui/primitives/skeleton';
 import { AdminQuestionFormValues } from '@/features/admin/questions/model/schema';
+import { useApproveAdminSuggestion } from '@/features/admin/suggestions/api/mutations';
 
 export const ReviewSuggestionModal: FC<{
   isOpen: boolean;
@@ -17,6 +18,8 @@ export const ReviewSuggestionModal: FC<{
   suggestionId?: string | null;
 }> = ({ isOpen, close, suggestionId }) => {
   const suggestionRequest = useGetAdminSuggestionById(suggestionId);
+  const approveRequest = useApproveAdminSuggestion();
+
   const suggestion = suggestionRequest.data?.data;
 
   const defaultValues = suggestion
@@ -28,7 +31,18 @@ export const ReviewSuggestionModal: FC<{
     : undefined;
 
   const handleApprove = async (data: AdminQuestionFormValues) => {
-    console.log({ suggestionId, ...data });
+    if (!suggestion) return;
+
+    await approveRequest.mutateAsync({
+      suggestionId: suggestion.id,
+      body: {
+        suggestedQuestion: data.question,
+        date: formatDate(data.date),
+        creditName: data.creditName,
+      },
+    });
+
+    close();
   };
 
   return (
