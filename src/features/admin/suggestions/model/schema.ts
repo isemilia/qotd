@@ -41,3 +41,10 @@ export const adminSuggestionResponseSchema = z.object({
 });
 
 export type AdminSuggestion = z.infer<typeof adminQuestionSchema>;
+
+export const rejectAdminSuggestionForm = z.object({
+  reason: z.string(),
+  otherReason: z.string().max(200).optional().nullable(),
+});
+
+export type RejectAdminSuggestionForm = z.infer<typeof rejectSuggestionSchema>;

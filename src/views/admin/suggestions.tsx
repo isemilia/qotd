@@ -15,6 +15,7 @@ import { formatDate } from '@/shared/utils/date';
 import { SuggestionStatusChip } from '@/features/admin/suggestions/components/suggestion-status-chip';
 import { ReviewSuggestionModal } from '@/features/admin/suggestions/components/review-suggestion-modal';
 import { useState } from 'react';
+import { RejectSuggestionModal } from '@/features/admin/suggestions/components/reject-suggestion-modal';
 
 const columns = [
   {
@@ -43,6 +44,7 @@ const columns = [
 export const SuggestionsView = () => {
   // modals
   const [reviewId, setReviewId] = useState<string | null>(null);
+  const [rejectId, setRejectId] = useState<string | null>(null);
 
   // api states
   const [filter, setFilter] = useQueryState('filter', { defaultValue: 'all' });
@@ -173,6 +175,19 @@ export const SuggestionsView = () => {
         close={() => {
           setReviewId(null);
         }}
+        onReject={(suggestionId) => {
+          if (suggestionId) {
+            setRejectId(suggestionId);
+            setReviewId(null);
+          }
+        }}
+      />
+      <RejectSuggestionModal
+        isOpen={Boolean(rejectId)}
+        close={() => {
+          setRejectId(null);
+        }}
+        suggestionId={rejectId}
       />
     </>
   );
