@@ -57,7 +57,11 @@ export const POST = async (
               date::text AS date,
               credit_name AS "creditName";
           `,
-          [parsedData.question, parsedData.date, parsedData.creditName],
+          [
+            parsedData.suggestedQuestion,
+            parsedData.date,
+            parsedData.creditName,
+          ],
         )
       ).rows[0];
 

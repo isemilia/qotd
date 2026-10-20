@@ -5,6 +5,7 @@ import { GetAdminSuggestionsParams } from '@/features/admin/suggestions/model/ty
 import {
   AdminSuggestion,
   adminSuggestionResponseSchema,
+  adminSuggestionSchema,
 } from '@/features/admin/suggestions/model/schema';
 
 export const getAdminSuggestions = async (
@@ -24,6 +25,24 @@ export const getAdminSuggestions = async (
   }
 
   const parsedData = adminSuggestionResponseSchema.safeParse(result.data);
+
+  return { ...result, data: parsedData.data };
+};
+
+export const getAdminSuggestionById = async (suggestionId: string) => {
+  const response = await fetch(`/api/admin/suggestions/${suggestionId}`);
+
+  const result: {
+    message: string;
+    status: RequestStatus;
+    data: AdminSuggestion;
+  } = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  const parsedData = adminSuggestionSchema.safeParse(result.data);
 
   return { ...result, data: parsedData.data };
 };

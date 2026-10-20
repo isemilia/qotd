@@ -9,10 +9,12 @@ import { useDebounce } from '@/shared/hooks/use-debounce';
 import { useGetAdminSuggestions } from '@/features/admin/suggestions/api/queries';
 import { SuggestionStatus } from '@/features/admin/suggestions/model/types';
 import { DynamicPagination } from '@/ui/components/dynamic-pagination';
-import { DataTable } from '@/ui/components/data-table';
+import { DataTable, RowClickArgs } from '@/ui/components/data-table';
 import { CopyableText } from '@/ui/components/copyable-text';
 import { formatDate } from '@/shared/utils/date';
 import { SuggestionStatusChip } from '@/features/admin/suggestions/components/suggestion-status-chip';
+import { ReviewSuggestionModal } from '@/features/admin/suggestions/components/review-suggestion-modal';
+import { useState } from 'react';
 
 const columns = [
   {
@@ -39,6 +41,9 @@ const columns = [
 ];
 
 export const SuggestionsView = () => {
+  // modals
+  const [reviewId, setReviewId] = useState<string | null>(null);
+
   // api states
   const [filter, setFilter] = useQueryState('filter', { defaultValue: 'all' });
 
@@ -64,6 +69,19 @@ export const SuggestionsView = () => {
       : filter === 'approved'
         ? [{ header: 'Scheduled question', accessor: 'scheduledQuestion' }]
         : [];
+
+  const handleRowClick = ({
+    row,
+    column,
+  }: RowClickArgs<{ rawStatus: SuggestionStatus }>) => {
+    if (column === 'uuid' || column === 'scheduledQuestion') {
+      return;
+    }
+
+    if (row.rawStatus === 'pending') {
+      setReviewId(row.id);
+    }
+  };
 
   return (
     <>
@@ -105,7 +123,7 @@ export const SuggestionsView = () => {
 
           <div className={'flex-1'}>
             <DataTable
-              // onRowClick={handleRowClick}
+              onRowClick={handleRowClick}
               columns={[...columns, ...extraColumns]}
               rows={suggestions?.map((item) => {
                 return {
@@ -121,6 +139,7 @@ export const SuggestionsView = () => {
                   creditName: item.creditName || '-',
                   createdAt: formatDate(new Date(item.createdAt), 'short'),
                   status: <SuggestionStatusChip variant={item.status} />,
+                  rawStatus: item.status,
                   reason: item.reason,
                   scheduledQuestion: (
                     <Text
@@ -147,6 +166,14 @@ export const SuggestionsView = () => {
           </div>
         </div>
       </div>
+
+      <ReviewSuggestionModal
+        isOpen={Boolean(reviewId)}
+        suggestionId={reviewId}
+        close={() => {
+          setReviewId(null);
+        }}
+      />
     </>
   );
 };

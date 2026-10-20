@@ -4,7 +4,7 @@ import { adminQuestionSchema } from '@/features/admin/questions/model/schema';
 import { suggestionStatuses } from '@/features/admin/suggestions/model/types';
 
 export const approveSuggestionSchema = z.object({
-  question: z.string().max(200).min(1),
+  suggestedQuestion: z.string().max(200).min(1),
   date: z.iso.date(),
   creditName: z.string().max(50).optional().nullable(),
 });

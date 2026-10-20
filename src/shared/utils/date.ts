@@ -13,10 +13,12 @@ export const formatLongDate = (date?: string) => {
 type DateFormat = 'short' | 'long' | 'iso';
 
 export const formatDate = (
-  date?: Date | null,
+  _date?: Date | string | null,
   format: DateFormat = 'iso',
 ): string => {
-  if (!date) return '';
+  if (!_date) return '';
+
+  const date = new Date(_date);
 
   switch (format) {
     case 'short': {
