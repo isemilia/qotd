@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { SuggestionsView } from '@/views/admin/suggestions';
 
 export const metadata: Metadata = {
-  title: 'Scheduled',
+  title: 'Suggestions',
 };
 
 const Page = () => {
