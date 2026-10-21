@@ -9,6 +9,9 @@ import { QuestionFormSkeleton } from '@/features/admin/questions/components/ques
 import { Dot } from 'lucide-react';
 import { formatDate } from '@/shared/utils/date';
 import { RejectSuggestionForm } from './reject-suggestion-form';
+import { RejectAdminSuggestionForm } from '@/features/admin/suggestions/model/schema';
+import { useRejectAdminSuggestion } from '@/features/admin/suggestions/api/mutations';
+import { adminRejectionReasons } from '@/features/admin/suggestions/model/constants';
 
 export const RejectSuggestionModal: FC<{
   isOpen: boolean;
@@ -16,7 +19,27 @@ export const RejectSuggestionModal: FC<{
   suggestionId?: string | null;
 }> = ({ isOpen, close, suggestionId }) => {
   const suggestionRequest = useGetAdminSuggestionById(suggestionId);
+  const rejectRequest = useRejectAdminSuggestion();
+
   const suggestion = suggestionRequest.data?.data;
+
+  const handleReject = async (data: RejectAdminSuggestionForm) => {
+    if (!suggestionId || !suggestion) return;
+
+    const reason =
+      data.reason === 'other'
+        ? data.otherReason || 'No reason provided'
+        : adminRejectionReasons[data.reason];
+
+    await rejectRequest.mutateAsync({
+      suggestionId: suggestion.id,
+      body: {
+        reason: reason,
+      },
+    });
+
+    close();
+  };
 
   return (
     <ResponsiveModal
@@ -68,7 +91,10 @@ export const RejectSuggestionModal: FC<{
 
             <hr className={'border-divider'} />
 
-            <RejectSuggestionForm />
+            <RejectSuggestionForm
+              isPending={rejectRequest.isPending}
+              onSubmit={handleReject}
+            />
           </>
         )}
       </div>

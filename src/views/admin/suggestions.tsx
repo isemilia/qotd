@@ -25,7 +25,7 @@ const columns = [
   {
     header: 'Suggested question',
     accessor: 'suggestedQuestion',
-    className: 'w-full',
+    className: 'max-w-[400px] truncate',
   },
   {
     header: 'Credit name',

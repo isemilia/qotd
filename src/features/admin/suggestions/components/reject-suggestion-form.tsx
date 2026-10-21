@@ -11,8 +11,12 @@ import {
   RejectAdminSuggestionForm,
   rejectAdminSuggestionForm,
 } from '@/features/admin/suggestions/model/schema';
+import { adminRejectionReasonOptions } from '@/features/admin/suggestions/model/constants';
 
-export const RejectSuggestionForm: FC = () => {
+export const RejectSuggestionForm: FC<{
+  onSubmit?: (data: RejectAdminSuggestionForm) => void;
+  isPending?: boolean;
+}> = ({ onSubmit, isPending }) => {
   const form = useForm({
     defaultValues: {
       reason: 'unsuitable',
@@ -30,7 +34,7 @@ export const RejectSuggestionForm: FC = () => {
   }, [reason]);
 
   const handleSubmit = (data: RejectAdminSuggestionForm) => {
-    console.log(data);
+    onSubmit?.(data);
   };
 
   return (
@@ -40,13 +44,7 @@ export const RejectSuggestionForm: FC = () => {
           control={form.control}
           name={'reason'}
           label={'Reason for rejection'}
-          options={[
-            { label: 'Not a good fit for Commonly', name: 'unsuitable' },
-            { label: 'Duplicate question', name: 'duplicate' },
-            { label: 'Inappropriate content', name: 'inappropriate' },
-            { label: 'Unclear or poorly phrased', name: 'unclear' },
-            { label: 'Other', name: 'other' },
-          ]}
+          options={adminRejectionReasonOptions}
         />
 
         {reason === 'other' ? (
@@ -70,7 +68,7 @@ export const RejectSuggestionForm: FC = () => {
         }
       >
         <Button
-          // disabled={isPending}
+          disabled={isPending}
           onClick={() => close()}
           variant={'outline'}
         >
@@ -78,7 +76,7 @@ export const RejectSuggestionForm: FC = () => {
         </Button>
         <Button
           variant={'destructive'}
-          // loading={isPending}
+          loading={isPending}
           onClick={form.handleSubmit(handleSubmit)}
         >
           Reject suggestion

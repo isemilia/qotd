@@ -26,6 +26,7 @@ const columns = [
   {
     header: 'Question',
     accessor: 'question',
+    className: 'max-w-[400px] truncate',
   },
   {
     header: 'Credit name',

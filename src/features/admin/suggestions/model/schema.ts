@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { paginationSchema } from '@/shared/model/schemas';
 import { adminQuestionSchema } from '@/features/admin/questions/model/schema';
 import { suggestionStatuses } from '@/features/admin/suggestions/model/types';
+import { adminRejectionReasonKeys } from '@/features/admin/suggestions/model/constants';
 
 export const approveSuggestionSchema = z.object({
   suggestedQuestion: z.string().max(200).min(1),
@@ -16,6 +17,8 @@ export type ApproveAdminSuggestionBody = z.infer<
 export const rejectSuggestionSchema = z.object({
   reason: z.string().trim().min(1).max(200),
 });
+
+export type RejectAdminSuggestionBody = z.infer<typeof rejectSuggestionSchema>;
 
 export const adminSuggestionSchema = z.object({
   id: z.uuid(),
@@ -43,8 +46,10 @@ export const adminSuggestionResponseSchema = z.object({
 export type AdminSuggestion = z.infer<typeof adminQuestionSchema>;
 
 export const rejectAdminSuggestionForm = z.object({
-  reason: z.string(),
+  reason: z.enum(adminRejectionReasonKeys),
   otherReason: z.string().max(200).optional().nullable(),
 });
 
-export type RejectAdminSuggestionForm = z.infer<typeof rejectSuggestionSchema>;
+export type RejectAdminSuggestionForm = z.infer<
+  typeof rejectAdminSuggestionForm
+>;
