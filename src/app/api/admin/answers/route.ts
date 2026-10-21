@@ -40,14 +40,19 @@ export const GET = async (request: NextRequest) => {
             a.id,
             a.answer,
             a.status,
-            a.moderation_reason AS "moderationReason",
-            a.moderated_at AS "moderatedAt",
-            a.moderated_by AS "moderatedBy",
+
+            json_build_object(
+              'reason', a.moderation_reason,
+              'moderatedAt', a.moderated_at,
+              'moderatedBy', a.moderated_by
+            ) AS "moderation",
+
             a.created_at AS "createdAt",
             a.updated_at AS "updatedAt",
 
             json_build_object(
               'id', u.id,
+              'name', u.name,
               'email', u.email,
               'role', u.role,
               'status', u.status,
@@ -62,22 +67,22 @@ export const GET = async (request: NextRequest) => {
             ) AS "question"
 
           FROM answers a
-          JOIN users u ON u.id = a.user_id
-          JOIN questions q ON q.id = a.question_id
+                 JOIN users u ON u.id = a.user_id
+                 JOIN questions q ON q.id = a.question_id
 
           WHERE (
             $1::answer_status IS NULL
             OR a.status = $1
-          )
-          AND (
+            )
+            AND (
             $2::text IS NULL
             OR a.answer ILIKE '%' || $2 || '%'
             OR q.question ILIKE '%' || $2 || '%'
             OR u.email ILIKE '%' || $2 || '%'
-          )
+            )
 
           ORDER BY a.created_at DESC
-          LIMIT $3
+            LIMIT $3
           OFFSET $4;
         `,
         [...filterParams, pageSize, offset],
@@ -87,19 +92,19 @@ export const GET = async (request: NextRequest) => {
         `
           SELECT COUNT(*) AS count
           FROM answers a
-          JOIN users u ON u.id = a.user_id
-          JOIN questions q ON q.id = a.question_id
+            JOIN users u ON u.id = a.user_id
+            JOIN questions q ON q.id = a.question_id
 
           WHERE (
             $1::answer_status IS NULL
-            OR a.status = $1
-          )
-          AND (
+             OR a.status = $1
+            )
+            AND (
             $2::text IS NULL
-            OR a.answer ILIKE '%' || $2 || '%'
-            OR q.question ILIKE '%' || $2 || '%'
-            OR u.email ILIKE '%' || $2 || '%'
-          );
+             OR a.answer ILIKE '%' || $2 || '%'
+             OR q.question ILIKE '%' || $2 || '%'
+             OR u.email ILIKE '%' || $2 || '%'
+            );
         `,
         filterParams,
       ),
