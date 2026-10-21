@@ -45,8 +45,7 @@ export const POST = async (
             question,
             status,
             reason,
-            created_at AS "createdAt",
-          ;
+            created_at AS "createdAt";
         `,
         [suggestionId, parsedData.reason],
       )

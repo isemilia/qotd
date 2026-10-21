@@ -16,7 +16,8 @@ export const ReviewSuggestionModal: FC<{
   isOpen: boolean;
   close: () => void;
   suggestionId?: string | null;
-}> = ({ isOpen, close, suggestionId }) => {
+  onReject?: (suggestionId?: string | null) => void;
+}> = ({ isOpen, close, suggestionId, onReject }) => {
   const suggestionRequest = useGetAdminSuggestionById(suggestionId);
   const approveRequest = useApproveAdminSuggestion();
 
@@ -113,7 +114,7 @@ export const ReviewSuggestionModal: FC<{
                   color={'error'}
                   weight={'medium'}
                   className={'cursor-pointer'}
-                  // onClick={() => onReject(suggestionId)}
+                  onClick={() => onReject?.(suggestionId)}
                 >
                   Reject suggestion
                 </Text>

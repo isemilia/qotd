@@ -7,6 +7,7 @@ import {
   adminSuggestionResponseSchema,
   adminSuggestionSchema,
   ApproveAdminSuggestionBody,
+  RejectAdminSuggestionBody,
 } from '@/features/admin/suggestions/model/schema';
 
 export const getAdminSuggestions = async (
@@ -57,6 +58,33 @@ export const approveAdminSuggestion = async ({
 }) => {
   const response = await fetch(
     `/api/admin/suggestions/${suggestionId}/approve`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    },
+  );
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
+};
+
+export const rejectAdminSuggestion = async ({
+  suggestionId,
+  body,
+}: {
+  suggestionId: string;
+  body: RejectAdminSuggestionBody;
+}) => {
+  const response = await fetch(
+    `/api/admin/suggestions/${suggestionId}/reject`,
     {
       method: 'POST',
       headers: {
