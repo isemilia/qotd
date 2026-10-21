@@ -60,7 +60,7 @@ export const EditQuestionModal: FC<{
       classNames={{ dialogContent: 'w-full max-w-[678px]!' }}
     >
       <Text component={'h2'} weight={'medium'} className={'text-[24px]'}>
-        Manage question
+        Manage scheduled question
       </Text>
       {questionRequest.isLoading ? (
         <div>

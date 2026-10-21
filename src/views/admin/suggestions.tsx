@@ -16,6 +16,7 @@ import { SuggestionStatusChip } from '@/features/admin/suggestions/components/su
 import { ReviewSuggestionModal } from '@/features/admin/suggestions/components/review-suggestion-modal';
 import { useState } from 'react';
 import { RejectSuggestionModal } from '@/features/admin/suggestions/components/reject-suggestion-modal';
+import { EditQuestionModal } from '@/features/admin/questions/components/edit-question-modal';
 
 const columns = [
   {
@@ -45,6 +46,7 @@ export const SuggestionsView = () => {
   // modals
   const [reviewId, setReviewId] = useState<string | null>(null);
   const [rejectId, setRejectId] = useState<string | null>(null);
+  const [scheduledId, setScheduledId] = useState<string | null>(null);
 
   // api states
   const [filter, setFilter] = useQueryState('filter', { defaultValue: 'all' });
@@ -75,13 +77,22 @@ export const SuggestionsView = () => {
   const handleRowClick = ({
     row,
     column,
-  }: RowClickArgs<{ rawStatus: SuggestionStatus }>) => {
-    if (column === 'uuid' || column === 'scheduledQuestion') {
+  }: RowClickArgs<{
+    rawStatus: SuggestionStatus;
+    scheduledQuestionId?: string | null;
+  }>) => {
+    if (column === 'uuid') {
       return;
     }
 
     if (row.rawStatus === 'pending') {
       setReviewId(row.id);
+      return;
+    }
+
+    if (row.rawStatus === 'approved' && row.scheduledQuestionId) {
+      setScheduledId(row.scheduledQuestionId);
+      return;
     }
   };
 
@@ -143,15 +154,10 @@ export const SuggestionsView = () => {
                   status: <SuggestionStatusChip variant={item.status} />,
                   rawStatus: item.status,
                   reason: item.reason,
-                  scheduledQuestion: (
-                    <Text
-                      className={
-                        'truncate max-w-[80px] cursor-pointer hover:underline'
-                      }
-                    >
-                      {item.scheduledQuestion?.id}
-                    </Text>
-                  ),
+                  scheduledQuestion: item.scheduledQuestion
+                    ? formatDate(new Date(item.scheduledQuestion.date), 'short')
+                    : '-',
+                  scheduledQuestionId: item.scheduledQuestion?.id,
                 };
               })}
             />
@@ -188,6 +194,13 @@ export const SuggestionsView = () => {
           setRejectId(null);
         }}
         suggestionId={rejectId}
+      />
+      <EditQuestionModal
+        isOpen={Boolean(scheduledId)}
+        questionId={scheduledId}
+        close={() => {
+          setScheduledId(null);
+        }}
       />
     </>
   );
