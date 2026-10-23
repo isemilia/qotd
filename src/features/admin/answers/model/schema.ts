@@ -19,7 +19,7 @@ export const adminAnswerSchema = z.object({
   moderation: z.object({
     reason: z.string().nullable(),
     moderatedAt: z.string().datetime({ offset: true }).nullable(),
-    moderatedBy: z.uuid().nullable(),
+    moderatedBy: adminAnswerUserSchema.nullable(),
   }),
 
   createdAt: z.string().datetime({ offset: true }),
@@ -48,4 +48,8 @@ export type AdminAnswerById = z.infer<typeof adminAnswerByIdSchema>;
 export const adminAnswersResponseSchema = z.object({
   answers: z.array(adminAnswerSchema),
   pagination: paginationSchema,
+});
+
+export const hideAnswerSchema = z.object({
+  reason: z.string().max(200).nullable().optional(),
 });
