@@ -7,12 +7,17 @@ export const InfoField: FC<{
   value?: ReactNode;
   capitalize?: boolean;
 }> = ({ label, value, capitalize }) => {
+  const primitives = ['string', 'number'];
+
   return (
     <div>
       <Text color={'secondary'} className={'text-[12px]'}>
         {label}
       </Text>
-      <Text className={cn('text-[14px] mt-1', capitalize && 'capitalize')}>
+      <Text
+        component={primitives.includes(typeof value) ? 'p' : 'div'}
+        className={cn('text-[14px] mt-1', capitalize && 'capitalize')}
+      >
         {value || '-'}
       </Text>
     </div>

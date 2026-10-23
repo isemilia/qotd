@@ -18,6 +18,7 @@ export const ReviewAnswerTabs: FC<{
 
         return (
           <Text
+            key={tab.value}
             component={'button'}
             className={cn(
               'flex items-center gap-2 py-2 px-3 rounded-[8px] cursor-pointer',

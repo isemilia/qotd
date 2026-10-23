@@ -53,3 +53,7 @@ export const adminAnswersResponseSchema = z.object({
 export const hideAnswerSchema = z.object({
   reason: z.string().max(200).nullable().optional(),
 });
+
+export type HideAnswerBody = z.infer<typeof hideAnswerSchema>;
+
+export const hideAnswerFormSchema = hideAnswerSchema;

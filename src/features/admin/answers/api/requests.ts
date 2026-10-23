@@ -7,6 +7,7 @@ import {
   AdminAnswerById,
   adminAnswerByIdSchema,
   adminAnswersResponseSchema,
+  HideAnswerBody,
 } from '@/features/admin/answers/model/schema';
 
 export const getAdminAnswers = async (params?: GetAdminAnswersParams) => {
@@ -44,4 +45,28 @@ export const getAdminAnswerById = async (answerId: string) => {
   const parsedData = adminAnswerByIdSchema.safeParse(result.data);
 
   return { ...result, data: parsedData.data };
+};
+
+export const hideAdminAnswer = async ({
+  answerId,
+  body,
+}: {
+  answerId: string;
+  body: HideAnswerBody;
+}) => {
+  const response = await fetch(`/api/admin/answers/${answerId}/hide`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
 };

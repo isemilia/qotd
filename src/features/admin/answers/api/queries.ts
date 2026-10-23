@@ -7,7 +7,7 @@ import {
 
 export const useGetAdminAnswers = (params?: GetAdminAnswersParams) => {
   return useQuery({
-    queryKey: ['getAdminAnswers', params],
+    queryKey: ['adminAnswers', params],
     queryFn: () => getAdminAnswers(params),
     placeholderData: keepPreviousData,
   });
@@ -15,7 +15,7 @@ export const useGetAdminAnswers = (params?: GetAdminAnswersParams) => {
 
 export const useGetAdminAnswerById = (answerId?: string | null) => {
   return useQuery({
-    queryKey: ['getAdminAnswerById'],
+    queryKey: ['adminAnswerById'],
     queryFn: () => getAdminAnswerById(answerId!),
     enabled: Boolean(answerId),
   });
