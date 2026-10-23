@@ -3,6 +3,7 @@ import { InfoField } from '@/ui/components/info-field';
 import { FC } from 'react';
 import { AdminAnswerById } from '@/features/admin/answers/model/schema';
 import { AnswerStatusChip } from '@/features/admin/answers/components/answer-status-chip';
+import { formatDate } from '@/shared/utils/date';
 
 export const ReviewModerationTab: FC<{
   status?: AdminAnswerById['status'];
@@ -30,8 +31,19 @@ export const ReviewModerationTab: FC<{
       </Text>
 
       {moderation ? (
-        // todo: add moderation info once the endpoints are ready
-        <Text>Coming soon...</Text>
+        <div className={'space-y-3'}>
+          <div className={'grid grid-cols-2 gap-3'}>
+            <InfoField
+              label={'Moderated by'}
+              value={moderation.moderatedBy?.email}
+            />
+            <InfoField
+              label={'Moderated at'}
+              value={formatDate(moderation.moderatedAt, 'short-with-time')}
+            />
+          </div>
+          <InfoField label={'Moderation reason'} value={moderation.reason} />
+        </div>
       ) : (
         <Text>This answer hasn't been moderated</Text>
       )}

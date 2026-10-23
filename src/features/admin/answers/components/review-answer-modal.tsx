@@ -39,7 +39,11 @@ export const ReviewAnswerModal: FC<{
     ),
     user: <ReviewUserTab user={answer?.user} />,
     moderation: (
-      <ReviewModerationTab status={answer?.status} answerId={answer?.id} />
+      <ReviewModerationTab
+        status={answer?.status}
+        answerId={answer?.id}
+        moderation={answer?.moderation}
+      />
     ),
   };
 
@@ -75,14 +79,18 @@ export const ReviewAnswerModal: FC<{
           >
             Cancel
           </Button>
-          <Button
-            variant={'destructive'}
-            onClick={() => {
-              onHide?.(answerId);
-            }}
-          >
-            Hide answer
-          </Button>
+          {answer?.status === 'published' ? (
+            <Button
+              variant={'destructive'}
+              onClick={() => {
+                onHide?.(answerId);
+              }}
+            >
+              Hide answer
+            </Button>
+          ) : (
+            <Button>Restore answer</Button>
+          )}
         </div>
       </div>
     </ResponsiveModal>

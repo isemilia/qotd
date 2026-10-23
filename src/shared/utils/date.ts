@@ -10,8 +10,7 @@ export const formatLongDate = (date?: string) => {
   }).format(new Date(year, month - 1, day));
 };
 
-type DateFormat = 'short' | 'long' | 'iso';
-
+export type DateFormat = 'iso' | 'short' | 'long' | 'short-with-time';
 export const formatDate = (
   _date?: Date | string | null,
   format: DateFormat = 'iso',
@@ -26,6 +25,16 @@ export const formatDate = (
         month: 'short',
         day: 'numeric',
         year: 'numeric',
+      }).format(date);
+    }
+
+    case 'short-with-time': {
+      return new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
       }).format(date);
     }
 
