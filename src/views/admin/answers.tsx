@@ -14,6 +14,7 @@ import { CopyableText } from '@/ui/components/copyable-text';
 import { DynamicPagination } from '@/ui/components/dynamic-pagination';
 import { AnswerStatusChip } from '@/features/admin/answers/components/answer-status-chip';
 import { ReviewAnswerModal } from '@/features/admin/answers/components/review-answer-modal';
+import { HideAnswerModal } from '@/features/admin/answers/components/hide-answer-modal';
 
 const columns = [
   {
@@ -47,6 +48,7 @@ const columns = [
 export const AnswersView: FC = () => {
   // modals
   const [reviewId, setReviewId] = useState<string | null>(null);
+  const [hideId, setHideId] = useState<string | null>(null);
 
   // api states
   const [filter, setFilter] = useQueryState('filter', { defaultValue: 'all' });
@@ -158,6 +160,20 @@ export const AnswersView: FC = () => {
         close={() => {
           setReviewId(null);
         }}
+        onHide={(answerId) => {
+          if (answerId) {
+            setHideId(answerId);
+            setReviewId(null);
+          }
+        }}
+      />
+
+      <HideAnswerModal
+        isOpen={Boolean(hideId)}
+        close={() => {
+          setHideId(null);
+        }}
+        answerId={hideId}
       />
     </>
   );

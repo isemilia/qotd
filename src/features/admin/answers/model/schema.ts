@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { answerStatuses } from '@/features/admin/answers/model/types';
 import { paginationSchema } from '@/shared/model/schemas';
+import { adminAnswerHideReasonKeys } from '@/features/admin/answers/model/constants';
 
 const adminAnswerUserSchema = z.object({
   id: z.uuid(),
@@ -56,4 +57,9 @@ export const hideAnswerSchema = z.object({
 
 export type HideAnswerBody = z.infer<typeof hideAnswerSchema>;
 
-export const hideAnswerFormSchema = hideAnswerSchema;
+export const hideAdminAnswerForm = z.object({
+  reason: z.enum(adminAnswerHideReasonKeys),
+  otherReason: z.string().max(200).optional().nullable(),
+});
+
+export type HideAdminAnswerForm = z.infer<typeof hideAdminAnswerForm>;

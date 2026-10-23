@@ -16,7 +16,8 @@ export const ReviewAnswerModal: FC<{
   isOpen: boolean;
   close: () => void;
   answerId?: string | null;
-}> = ({ isOpen, close, answerId }) => {
+  onHide?: (answerId?: string | null) => void;
+}> = ({ isOpen, close, answerId, onHide }) => {
   const answerRequest = useGetAdminAnswerById(answerId);
   const answer = answerRequest.data?.data;
 
@@ -76,7 +77,9 @@ export const ReviewAnswerModal: FC<{
           </Button>
           <Button
             variant={'destructive'}
-            // loading={isPending}
+            onClick={() => {
+              onHide?.(answerId);
+            }}
           >
             Hide answer
           </Button>
