@@ -39,6 +39,7 @@ export const GET = async (
 
             json_build_object(
               'id', u.id,
+              'name', u.name,
               'email', u.email,
               'role', u.role,
               'status', u.status,

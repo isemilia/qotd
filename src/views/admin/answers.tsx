@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Text } from '@/ui/primitives/text';
 import { FilterChipGroup } from '@/ui/components/filter-chip-group';
 import { Input } from '@/ui/primitives/input';
@@ -9,10 +9,11 @@ import { useDebounce } from '@/shared/hooks/use-debounce';
 import { parseAsInteger, useQueryState } from 'nuqs';
 import { useGetAdminAnswers } from '@/features/admin/answers/api/queries';
 import { AnswerStatus } from '@/features/admin/answers/model/types';
-import { DataTable } from '@/ui/components/data-table';
+import { DataTable, RowClickArgs } from '@/ui/components/data-table';
 import { CopyableText } from '@/ui/components/copyable-text';
 import { DynamicPagination } from '@/ui/components/dynamic-pagination';
 import { AnswerStatusChip } from '@/features/admin/answers/components/answer-status-chip';
+import { ReviewAnswerModal } from '@/features/admin/answers/components/review-answer-modal';
 
 const columns = [
   {
@@ -44,6 +45,9 @@ const columns = [
 ];
 
 export const AnswersView: FC = () => {
+  // modals
+  const [reviewId, setReviewId] = useState<string | null>(null);
+
   // api states
   const [filter, setFilter] = useQueryState('filter', { defaultValue: 'all' });
 
@@ -62,6 +66,14 @@ export const AnswersView: FC = () => {
 
   const answers = answersRequest.data?.data?.answers || [];
   const pagination = answersRequest.data?.data?.pagination;
+
+  const handleRowClick = ({ row, column }: RowClickArgs) => {
+    if (column === 'uuid' || column === 'author') {
+      return;
+    }
+
+    setReviewId(row.id);
+  };
 
   return (
     <>
@@ -102,7 +114,7 @@ export const AnswersView: FC = () => {
 
           <div className={'flex-1'}>
             <DataTable
-              // onRowClick={handleRowClick}
+              onRowClick={handleRowClick}
               columns={columns}
               rows={answers?.map((item) => {
                 return {
@@ -139,6 +151,14 @@ export const AnswersView: FC = () => {
           </div>
         </div>
       </div>
+
+      <ReviewAnswerModal
+        isOpen={Boolean(reviewId)}
+        answerId={reviewId}
+        close={() => {
+          setReviewId(null);
+        }}
+      />
     </>
   );
 };
