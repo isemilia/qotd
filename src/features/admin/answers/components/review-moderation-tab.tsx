@@ -20,7 +20,7 @@ export const ReviewModerationTab: FC<{
           label={'Answer status'}
           value={<AnswerStatusChip variant={status} />}
         />
-        <InfoField label={'Answer Id'} value={answerId} />
+        <InfoField label={'Answer ID'} value={answerId} />
       </div>
 
       <hr className={'border-divider'} />
