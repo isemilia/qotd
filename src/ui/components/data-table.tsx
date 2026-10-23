@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import {
   Table,
   TableBody,
@@ -32,50 +32,52 @@ export const DataTable = <R extends object = object>({
   onRowClick,
 }: DataTableProps<R>) => {
   return (
-    <Table className={className}>
-      <TableHeader>
-        <TableRow
-          className={
-            'border-table-divider bg-primary-foreground hover:bg-primary-foreground'
-          }
-        >
-          {columns.map((column) => {
+    <div className={'w-full overflow-x-auto'}>
+      <Table className={className}>
+        <TableHeader>
+          <TableRow
+            className={
+              'border-table-divider bg-primary-foreground hover:bg-primary-foreground'
+            }
+          >
+            {columns.map((column) => {
+              return (
+                <TableHead
+                  key={column.accessor}
+                  className={
+                    'text-primary text-[14px] py-3 px-4 font-semibold first:rounded-tl-[8px] last:rounded-tr-[8px]'
+                  }
+                >
+                  {column.header}
+                </TableHead>
+              );
+            })}
+          </TableRow>
+        </TableHeader>
+
+        <TableBody>
+          {rows.map((row) => {
             return (
-              <TableHead
-                key={column.accessor}
-                className={
-                  'text-primary text-[14px] py-3 px-4 font-semibold first:rounded-tl-[8px] last:rounded-tr-[8px]'
-                }
-              >
-                {column.header}
-              </TableHead>
+              <TableRow key={row.id} className={'border-table-divider'}>
+                {columns.map((column) => {
+                  return (
+                    <TableCell
+                      key={column.accessor}
+                      className={cn('text-[14px] py-3 px-4', column.className)}
+                      onClick={() => {
+                        onRowClick?.({ row, column: column.accessor });
+                      }}
+                    >
+                      {/* @ts-ignore */}
+                      {row[column.accessor]}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
             );
           })}
-        </TableRow>
-      </TableHeader>
-
-      <TableBody>
-        {rows.map((row) => {
-          return (
-            <TableRow key={row.id} className={'border-table-divider'}>
-              {columns.map((column) => {
-                return (
-                  <TableCell
-                    key={column.accessor}
-                    className={cn('text-[14px] py-3 px-4', column.className)}
-                    onClick={() => {
-                      onRowClick?.({ row, column: column.accessor });
-                    }}
-                  >
-                    {/* @ts-ignore */}
-                    {row[column.accessor]}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          );
-        })}
-      </TableBody>
-    </Table>
+        </TableBody>
+      </Table>
+    </div>
   );
 };

@@ -35,6 +35,7 @@ export const ReviewAnswerModal: FC<{
         question={answer?.question}
         answer={answer?.answer}
         user={answer?.user}
+        status={answer?.status}
       />
     ),
     user: <ReviewUserTab user={answer?.user} />,

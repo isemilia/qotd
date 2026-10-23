@@ -77,6 +77,21 @@ export const AnswersView: FC = () => {
     setReviewId(row.id);
   };
 
+  const extraColumns =
+    filter === 'hidden'
+      ? [
+          {
+            header: 'Reason',
+            accessor: 'reason',
+            className: 'max-w-[200px] truncate',
+          },
+          {
+            header: 'Moderated by',
+            accessor: 'moderatedBy',
+          },
+        ]
+      : [];
+
   return (
     <>
       <div className={'flex-1 h-full flex flex-col'}>
@@ -117,7 +132,7 @@ export const AnswersView: FC = () => {
           <div className={'flex-1'}>
             <DataTable
               onRowClick={handleRowClick}
-              columns={columns}
+              columns={[...columns, ...extraColumns]}
               rows={answers?.map((item) => {
                 return {
                   id: item.id,
@@ -137,6 +152,8 @@ export const AnswersView: FC = () => {
                   ),
                   questionDate: item.question.date,
                   status: <AnswerStatusChip variant={item.status} />,
+                  reason: item.moderation.reason,
+                  moderatedBy: item.moderation.moderatedBy?.email,
                 };
               })}
             />
