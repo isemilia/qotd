@@ -70,3 +70,17 @@ export const hideAdminAnswer = async ({
 
   return result;
 };
+
+export const restoreAdminAnswer = async (answerId: string) => {
+  const response = await fetch(`/api/admin/answers/${answerId}/restore`, {
+    method: 'POST',
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
+};

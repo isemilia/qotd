@@ -78,7 +78,11 @@ export const HideAnswerModal: FC<{
 
       <hr className={'border-divider'} />
 
-      <HideAnswerForm isPending={hideRequest.isPending} onSubmit={handleHide} />
+      <HideAnswerForm
+        isPending={hideRequest.isPending}
+        onSubmit={handleHide}
+        onCancel={close}
+      />
     </ResponsiveModal>
   );
 };

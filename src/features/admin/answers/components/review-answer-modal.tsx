@@ -11,6 +11,7 @@ import { ReviewAnswerTab } from '@/features/admin/answers/components/review-answ
 import { Button } from '@/ui/primitives/button';
 import { ReviewUserTab } from '@/features/admin/answers/components/review-user-tab';
 import { ReviewModerationTab } from '@/features/admin/answers/components/review-moderation-tab';
+import { useRestoreAdminAnswer } from '@/features/admin/answers/api/mutations';
 
 export const ReviewAnswerModal: FC<{
   isOpen: boolean;
@@ -20,6 +21,8 @@ export const ReviewAnswerModal: FC<{
 }> = ({ isOpen, close, answerId, onHide }) => {
   const answerRequest = useGetAdminAnswerById(answerId);
   const answer = answerRequest.data?.data;
+
+  const restoreRequest = useRestoreAdminAnswer();
 
   const [currentTab, setCurrentTab] = useState('answer');
 
@@ -48,6 +51,14 @@ export const ReviewAnswerModal: FC<{
     ),
   };
 
+  const handleRestore = async () => {
+    if (!answerId || !answer) return;
+
+    await restoreRequest.mutateAsync(answer.id);
+
+    close();
+  };
+
   return (
     <ResponsiveModal
       open={isOpen}
@@ -74,8 +85,8 @@ export const ReviewAnswerModal: FC<{
           }
         >
           <Button
-            // disabled={isPending}
-            // onClick={onCancel}
+            disabled={restoreRequest.isPending}
+            onClick={close}
             variant={'outline'}
           >
             Cancel
@@ -90,7 +101,9 @@ export const ReviewAnswerModal: FC<{
               Hide answer
             </Button>
           ) : (
-            <Button>Restore answer</Button>
+            <Button loading={restoreRequest.isPending} onClick={handleRestore}>
+              Restore answer
+            </Button>
           )}
         </div>
       </div>

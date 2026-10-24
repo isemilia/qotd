@@ -1,0 +1,44 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { RequestStatus } from '@/server/model/types';
+import { checkAdminAccess } from '@/server/utils/admin';
+import { getSession } from '@/server/utils/session';
+import { db } from '@/server/utils/db';
+
+export const POST = async (
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) => {
+  try {
+    await checkAdminAccess();
+
+    const answerId = (await params).id;
+
+    const session = (await getSession())!;
+
+    await db.query(
+      `
+      UPDATE answers
+      SET
+        status = 'published',
+        moderated_by = $1,
+        moderated_at = NOW()
+      WHERE id = $2;
+    `,
+      [session.user_id, answerId],
+    );
+
+    return NextResponse.json({
+      status: RequestStatus.SUCCESS,
+      message: 'Answer restored successfully',
+    });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      {
+        status: RequestStatus.ERROR,
+        message: 'Something went wrong',
+      },
+      { status: 500 },
+    );
+  }
+};

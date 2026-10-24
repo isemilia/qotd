@@ -30,7 +30,7 @@ export const ReviewModerationTab: FC<{
         Last moderation action
       </Text>
 
-      {moderation ? (
+      {moderation?.moderatedAt ? (
         <div className={'space-y-3'}>
           <div className={'grid grid-cols-2 gap-3'}>
             <InfoField

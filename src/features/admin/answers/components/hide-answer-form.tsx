@@ -16,7 +16,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 export const HideAnswerForm: FC<{
   onSubmit?: (data: HideAdminAnswerForm) => void;
   isPending?: boolean;
-}> = ({ isPending, onSubmit }) => {
+  onCancel?: () => void;
+}> = ({ isPending, onSubmit, onCancel }) => {
   const form = useForm({
     defaultValues: { reason: 'irrelevant', otherReason: '' },
     resolver: zodResolver(hideAdminAnswerForm),
@@ -65,11 +66,7 @@ export const HideAnswerForm: FC<{
           'mt-6 flex items-center gap-4 justify-end max-md:grid max-md:grid-cols-2 max-md:gap-3'
         }
       >
-        <Button
-          disabled={isPending}
-          onClick={() => close()}
-          variant={'outline'}
-        >
+        <Button disabled={isPending} onClick={onCancel} variant={'outline'}>
           Cancel
         </Button>
         <Button
