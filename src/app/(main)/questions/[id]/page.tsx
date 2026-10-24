@@ -45,6 +45,7 @@ const Page = async ({
   });
 
   const date = formatLongDate(question.date);
+
   const answerCountText =
     question.answerCount === 0
       ? null
@@ -108,7 +109,7 @@ const Page = async ({
               <Calendar className={'size-4'} />
               {date}
             </Text>
-            {question.answerCount > 1 ? (
+            {question.answerCount >= 1 ? (
               <Text
                 color={'secondary'}
                 className={'flex items-center gap-2 text-[14px]'}
