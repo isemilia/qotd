@@ -66,7 +66,7 @@ export const DatePickerInput: FC<DatePickerInputProps> = ({
       id={id}
       className={cn(
         disabled &&
-          'pointer-events-none, opacity-70 ring-0! outline-none! border-0!',
+          'pointer-events-none, border-0! opacity-70 ring-0! outline-none!',
       )}
     >
       <InputGroupInput
@@ -101,7 +101,7 @@ export const DatePickerInput: FC<DatePickerInputProps> = ({
                 aria-label='Select date'
                 disabled={disabled}
               >
-                <CalendarIcon className={'size-4 text-primary'} />
+                <CalendarIcon className={'text-primary size-4'} />
                 <span className='sr-only'>Select date</span>
               </InputGroupButton>
             }

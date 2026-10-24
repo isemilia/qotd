@@ -54,7 +54,7 @@ export const DeleteQuestionModal: FC<{
 
           <Text
             component={'div'}
-            className={'flex items-center gap-2 [&_p]:m-0 mt-3'}
+            className={'mt-3 flex items-center gap-2 [&_p]:m-0'}
           >
             {question?.creditName ? (
               <p>
@@ -82,7 +82,7 @@ export const DeleteQuestionModal: FC<{
 
       <div
         className={
-          'mt-6 flex items-center gap-4 justify-end max-md:grid max-md:grid-cols-2 max-md:gap-3'
+          'mt-6 flex items-center justify-end gap-4 max-md:grid max-md:grid-cols-2 max-md:gap-3'
         }
       >
         <Button

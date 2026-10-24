@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const Page = () => {
   return (
-    <Surface className={'p-8 w-full max-w-126 max-md:px-5'}>
+    <Surface className={'w-full max-w-126 p-8 max-md:px-5'}>
       <SignInForm />
     </Surface>
   );

@@ -45,7 +45,7 @@ export const DataTable = <R extends object = object>({
                 <TableHead
                   key={column.accessor}
                   className={
-                    'text-primary text-[14px] py-3 px-4 font-semibold first:rounded-tl-[8px] last:rounded-tr-[8px]'
+                    'text-primary px-4 py-3 text-[14px] font-semibold first:rounded-tl-[8px] last:rounded-tr-[8px]'
                   }
                 >
                   {column.header}
@@ -63,7 +63,7 @@ export const DataTable = <R extends object = object>({
                   return (
                     <TableCell
                       key={column.accessor}
-                      className={cn('text-[14px] py-3 px-4', column.className)}
+                      className={cn('px-4 py-3 text-[14px]', column.className)}
                       onClick={() => {
                         onRowClick?.({ row, column: column.accessor });
                       }}

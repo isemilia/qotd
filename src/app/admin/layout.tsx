@@ -15,10 +15,10 @@ export const metadata: Metadata = {
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className={'h-full p-3 flex gap-3 flex-1 min-w-0 w-full'}>
+    <div className={'flex h-full w-full min-w-0 flex-1 gap-3 p-3'}>
       <Sidebar />
       <main
-        className={'flex-1 bg-white shadow-card rounded-[12px] p-4 min-w-0'}
+        className={'shadow-card min-w-0 flex-1 rounded-[12px] bg-white p-4'}
       >
         {children}
       </main>

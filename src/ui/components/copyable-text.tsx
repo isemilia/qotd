@@ -28,7 +28,7 @@ export const CopyableText: FC<{ children?: string; className?: string }> = ({
     <Text
       component={'button'}
       color={'inherit'}
-      className={cn('flex items-center gap-3 cursor-pointer', className)}
+      className={cn('flex cursor-pointer items-center gap-3', className)}
       onClick={() => handleClick(children)}
     >
       {copied ? (

@@ -24,9 +24,9 @@ export const UserDropdownItem: FC<
       color={color}
     >
       {loading ? (
-        <Spinner className={'size-5 pointer-events-none'} />
+        <Spinner className={'pointer-events-none size-5'} />
       ) : (
-        <Icon className={'size-5 pointer-events-none'} />
+        <Icon className={'pointer-events-none size-5'} />
       )}
       <span>{label}</span>
     </Text>

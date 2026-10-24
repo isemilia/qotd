@@ -14,7 +14,7 @@ export const FilterChip: FC<
   return (
     <div
       className={cn(
-        'text-[12px] transition-all font-medium border border-transparent px-3 grid place-content-center h-7 max-w-fit cursor-pointer rounded-full',
+        'grid h-7 max-w-fit cursor-pointer place-content-center rounded-full border border-transparent px-3 text-[12px] font-medium transition-all',
         isActive
           ? 'text-primary-foreground bg-primary font-semibold hover:opacity-80'
           : 'text-secondary border-secondary hover:bg-secondary/5',

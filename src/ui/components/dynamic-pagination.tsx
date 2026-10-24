@@ -108,7 +108,7 @@ export const DynamicPagination: FC<Props> = ({
           return (
             <span
               key={`ellipsis-${index}`}
-              className={'grid place-content-center size-8'}
+              className={'grid size-8 place-content-center'}
             >
               …
             </span>

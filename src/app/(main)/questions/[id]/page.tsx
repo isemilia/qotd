@@ -54,7 +54,7 @@ const Page = async ({
   const renderAnswers = () => {
     if (!answers.length) {
       return (
-        <Text className={'text-[16px] mt-4'}>
+        <Text className={'mt-4 text-[16px]'}>
           &#127811; This question went unanswered
         </Text>
       );
@@ -63,7 +63,7 @@ const Page = async ({
     return (
       <div
         className={
-          'grid grid-cols-3 gap-4 mt-8 max-md:mt-6 max-md:grid-cols-2 max-sm:grid-cols-1'
+          'mt-8 grid grid-cols-3 gap-4 max-md:mt-6 max-md:grid-cols-2 max-sm:grid-cols-1'
         }
       >
         {answers.map((item) => {
@@ -92,17 +92,17 @@ const Page = async ({
           <Text
             component={'h1'}
             className={
-              'text-[48px] max-lg:text-[40px] max-md:text-[36px] leading-[122%] max-w-[720px] max-sm:whitespace-normal whitespace-pre-wrap mt-5 max-sm:mt-8'
+              'mt-5 max-w-[720px] text-[48px] leading-[122%] whitespace-pre-wrap max-lg:text-[40px] max-md:text-[36px] max-sm:mt-8 max-sm:whitespace-normal'
             }
             weight={'semibold'}
           >
             {question.question}
           </Text>
 
-          <div className={'flex items-center gap-5 mt-5'}>
+          <div className={'mt-5 flex items-center gap-5'}>
             <Text
               color={'secondary'}
-              className={'text-[14px] flex items-center gap-2'}
+              className={'flex items-center gap-2 text-[14px]'}
             >
               <Calendar className={'size-4'} />
               {date}
@@ -110,7 +110,7 @@ const Page = async ({
             {question.answerCount > 1 ? (
               <Text
                 color={'secondary'}
-                className={'text-[14px] flex items-center gap-2'}
+                className={'flex items-center gap-2 text-[14px]'}
               >
                 <MessageLinearIcon className={'size-4'} />
                 {answerCountText}

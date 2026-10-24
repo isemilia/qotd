@@ -63,7 +63,7 @@ export const DeleteAccountModal: FC<{ triggerClassName?: string }> = ({
           <Text
             component={'div'}
             color={'secondary'}
-            className={'text-[14px] mt-2'}
+            className={'mt-2 text-[14px]'}
           >
             <p>
               Are you sure you want to delete your account? This action cannot
@@ -87,7 +87,7 @@ export const DeleteAccountModal: FC<{ triggerClassName?: string }> = ({
 
           <div
             className={
-              'mt-6 flex items-center gap-4 justify-end max-md:grid max-md:grid-cols-2 max-md:gap-3'
+              'mt-6 flex items-center justify-end gap-4 max-md:grid max-md:grid-cols-2 max-md:gap-3'
             }
           >
             <Button disabled={deleteAccount.isPending} variant={'outline'}>

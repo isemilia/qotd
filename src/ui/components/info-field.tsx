@@ -16,7 +16,7 @@ export const InfoField: FC<{
       </Text>
       <Text
         component={primitives.includes(typeof value) ? 'p' : 'div'}
-        className={cn('text-[14px] mt-1', capitalize && 'capitalize')}
+        className={cn('mt-1 text-[14px]', capitalize && 'capitalize')}
       >
         {value || '-'}
       </Text>

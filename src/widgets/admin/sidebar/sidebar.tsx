@@ -8,7 +8,7 @@ export const Sidebar: FC = () => {
   return (
     <aside
       className={
-        'bg-white shadow-card rounded-[12px] w-[220px] shrink-0 py-4 px-3 flex flex-col justify-between'
+        'shadow-card flex w-[220px] shrink-0 flex-col justify-between rounded-[12px] bg-white px-3 py-4'
       }
     >
       <div>

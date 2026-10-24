@@ -6,7 +6,7 @@ export const Surface: FC<{
   className?: string | string[];
 }> = ({ children, className }) => {
   return (
-    <div className={cn('p-5 bg-white shadow-card rounded-[16px]', className)}>
+    <div className={cn('shadow-card rounded-[16px] bg-white p-5', className)}>
       {children}
     </div>
   );

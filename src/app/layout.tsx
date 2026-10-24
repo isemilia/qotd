@@ -39,7 +39,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         'font-sans',
       )}
     >
-      <body className='min-h-full flex flex-col text-primary leading-[1.2]'>
+      <body className='text-primary flex min-h-full flex-col leading-[1.2]'>
         <NuqsAdapter>
           <QueryProvider>
             <AuthProvider>{children}</AuthProvider>

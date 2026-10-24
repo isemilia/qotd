@@ -43,7 +43,7 @@ export const ColorRadio: FC<ColorRadioProps> = ({
             className='peer hidden'
           />
 
-          <div className='flex items-center justify-center rounded-full border-2 border-transparent p-1 peer-aria-checked:border-primary'>
+          <div className='peer-aria-checked:border-primary flex items-center justify-center rounded-full border-2 border-transparent p-1'>
             <div className={cn(option.bg, 'size-5 rounded-full')} />
           </div>
         </FieldLabel>

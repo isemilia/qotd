@@ -13,7 +13,7 @@ export const BackLink = () => {
       type='button'
       onClick={() => router.back()}
       color='secondary'
-      className='text-[14px] flex items-center gap-2 cursor-pointer transition-colors hover:text-primary'
+      className='hover:text-primary flex cursor-pointer items-center gap-2 text-[14px] transition-colors'
     >
       <ArrowLeft className='size-4' />
       Back

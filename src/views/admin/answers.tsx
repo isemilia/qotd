@@ -94,15 +94,15 @@ export const AnswersView: FC = () => {
 
   return (
     <>
-      <div className={'flex-1 h-full flex flex-col'}>
+      <div className={'flex h-full flex-1 flex-col'}>
         <Text weight={'medium'} className={'text-[24px]'}>
           All answers
         </Text>
-        <Text color={'secondary'} className={'text-[14px] mt-3'}>
+        <Text color={'secondary'} className={'mt-3 text-[14px]'}>
           Manage answers submitted by users
         </Text>
 
-        <div className={'mt-6 flex-1 flex flex-col gap-4'}>
+        <div className={'mt-6 flex flex-1 flex-col gap-4'}>
           <div className={'flex items-center justify-between gap-4'}>
             <FilterChipGroup
               value={filter}
@@ -138,7 +138,7 @@ export const AnswersView: FC = () => {
                   id: item.id,
                   uuid: (
                     <CopyableText
-                      className={'[&_span]:truncate [&_span]:max-w-[50px]'}
+                      className={'[&_span]:max-w-[50px] [&_span]:truncate'}
                     >
                       {item.id}
                     </CopyableText>

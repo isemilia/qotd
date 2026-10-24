@@ -30,7 +30,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
             <Text className={'text-[24px]'} weight={'medium'}>
               {user.name}
             </Text>
-            <Text className={'text-[14px] mt-0.5'} color={'secondary'}>
+            <Text className={'mt-0.5 text-[14px]'} color={'secondary'}>
               {user.answerCount} answers
             </Text>
           </div>

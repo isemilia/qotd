@@ -56,7 +56,7 @@ export const SuggestQuestion: FC<{ isOpen: boolean; close: Function }> = ({
         <Text component={'h2'} weight={'medium'} className={'text-[24px]'}>
           Suggest a question
         </Text>
-        <Text color={'secondary'} className={'text-[14px] mt-3'}>
+        <Text color={'secondary'} className={'mt-3 text-[14px]'}>
           What's something you've always wanted to ask other people? Submit your
           question below and it could become a future question of the day
         </Text>
@@ -96,7 +96,7 @@ export const SuggestQuestion: FC<{ isOpen: boolean; close: Function }> = ({
 
         <div
           className={
-            'mt-6 flex items-center gap-4 justify-end max-md:grid max-md:grid-cols-2 max-md:gap-3'
+            'mt-6 flex items-center justify-end gap-4 max-md:grid max-md:grid-cols-2 max-md:gap-3'
           }
         >
           <Button

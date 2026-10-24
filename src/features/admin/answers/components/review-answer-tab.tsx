@@ -21,13 +21,13 @@ export const ReviewAnswerTab: FC<{
 
       <div className={'space-y-4'}>
         <div>
-          <Text weight={'medium'} className={'text-[14px] mt-2'}>
+          <Text weight={'medium'} className={'mt-2 text-[14px]'}>
             {question?.question}
           </Text>
 
           <Text
             component={'div'}
-            className={'flex items-center gap-2 [&_p]:m-0 mt-2'}
+            className={'mt-2 flex items-center gap-2 [&_p]:m-0'}
           >
             {question?.creditName ? (
               <p>
@@ -52,7 +52,7 @@ export const ReviewAnswerTab: FC<{
           </Text>
           <Text
             component={'div'}
-            className={'bg-muted p-4 rounded-[12px] mt-2'}
+            className={'bg-muted mt-2 rounded-[12px] p-4'}
           >
             {answer}
           </Text>

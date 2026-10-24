@@ -19,7 +19,7 @@ export const SidebarProfile: FC = async () => {
       <CollapsibleTrigger className={'w-full cursor-pointer'}>
         <div
           className={
-            'bg-primary-foreground p-2 rounded-[8px] flex items-center gap-3'
+            'bg-primary-foreground flex items-center gap-3 rounded-[8px] p-2'
           }
         >
           <ProfileFilledIcon className={'size-8'} />
@@ -29,7 +29,7 @@ export const SidebarProfile: FC = async () => {
             </Text>
             <Text
               color={'secondary'}
-              className={'text-[12px] mt-px capitalize -ml-1'}
+              className={'mt-px -ml-1 text-[12px] capitalize'}
             >
               {user?.role}
             </Text>

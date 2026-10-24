@@ -54,18 +54,18 @@ export const MobileMenu: FC<{
           </div>
         ) : (
           <MenuLinearIcon
-            className={'size-6 text-secondary pointer-events-none'}
+            className={'text-secondary pointer-events-none size-6'}
           />
         )}
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
         className={
-          'h-full min-w-full gap-2.5 rounded-none bg-background p-0 grid grid-rows-[auto_1fr]'
+          'bg-background grid h-full min-w-full grid-rows-[auto_1fr] gap-2.5 rounded-none p-0'
         }
       >
         <DialogHeader
-          className={'h-12.5 px-5 flex flex-row items-center justify-between'}
+          className={'flex h-12.5 flex-row items-center justify-between px-5'}
         >
           <Image
             src={'/logo.svg'}
@@ -75,11 +75,11 @@ export const MobileMenu: FC<{
             className={'max-w-[104px]'}
           />
           <DialogClose>
-            <XIcon className={'size-6 text-secondary'} />
+            <XIcon className={'text-secondary size-6'} />
           </DialogClose>
         </DialogHeader>
 
-        <div className={'flex flex-col gap-4 px-5 h-full overflow-auto pb-6'}>
+        <div className={'flex h-full flex-col gap-4 overflow-auto px-5 pb-6'}>
           {menu.map((group, i) => {
             return (
               <Fragment key={i}>
@@ -110,7 +110,7 @@ export const MobileMenu: FC<{
               />
             </>
           ) : null}
-          <Text className={'text-center opacity-40 text-[12px] mt-auto'}>
+          <Text className={'mt-auto text-center text-[12px] opacity-40'}>
             © {currentYear} QOTD | All rights reserved
           </Text>
         </div>

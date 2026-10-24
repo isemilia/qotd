@@ -30,7 +30,7 @@ function FieldLegend({
       data-slot='field-legend'
       data-variant={variant}
       className={cn(
-        'mb-3 text-primary font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base',
+        'text-primary mb-3 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base',
         className,
       )}
       {...props}
@@ -106,7 +106,7 @@ function FieldLabel({
     <Label
       data-slot='field-label'
       className={cn(
-        'group/field-label peer/field-label text-[14px] text-inherit font-semibold flex w-fit gap-2 group-data-[disabled=true]/field:opacity-50 has-data-checked:bg-input/30 has-[>[data-slot=field]]:rounded-2xl has-[>[data-slot=field]]:border has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-input/40 has-[>[data-slot=field]]:has-[:focus-visible]:border-ring has-[>[data-slot=field]]:has-[:focus-visible]:ring-3 has-[>[data-slot=field]]:has-[:focus-visible]:ring-ring/50 *:data-[slot=field]:p-4',
+        'group/field-label peer/field-label has-data-checked:bg-input/30 has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-input/40 has-[>[data-slot=field]]:has-[:focus-visible]:border-ring has-[>[data-slot=field]]:has-[:focus-visible]:ring-ring/50 flex w-fit gap-2 text-[14px] font-semibold text-inherit group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-2xl has-[>[data-slot=field]]:border has-[>[data-slot=field]]:has-[:focus-visible]:ring-3 *:data-[slot=field]:p-4',
         'has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col',
         className,
       )}
@@ -133,9 +133,9 @@ function FieldDescription({ className, ...props }: React.ComponentProps<'p'>) {
     <p
       data-slot='field-description'
       className={cn(
-        'text-left text-[12px] text-secondary font-normal group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5',
+        'text-secondary text-left text-[12px] font-normal group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5',
         // 'last:mt-0 nth-last-2:-mt-1',
-        '[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary',
+        '[&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
         className,
       )}
       {...props}
@@ -163,7 +163,7 @@ function FieldSeparator({
       <Separator className='absolute inset-0 top-1/2' />
       {children && (
         <span
-          className='relative mx-auto block w-fit bg-background px-2 text-muted-foreground'
+          className='bg-background text-muted-foreground relative mx-auto block w-fit px-2'
           data-slot='field-separator-content'
         >
           {children}
@@ -216,7 +216,7 @@ function FieldError({
     <div
       role='alert'
       data-slot='field-error'
-      className={cn('text-[12px] font-normal text-destructive', className)}
+      className={cn('text-destructive text-[12px] font-normal', className)}
       {...props}
     >
       {content}

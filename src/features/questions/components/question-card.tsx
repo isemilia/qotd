@@ -23,10 +23,10 @@ export const QuestionCard: FC<{
     <Link
       href={href}
       className={
-        'bg-foreground shadow-card py-4 px-5 rounded-[16px] flex flex-col gap-3 transition-all hover:[&_.chevron]:translate-x-[6px]'
+        'bg-foreground shadow-card flex flex-col gap-3 rounded-[16px] px-5 py-4 transition-all hover:[&_.chevron]:translate-x-[6px]'
       }
     >
-      <Text className={'text-[16px] flex-1'} weight={'medium'}>
+      <Text className={'flex-1 text-[16px]'} weight={'medium'}>
         {question}
       </Text>
       <Text
@@ -46,7 +46,7 @@ export const QuestionCard: FC<{
             </>
           )}
         </Text>
-        <ChevronRight className={'chevron transition-transform size-4'} />
+        <ChevronRight className={'chevron size-4 transition-transform'} />
       </Text>
     </Link>
   );

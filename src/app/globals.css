@@ -93,31 +93,31 @@
   --midnight-200: oklch(0.886 0.033 254);
   --midnight-100: oklch(0.979 0.011 244);
 
-  --periwinkle-300: oklch(0.852 0.050 273);
+  --periwinkle-300: oklch(0.852 0.05 273);
   --periwinkle-200: oklch(0.905 0.028 272);
   --periwinkle-100: oklch(0.954 0.018 276);
 
   --vanilla-100: oklch(0.992 0.006 75);
-  --vanilla-200: oklch(0.980 0.010 82);
+  --vanilla-200: oklch(0.98 0.01 82);
 
-  --lavender-800: #4E3C89;
-  --lavender-500: #BFB2EE;
-  --lavender-200: #E9E3FD;
+  --lavender-800: #4e3c89;
+  --lavender-500: #bfb2ee;
+  --lavender-200: #e9e3fd;
 
-  --cornflower-800: #255B82;
-  --cornflower-500: #78B5E0;
-  --cornflower-200: #DCECF8;
+  --cornflower-800: #255b82;
+  --cornflower-500: #78b5e0;
+  --cornflower-200: #dcecf8;
 
-  --mint-800: #286E0F;
-  --mint-500: #98C2A9;
-  --mint-200: #E3F5DC;
+  --mint-800: #286e0f;
+  --mint-500: #98c2a9;
+  --mint-200: #e3f5dc;
 
-  --peach-500: #FCB191;
-  --coral-500: #FE8DA2;
+  --peach-500: #fcb191;
+  --coral-500: #fe8da2;
 
   --sand-800: #765308;
-  --sand-500: #FFE89A;
-  --sand-200: #FEEDC7;
+  --sand-500: #ffe89a;
+  --sand-200: #feedc7;
 
   --white: oklch(1 0 0);
 
@@ -213,7 +213,7 @@
 }
 
 .bg-auth {
-  background: url("/bg-auth.png");
+  background: url('/bg-auth.png');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -224,7 +224,7 @@
 }
 
 .content-container {
-  @apply w-full mx-auto;
+  @apply mx-auto w-full;
 
   @media (min-width: 640px) {
     @apply max-w-[640px];
@@ -240,17 +240,17 @@
 }
 
 .bg-home-hero {
-  background-image: url("/bg-home-hero-mobile.png");
+  background-image: url('/bg-home-hero-mobile.png');
   background-position: center bottom;
   background-repeat: no-repeat;
   background-size: cover;
   @media (min-width: 640px) {
-    background-image: url("/bg-home-hero.png");
+    background-image: url('/bg-home-hero.png');
   }
 }
 
 .bg-single-question-hero {
-  background-image: url("/bg-single-question-hero.png");
+  background-image: url('/bg-single-question-hero.png');
   background-position: center bottom;
   background-repeat: no-repeat;
   background-size: cover;

@@ -65,7 +65,7 @@ export const SidebarItemList: FC = () => {
             <Text
               font={'mono'}
               color={'secondary'}
-              className={'uppercase text-[12px] tracking-[1px]'}
+              className={'text-[12px] tracking-[1px] uppercase'}
             >
               {group.title}
             </Text>

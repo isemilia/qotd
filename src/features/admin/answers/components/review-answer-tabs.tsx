@@ -21,7 +21,7 @@ export const ReviewAnswerTabs: FC<{
             key={tab.value}
             component={'button'}
             className={cn(
-              'flex items-center gap-2 py-2 px-3 rounded-[8px] cursor-pointer',
+              'flex cursor-pointer items-center gap-2 rounded-[8px] px-3 py-2',
               tab.value === value && 'bg-muted font-medium',
             )}
             onClick={() => onChange?.(tab.value)}

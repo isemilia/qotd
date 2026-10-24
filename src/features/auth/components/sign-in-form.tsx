@@ -49,14 +49,14 @@ export const SignInForm: FC = () => {
         </Text>
       </div>
 
-      <div className={'flex flex-col gap-2 mt-5'}>
+      <div className={'mt-5 flex flex-col gap-2'}>
         <Text component={'h1'} weight={'semibold'} className={'text-[24px]'}>
           Welcome back
         </Text>
         <Text className={'text-[14px]'}>Ready for today's question?</Text>
       </div>
 
-      <form className={'mt-4 '}>
+      <form className={'mt-4'}>
         <div className={'space-y-4'}>
           <ControlledInput
             name={'email'}
@@ -76,7 +76,7 @@ export const SignInForm: FC = () => {
         </div>
         <div className={'mt-6 flex flex-col items-center gap-3'}>
           <Button
-            className={' w-full max-w-[354px]'}
+            className={'w-full max-w-[354px]'}
             onClick={form.handleSubmit(handleSubmit)}
             loading={signIn.isPending}
           >

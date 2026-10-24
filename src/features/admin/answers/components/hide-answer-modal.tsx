@@ -51,13 +51,13 @@ export const HideAnswerModal: FC<{
         </Text>
 
         <div>
-          <Text weight={'medium'} className={'text-[16px] mt-2'}>
+          <Text weight={'medium'} className={'mt-2 text-[16px]'}>
             {answer?.answer}
           </Text>
 
           <Text
             component={'div'}
-            className={'flex items-center gap-2 [&_p]:m-0 mt-2'}
+            className={'mt-2 flex items-center gap-2 [&_p]:m-0'}
           >
             <p>
               Answered by{' '}

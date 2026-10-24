@@ -15,7 +15,7 @@ export const Header: FC = async () => {
   return (
     <div
       className={
-        'h-16 max-md:h-12.5 max-md:px-5 px-15 flex justify-between items-center'
+        'flex h-16 items-center justify-between px-15 max-md:h-12.5 max-md:px-5'
       }
     >
       <nav className={'flex items-center gap-7'}>
