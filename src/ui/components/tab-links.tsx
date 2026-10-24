@@ -18,7 +18,7 @@ export const TabLinks: FC<{
   const value = usePathname();
 
   return (
-    <div className={cn('flex items-center relative', className)}>
+    <div className={cn('relative flex items-center', className)}>
       {items.map((item) => {
         return (
           <Link href={item.href} key={item.href}>
@@ -27,14 +27,14 @@ export const TabLinks: FC<{
               color={value === item.href ? 'primary' : 'secondary'}
               weight={value === item.href ? 'medium' : 'normal'}
               className={
-                'cursor-pointer text-[14px] py-2.5 px-5 relative transition-all'
+                'relative cursor-pointer px-5 py-2.5 text-[14px] transition-all'
               }
             >
               {item.label}
               {value === item.href ? (
                 <span
                   className={
-                    'absolute -bottom-px left-0 w-full h-0.5 bg-primary rounded-full'
+                    'bg-primary absolute -bottom-px left-0 h-0.5 w-full rounded-full'
                   }
                 />
               ) : null}
@@ -42,7 +42,7 @@ export const TabLinks: FC<{
           </Link>
         );
       })}
-      <div className={'h-px w-full absolute bottom-0 bg-primary/20'} />
+      <div className={'bg-primary/20 absolute bottom-0 h-px w-full'} />
     </div>
   );
 };

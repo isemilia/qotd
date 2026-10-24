@@ -14,12 +14,12 @@ export const Footer = () => {
   return (
     <div
       className={
-        'relative max-md:px-5 px-15 flex justify-between py-8 mt-25 max-md:hidden'
+        'relative mt-25 flex justify-between px-15 py-8 max-md:hidden max-md:px-5'
       }
     >
       <hr
         className={
-          'border-secondary/20 w-[85%] absolute top-0 left-1/2 -translate-x-1/2'
+          'border-secondary/20 absolute top-0 left-1/2 w-[85%] -translate-x-1/2'
         }
       />
       <div>
@@ -32,7 +32,7 @@ export const Footer = () => {
             className={'max-w-[104px]'}
           />
         </Link>
-        <Text color={'secondary'} className={'text-[14px] mt-2'}>
+        <Text color={'secondary'} className={'mt-2 text-[14px]'}>
           One question, countless perspectives
         </Text>
       </div>
@@ -51,7 +51,7 @@ export const Footer = () => {
           })}
         </nav>
 
-        <Text color={'secondary'} className={'text-[14px] mt-3 text-right'}>
+        <Text color={'secondary'} className={'mt-3 text-right text-[14px]'}>
           © 2026 QOTD. All rights reserved.
         </Text>
       </div>

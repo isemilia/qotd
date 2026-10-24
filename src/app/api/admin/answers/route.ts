@@ -44,7 +44,17 @@ export const GET = async (request: NextRequest) => {
             json_build_object(
               'reason', a.moderation_reason,
               'moderatedAt', a.moderated_at,
-              'moderatedBy', a.moderated_by
+              'moderatedBy', CASE
+                 WHEN moderator.id IS NOT NULL THEN json_build_object(
+                   'id', moderator.id,
+                   'name', moderator.name,
+                   'email', moderator.email,
+                   'role', moderator.role,
+                   'status', moderator.status,
+                   'createdAt', moderator.created_at
+                 )
+                 ELSE NULL
+                END
             ) AS "moderation",
 
             a.created_at AS "createdAt",
@@ -69,6 +79,7 @@ export const GET = async (request: NextRequest) => {
           FROM answers a
                  JOIN users u ON u.id = a.user_id
                  JOIN questions q ON q.id = a.question_id
+                 LEFT JOIN users moderator ON moderator.id = a.moderated_by
 
           WHERE (
             $1::answer_status IS NULL

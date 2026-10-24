@@ -59,7 +59,7 @@ export const SignUpForm: FC = () => {
         </Text>
       </div>
 
-      <div className={'flex flex-col gap-2 mt-5'}>
+      <div className={'mt-5 flex flex-col gap-2'}>
         <Text component={'h1'} weight={'semibold'} className={'text-[24px]'}>
           Sign up
         </Text>
@@ -118,7 +118,7 @@ export const SignUpForm: FC = () => {
         </div>
         <div className={'mt-6 flex flex-col items-center gap-3'}>
           <Button
-            className={' w-full max-w-[354px]'}
+            className={'w-full max-w-[354px]'}
             onClick={form.handleSubmit(handleSubmit)}
             loading={createAccount.isPending}
           >

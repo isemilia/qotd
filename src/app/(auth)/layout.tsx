@@ -4,7 +4,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div
       className={
-        'bg-auth min-h-screen flex flex-col items-center justify-center'
+        'bg-auth flex min-h-screen flex-col items-center justify-center'
       }
     >
       {children}

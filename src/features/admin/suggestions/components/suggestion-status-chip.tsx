@@ -33,7 +33,7 @@ export const SuggestionStatusChip: FC<{ variant?: SuggestionStatus }> = ({
       className={cn(
         propertyMap[variant].bg,
         propertyMap[variant].text,
-        'rounded-full max-w-fit text-[12px] px-3 h-5 grid place-content-center',
+        'grid h-5 max-w-fit place-content-center rounded-full px-3 text-[12px]',
       )}
       weight={'medium'}
     >

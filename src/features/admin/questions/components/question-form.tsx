@@ -91,14 +91,14 @@ export const QuestionForm: FC<{
           </div>
         </div>
 
-        <Text className={'text-[12px] mt-4'} color={'secondary'}>
+        <Text className={'mt-4 text-[12px]'} color={'secondary'}>
           {helperText ||
             'The question will be published on the selected date. If someone suggested it, you can credit them by adding their name'}
         </Text>
 
         <div
           className={
-            'mt-6 flex items-center gap-4 justify-between max-md:grid max-md:grid-cols-2 max-md:gap-3'
+            'mt-6 flex items-center justify-between gap-4 max-md:grid max-md:grid-cols-2 max-md:gap-3'
           }
         >
           <div className={'flex items-center gap-4'}>{actions}</div>
@@ -123,7 +123,7 @@ export const QuestionFormSkeleton = () => {
   return (
     <div>
       <Skeleton className={'h-[164px]'} />
-      <div className={'grid grid-cols-2 gap-3 mt-4'}>
+      <div className={'mt-4 grid grid-cols-2 gap-3'}>
         <Skeleton className={'h-[74px]'} />
         <Skeleton className={'h-[74px]'} />
       </div>

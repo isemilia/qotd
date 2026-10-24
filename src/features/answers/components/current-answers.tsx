@@ -16,7 +16,7 @@ export const CurrentAnswers: FC<{ page: number }> = async ({ page }) => {
 
     if (!answers.length) {
       return (
-        <Text className={'text-[16px] mt-4'}>
+        <Text className={'mt-4 text-[16px]'}>
           &#127811; Nothing here yet. Be the first to share your answer
         </Text>
       );

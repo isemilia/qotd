@@ -52,7 +52,7 @@ export const ControlledTextarea: FC<{
               />
               {maxLength ? (
                 <Text
-                  className={'text-[12px] text-right absolute bottom-3 right-3'}
+                  className={'absolute right-3 bottom-3 text-right text-[12px]'}
                   color={
                     fieldState.invalid || exceedsMax ? 'error' : 'secondary'
                   }

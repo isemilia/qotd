@@ -41,7 +41,7 @@ const Page = async () => {
         <Text weight={'medium'} className={'text-[24px]'}>
           Danger zone
         </Text>
-        <Text color={'secondary'} className={'text-[14px] mt-3'}>
+        <Text color={'secondary'} className={'mt-3 text-[14px]'}>
           Deleting your account will permanently remove your account and
           personal information. Your anonymous answers will remain on the
           platform

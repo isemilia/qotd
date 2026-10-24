@@ -65,7 +65,7 @@ export const EditQuestionModal: FC<{
       {questionRequest.isLoading ? (
         <div>
           <Skeleton className={'h-[164px]'} />
-          <div className={'grid grid-cols-2 gap-3 mt-4'}>
+          <div className={'mt-4 grid grid-cols-2 gap-3'}>
             <Skeleton className={'h-[74px]'} />
             <Skeleton className={'h-[74px]'} />
           </div>

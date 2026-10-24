@@ -74,7 +74,7 @@ export const ReviewSuggestionModal: FC<{
 
               <Text
                 component={'div'}
-                className={'flex items-center gap-2 [&_p]:m-0 mt-3'}
+                className={'mt-3 flex items-center gap-2 [&_p]:m-0'}
               >
                 {suggestion?.creditName ? (
                   <p>

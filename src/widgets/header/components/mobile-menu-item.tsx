@@ -31,7 +31,7 @@ export const MobileMenuItem: FC<MenuItem & { loading?: boolean }> = ({
   return (
     <div
       className={cn(
-        'bg-foreground px-4 py-4 rounded-[16px] shadow-card',
+        'bg-foreground shadow-card rounded-[16px] px-4 py-4',
         loading && 'pointer-events-none cursor-not-allowed opacity-70',
       )}
     >

@@ -21,16 +21,16 @@ export const RadioField: FC<RadioFieldProps> = ({
         <Field
           key={option.name}
           orientation='horizontal'
-          className={'gap-2 items-center'}
+          className={'items-center gap-2'}
         >
           <RadioGroupItem
             value={option.name}
             id={option.name}
-            className={'border border-primary cursor-pointer'}
+            className={'border-primary cursor-pointer border'}
           />
           <FieldLabel
             htmlFor={option.name}
-            className='font-normal cursor-pointer'
+            className='cursor-pointer font-normal'
           >
             {option.label}
           </FieldLabel>

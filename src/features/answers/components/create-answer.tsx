@@ -103,7 +103,7 @@ export const CreateAnswer: FC<{
 
         <div
           className={
-            'mt-6 flex items-center gap-4 justify-end max-md:grid max-md:grid-cols-2 max-md:gap-3'
+            'mt-6 flex items-center justify-end gap-4 max-md:grid max-md:grid-cols-2 max-md:gap-3'
           }
         >
           <Button

@@ -20,7 +20,7 @@ export const AnswersGrid: FC<
 
   if (!answers.length) {
     return (
-      <Text className={'text-[16px] mt-4'}>
+      <Text className={'mt-4 text-[16px]'}>
         &#127811; {emptyStateText || 'No answers here'}
       </Text>
     );

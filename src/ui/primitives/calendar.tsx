@@ -42,8 +42,8 @@ function Calendar({
         ...formatters,
       }}
       className={cn(
-        'group/calendar w-fit rounded-xl bg-popover p-3 text-popover-foreground',
-        '[--cell-size:2.25rem] [--cell-radius:0.625rem]',
+        'group/calendar bg-popover text-popover-foreground w-fit rounded-xl p-3',
+        '[--cell-radius:0.625rem] [--cell-size:2.25rem]',
         'select-none',
         className,
       )}
@@ -184,7 +184,7 @@ function Calendar({
           if (orientation === 'left') {
             return (
               <ChevronLeftIcon
-                className={cn('size-4 text-secondary', className)}
+                className={cn('text-secondary size-4', className)}
                 {...chevronProps}
               />
             );
@@ -193,7 +193,7 @@ function Calendar({
           if (orientation === 'right') {
             return (
               <ChevronRightIcon
-                className={cn('size-4 text-secondary', className)}
+                className={cn('text-secondary size-4', className)}
                 {...chevronProps}
               />
             );
@@ -201,7 +201,7 @@ function Calendar({
 
           return (
             <ChevronDownIcon
-              className={cn('size-4 text-secondary', className)}
+              className={cn('text-secondary size-4', className)}
               {...chevronProps}
             />
           );
@@ -213,7 +213,7 @@ function Calendar({
 
         WeekNumber: ({ children, ...weekNumberProps }) => (
           <td {...weekNumberProps}>
-            <div className='flex size-(--cell-size) items-center justify-center text-center text-xs text-muted-foreground'>
+            <div className='text-muted-foreground flex size-(--cell-size) items-center justify-center text-center text-xs'>
               {children}
             </div>
           </td>
@@ -263,11 +263,11 @@ function CalendarDayButton({
       className={cn(
         'relative flex aspect-square size-auto w-full min-w-(--cell-size)',
         'items-center justify-center rounded-(--cell-radius)',
-        'border-0 p-0 text-sm text-primary font-normal leading-none',
+        'text-primary border-0 p-0 text-sm leading-none font-normal',
         'transition-colors duration-150',
         'hover:bg-periwinkle-200 hover:text-primary hover:bg-[var(--midnight-100)]',
         'focus-visible:z-20 focus-visible:outline-none',
-        'focus-visible:ring-2 focus-visible:ring-ring',
+        'focus-visible:ring-ring focus-visible:ring-2',
         'aria-disabled:pointer-events-none aria-disabled:opacity-40',
         'data-[outside=true]:text-muted-foreground/40',
 

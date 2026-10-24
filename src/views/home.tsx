@@ -34,14 +34,14 @@ export const HomeView: FC<{ page: number }> = async ({ page }) => {
     <>
       <ContentContainer
         className={
-          'pt-[100px] pb-[80px] max-md:pt-[70px] max-lg:pb-[100px] max-md:pb-[70px] bg-home-hero min-h-[600px] max-lg:min-h-auto max-md:min-h-[90vh]'
+          'bg-home-hero min-h-[600px] pt-[100px] pb-[80px] max-lg:min-h-auto max-lg:pb-[100px] max-md:min-h-[90vh] max-md:pt-[70px] max-md:pb-[70px]'
         }
       >
         <Text
           color={'secondary'}
           weight={'medium'}
           font={'mono'}
-          className={'uppercase tracking-[2px] max-lg:text-[14px]'}
+          className={'tracking-[2px] uppercase max-lg:text-[14px]'}
         >
           Today's question
         </Text>
@@ -52,7 +52,7 @@ export const HomeView: FC<{ page: number }> = async ({ page }) => {
         <Text
           component={'h1'}
           className={
-            'text-[48px] max-lg:text-[40px] max-md:text-[36px] leading-[122%] max-w-[720px] max-sm:whitespace-normal whitespace-pre-wrap mt-5 max-sm:mt-8'
+            'mt-5 max-w-[720px] text-[48px] leading-[122%] whitespace-pre-wrap max-lg:text-[40px] max-md:text-[36px] max-sm:mt-8 max-sm:whitespace-normal'
           }
           weight={'semibold'}
         >
@@ -63,14 +63,14 @@ export const HomeView: FC<{ page: number }> = async ({ page }) => {
           href={'#answers'}
           color={'secondary'}
           className={
-            'flex items-center gap-2 mt-4 max-lg:text-[14px] max-sm:mt-4 hover:text-primary'
+            'hover:text-primary mt-4 flex items-center gap-2 max-lg:text-[14px] max-sm:mt-4'
           }
         >
           <MessageLinearIcon className={'size-4'} />
           <span>{peopleAnswered}</span>
         </Text>
 
-        <div className={'flex items-center gap-6 mt-6 max-sm:mt-9'}>
+        <div className={'mt-6 flex items-center gap-6 max-sm:mt-9'}>
           <CreateAnswerTrigger
             question={{
               id: currentQuestion.id,

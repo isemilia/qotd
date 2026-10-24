@@ -29,6 +29,7 @@ export const GET = async (
               'moderatedBy', CASE
               WHEN moderator.id IS NOT NULL THEN json_build_object(
                'id', moderator.id,
+               'name', moderator.name,
                'email', moderator.email,
                'role', moderator.role,
                'status', moderator.status,
@@ -39,6 +40,7 @@ export const GET = async (
 
             json_build_object(
               'id', u.id,
+              'name', u.name,
               'email', u.email,
               'role', u.role,
               'status', u.status,
@@ -89,7 +91,6 @@ export const GET = async (
     });
   } catch (e) {
     console.error(e);
-
     return NextResponse.json(
       {
         status: RequestStatus.ERROR,

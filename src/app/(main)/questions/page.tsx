@@ -33,7 +33,7 @@ const Page = async ({
 
       <div
         className={
-          'grid grid-cols-3 gap-4 mt-8 max-md:mt-6 max-md:grid-cols-2 max-sm:grid-cols-1'
+          'mt-8 grid grid-cols-3 gap-4 max-md:mt-6 max-md:grid-cols-2 max-sm:grid-cols-1'
         }
       >
         {questions.map((item) => {

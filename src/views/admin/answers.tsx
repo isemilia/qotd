@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Text } from '@/ui/primitives/text';
 import { FilterChipGroup } from '@/ui/components/filter-chip-group';
 import { Input } from '@/ui/primitives/input';
@@ -9,10 +9,12 @@ import { useDebounce } from '@/shared/hooks/use-debounce';
 import { parseAsInteger, useQueryState } from 'nuqs';
 import { useGetAdminAnswers } from '@/features/admin/answers/api/queries';
 import { AnswerStatus } from '@/features/admin/answers/model/types';
-import { DataTable } from '@/ui/components/data-table';
+import { DataTable, RowClickArgs } from '@/ui/components/data-table';
 import { CopyableText } from '@/ui/components/copyable-text';
 import { DynamicPagination } from '@/ui/components/dynamic-pagination';
 import { AnswerStatusChip } from '@/features/admin/answers/components/answer-status-chip';
+import { ReviewAnswerModal } from '@/features/admin/answers/components/review-answer-modal';
+import { HideAnswerModal } from '@/features/admin/answers/components/hide-answer-modal';
 
 const columns = [
   {
@@ -44,6 +46,10 @@ const columns = [
 ];
 
 export const AnswersView: FC = () => {
+  // modals
+  const [reviewId, setReviewId] = useState<string | null>(null);
+  const [hideId, setHideId] = useState<string | null>(null);
+
   // api states
   const [filter, setFilter] = useQueryState('filter', { defaultValue: 'all' });
 
@@ -63,17 +69,40 @@ export const AnswersView: FC = () => {
   const answers = answersRequest.data?.data?.answers || [];
   const pagination = answersRequest.data?.data?.pagination;
 
+  const handleRowClick = ({ row, column }: RowClickArgs) => {
+    if (column === 'uuid' || column === 'author') {
+      return;
+    }
+
+    setReviewId(row.id);
+  };
+
+  const extraColumns =
+    filter === 'hidden'
+      ? [
+          {
+            header: 'Reason',
+            accessor: 'reason',
+            className: 'max-w-[200px] truncate',
+          },
+          {
+            header: 'Moderated by',
+            accessor: 'moderatedBy',
+          },
+        ]
+      : [];
+
   return (
     <>
-      <div className={'flex-1 h-full flex flex-col'}>
+      <div className={'flex h-full flex-1 flex-col'}>
         <Text weight={'medium'} className={'text-[24px]'}>
           All answers
         </Text>
-        <Text color={'secondary'} className={'text-[14px] mt-3'}>
+        <Text color={'secondary'} className={'mt-3 text-[14px]'}>
           Manage answers submitted by users
         </Text>
 
-        <div className={'mt-6 flex-1 flex flex-col gap-4'}>
+        <div className={'mt-6 flex flex-1 flex-col gap-4'}>
           <div className={'flex items-center justify-between gap-4'}>
             <FilterChipGroup
               value={filter}
@@ -102,14 +131,14 @@ export const AnswersView: FC = () => {
 
           <div className={'flex-1'}>
             <DataTable
-              // onRowClick={handleRowClick}
-              columns={columns}
+              onRowClick={handleRowClick}
+              columns={[...columns, ...extraColumns]}
               rows={answers?.map((item) => {
                 return {
                   id: item.id,
                   uuid: (
                     <CopyableText
-                      className={'[&_span]:truncate [&_span]:max-w-[50px]'}
+                      className={'[&_span]:max-w-[50px] [&_span]:truncate'}
                     >
                       {item.id}
                     </CopyableText>
@@ -123,6 +152,8 @@ export const AnswersView: FC = () => {
                   ),
                   questionDate: item.question.date,
                   status: <AnswerStatusChip variant={item.status} />,
+                  reason: item.moderation.reason,
+                  moderatedBy: item.moderation.moderatedBy?.email,
                 };
               })}
             />
@@ -139,6 +170,28 @@ export const AnswersView: FC = () => {
           </div>
         </div>
       </div>
+
+      <ReviewAnswerModal
+        isOpen={Boolean(reviewId)}
+        answerId={reviewId}
+        close={() => {
+          setReviewId(null);
+        }}
+        onHide={(answerId) => {
+          if (answerId) {
+            setHideId(answerId);
+            setReviewId(null);
+          }
+        }}
+      />
+
+      <HideAnswerModal
+        isOpen={Boolean(hideId)}
+        close={() => {
+          setHideId(null);
+        }}
+        answerId={hideId}
+      />
     </>
   );
 };

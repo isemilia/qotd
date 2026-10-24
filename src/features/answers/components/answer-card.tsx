@@ -42,30 +42,30 @@ export const AnswerCard: FC<AnswerCardProps> = ({
   return (
     <div
       className={
-        'bg-foreground shadow-card py-4 px-5 rounded-[16px] flex flex-col'
+        'bg-foreground shadow-card flex flex-col rounded-[16px] px-5 py-4'
       }
     >
       <Text
         component={Link}
         href={`/questions/${question.id}`}
         className={
-          'flex items-center gap-2.5 text-[12px] transition-colors hover:text-primary'
+          'hover:text-primary flex items-center gap-2.5 text-[12px] transition-colors'
         }
         color={'secondary'}
       >
         <span
-          className={cn('rounded-full size-2.5 shrink-0', cardClasses.bg)}
+          className={cn('size-2.5 shrink-0 rounded-full', cardClasses.bg)}
         />
-        <span className={'truncate w-full'} title={question.question}>
+        <span className={'w-full truncate'} title={question.question}>
           {question.question}
         </span>
       </Text>
 
-      <Text className={'text-[16px] mt-3 flex-1'} weight={'medium'}>
+      <Text className={'mt-3 flex-1 text-[16px]'} weight={'medium'}>
         {answer}
       </Text>
 
-      <div className={'flex items-center justify-between mt-3 text-[12px]'}>
+      <div className={'mt-3 flex items-center justify-between text-[12px]'}>
         <Text color={'secondary'}>{timestamp}</Text>
         <AnswerLikeButton
           answerId={id}
@@ -79,5 +79,5 @@ export const AnswerCard: FC<AnswerCardProps> = ({
 };
 
 export const AnswerCardSkeleton: FC = () => {
-  return <Skeleton className={'w-full h-[146px] rounded-[16px]'} />;
+  return <Skeleton className={'h-[146px] w-full rounded-[16px]'} />;
 };
