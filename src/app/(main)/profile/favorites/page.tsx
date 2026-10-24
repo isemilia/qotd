@@ -14,6 +14,7 @@ const Page = async () => {
   return (
     <AnswersGrid
       likedByUserId={user?.id}
+      status={'published'}
       emptyStateText={'No favorites yet. Answers you save will appear here'}
     />
   );

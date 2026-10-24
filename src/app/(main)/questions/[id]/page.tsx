@@ -41,6 +41,7 @@ const Page = async ({
     questionId,
     pageSize: 9,
     page,
+    status: 'published',
   });
 
   const date = formatLongDate(question.date);
