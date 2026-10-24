@@ -6,6 +6,8 @@ import { cn } from '@/shared/utils/cn';
 import { AnswerLikeButton } from '@/features/answers/components/answer-like-button';
 import Link from 'next/link';
 import { Skeleton } from '@/ui/primitives/skeleton';
+import { AnswerStatus } from '@/features/admin/answers/model/types';
+import { Info } from 'lucide-react';
 
 export const answerCardColors = [
   'lavender',
@@ -26,6 +28,8 @@ export type AnswerCardProps = {
   likeCount: number;
   isLiked?: boolean;
   id: string;
+  status?: AnswerStatus;
+  moderationReason?: string | null;
 };
 export const AnswerCard: FC<AnswerCardProps> = ({
   color = 'cornflower',
@@ -35,6 +39,8 @@ export const AnswerCard: FC<AnswerCardProps> = ({
   createdAt,
   isLiked,
   id,
+  status,
+  moderationReason,
 }) => {
   const timestamp = getTimeGap(createdAt);
   const cardClasses = cardColors[color];
@@ -42,7 +48,7 @@ export const AnswerCard: FC<AnswerCardProps> = ({
   return (
     <div
       className={
-        'bg-foreground shadow-card flex flex-col rounded-[16px] px-5 py-4'
+        'bg-foreground shadow-card flex flex-col gap-3 rounded-[16px] px-5 py-4'
       }
     >
       <Text
@@ -61,11 +67,11 @@ export const AnswerCard: FC<AnswerCardProps> = ({
         </span>
       </Text>
 
-      <Text className={'mt-3 flex-1 text-[16px]'} weight={'medium'}>
+      <Text className={'flex-1 text-[16px]'} weight={'medium'}>
         {answer}
       </Text>
 
-      <div className={'mt-3 flex items-center justify-between text-[12px]'}>
+      <div className={'flex items-center justify-between text-[12px]'}>
         <Text color={'secondary'}>{timestamp}</Text>
         <AnswerLikeButton
           answerId={id}
@@ -74,6 +80,26 @@ export const AnswerCard: FC<AnswerCardProps> = ({
           isLiked={isLiked}
         />
       </div>
+
+      {status === 'hidden' ? (
+        <>
+          <hr className={'border-divider'} />
+          <div className={'flex gap-2'}>
+            <Info className={'text-destructive size-4'} />
+
+            <div className={'space-y-1'}>
+              <Text weight={'medium'} className={'text-[14px]'}>
+                This answer has been hidden
+              </Text>
+              {moderationReason ? (
+                <Text color={'secondary'} className={'text-[12px]'}>
+                  Reason: {moderationReason}
+                </Text>
+              ) : null}
+            </div>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 };

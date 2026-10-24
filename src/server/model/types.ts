@@ -1,5 +1,6 @@
 import { AnswerCardColor } from '@/features/answers/components/answer-card';
 import { UserRole } from '@/features/auth/model/types';
+import { AnswerStatus } from '@/features/admin/answers/model/types';
 
 export enum RequestStatus {
   SUCCESS = 'success',
@@ -45,6 +46,11 @@ export type Answer = {
   createdAt: string;
   likeCount: number;
   isLiked: boolean;
+};
+
+export type AnswerExtended = Answer & {
+  status: AnswerStatus;
+  moderationReason: string | null;
 };
 
 export type PaginationConfig = {

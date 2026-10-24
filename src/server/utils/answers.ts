@@ -1,5 +1,5 @@
 import { db } from '@/server/utils/db';
-import { Answer, PaginationConfig } from '@/server/model/types';
+import { Answer, AnswerExtended, PaginationConfig } from '@/server/model/types';
 import { getCurrentQuestion } from '@/server/utils/questions';
 import { getCurrentUser } from '@/server/utils/session';
 import { AnswerStatus } from '@/features/admin/answers/model/types';
@@ -184,11 +184,13 @@ export const getAnswers = async (args: GetAnswersArgs = {}) => {
   const offsetParam = `$${values.length}`;
 
   const [answersResult, countResult] = await Promise.all([
-    db.query<Answer>(
+    db.query<AnswerExtended>(
       `
         SELECT
           a.id,
           a.answer,
+          a.status,
+          a.moderation_reason as "moderationReason",
           json_build_object(
             'id', q.id,
             'question', q.question,
