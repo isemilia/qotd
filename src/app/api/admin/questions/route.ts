@@ -14,7 +14,8 @@ import { checkAdminAccess } from '@/server/utils/admin';
 
 export const GET = async (request: NextRequest) => {
   try {
-    await checkAdminAccess();
+    const accessError = await checkAdminAccess();
+    if (accessError) return accessError;
 
     const searchParams = request.nextUrl.searchParams;
 
@@ -134,7 +135,8 @@ export const GET = async (request: NextRequest) => {
 
 export const POST = async (request: NextRequest) => {
   try {
-    await checkAdminAccess();
+    const accessError = await checkAdminAccess();
+    if (accessError) return accessError;
 
     const body = await request.json();
 
@@ -197,7 +199,8 @@ export const POST = async (request: NextRequest) => {
 
 export const PUT = async (request: NextRequest) => {
   try {
-    await checkAdminAccess();
+    const accessError = await checkAdminAccess();
+    if (accessError) return accessError;
 
     const body = await request.json();
 

@@ -10,7 +10,8 @@ export const POST = async (
   { params }: { params: Promise<{ id: string }> },
 ) => {
   try {
-    await checkAdminAccess();
+    const accessError = await checkAdminAccess();
+    if (accessError) return accessError;
 
     const { id: suggestionId } = await params;
     const body = await request.json();

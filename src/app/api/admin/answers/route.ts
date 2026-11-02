@@ -9,7 +9,8 @@ import {
 
 export const GET = async (request: NextRequest) => {
   try {
-    await checkAdminAccess();
+    const accessError = await checkAdminAccess();
+    if (accessError) return accessError;
 
     const searchParams = request.nextUrl.searchParams;
 

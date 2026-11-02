@@ -8,7 +8,8 @@ export const GET = async (
   { params }: { params: Promise<{ id: string }> },
 ) => {
   try {
-    await checkAdminAccess();
+    const accessError = await checkAdminAccess();
+    if (accessError) return accessError;
 
     const answerId = (await params).id;
 

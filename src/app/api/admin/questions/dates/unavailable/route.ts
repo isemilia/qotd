@@ -5,7 +5,8 @@ import { checkAdminAccess } from '@/server/utils/admin';
 
 export const GET = async () => {
   try {
-    await checkAdminAccess();
+    const accessError = await checkAdminAccess();
+    if (accessError) return accessError;
 
     const result = await db.query<{ date: string }>(
       `
