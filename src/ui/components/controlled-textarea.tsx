@@ -1,14 +1,14 @@
+import { cn } from '@/shared/utils/cn';
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldLabel,
 } from '@/ui/primitives/field';
-import { Controller } from 'react-hook-form';
-import { FC } from 'react';
-import { Textarea } from '@/ui/primitives/textarea';
 import { Text } from '@/ui/primitives/text';
-import { cn } from '@/shared/utils/cn';
+import { Textarea } from '@/ui/primitives/textarea';
+import { FC } from 'react';
+import { Controller } from 'react-hook-form';
 
 export const ControlledTextarea: FC<{
   name: string;

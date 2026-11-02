@@ -1,11 +1,11 @@
-import { ReactNode } from 'react';
+import { ProfileNavigation } from '@/features/profile/components/profile-navigation';
+import { getCurrentUser } from '@/server/utils/session';
 import { ProfileFilledIcon } from '@/ui/icons/filled/profile-filled.icon';
 import { ContentContainer } from '@/ui/primitives/content-container';
 import { Text } from '@/ui/primitives/text';
-import { getCurrentUser } from '@/server/utils/session';
-import NotFound from 'next/dist/client/components/builtin/not-found';
-import { ProfileNavigation } from '@/features/profile/components/profile-navigation';
 import type { Metadata } from 'next';
+import NotFound from 'next/dist/client/components/builtin/not-found';
+import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
   robots: {

@@ -1,7 +1,7 @@
 'use client';
 
-import * as React from 'react';
-import { CalendarIcon } from 'lucide-react';
+import { cn } from '@/shared/utils/cn';
+import { Calendar } from '@/ui/primitives/calendar';
 import {
   InputGroup,
   InputGroupAddon,
@@ -13,9 +13,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/ui/primitives/popover';
-import { Calendar } from '@/ui/primitives/calendar';
+import { CalendarIcon } from 'lucide-react';
+import * as React from 'react';
 import { FC } from 'react';
-import { cn } from '@/shared/utils/cn';
 
 function formatDate(date: Date | undefined) {
   if (!date) {

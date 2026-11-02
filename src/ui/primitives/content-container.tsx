@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
 import { cn } from '@/shared/utils/cn';
+import { ReactNode } from 'react';
 
 export const ContentContainer = ({
   children,

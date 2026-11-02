@@ -1,6 +1,3 @@
-import { RequestStatus } from '@/server/model/types';
-import { GetAdminQuestionsParams } from '@/features/admin/questions/model/types';
-import { toSearchParams } from '@/server/utils/search-params';
 import {
   AdminQuestion,
   adminQuestionResponseSchema,
@@ -8,6 +5,9 @@ import {
   CreateAdminQuestionBody,
   EditAdminQuestionBody,
 } from '@/features/admin/questions/model/schema';
+import { GetAdminQuestionsParams } from '@/features/admin/questions/model/types';
+import { RequestStatus } from '@/server/model/types';
+import { toSearchParams } from '@/server/utils/search-params';
 import { Pagination } from '@/shared/model/schemas';
 
 export const getAdminQuestions = async (params?: GetAdminQuestionsParams) => {

@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { signUpSchema } from '@/features/auth/model/schemas';
-import { RequestStatus } from '@/server/model/types';
-import { z } from 'zod';
-import { generateSalt, hashPassword } from '@/server/utils/password';
-import { db } from '@/server/utils/db';
-import { createSession } from '@/server/utils/session';
 import { UserRole } from '@/features/auth/model/types';
+import { RequestStatus } from '@/server/model/types';
+import { db } from '@/server/utils/db';
+import { generateSalt, hashPassword } from '@/server/utils/password';
+import { createSession } from '@/server/utils/session';
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 
 export const POST = async (request: NextRequest) => {
   try {

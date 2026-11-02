@@ -1,16 +1,16 @@
 'use client';
 
-import { FC, useState } from 'react';
-import { cn } from '@/shared/utils/cn';
-import { Text } from '@/ui/primitives/text';
+import { useToggleAnswerLike } from '@/features/answers/api/mutations';
+import { AnswerCardColor } from '@/features/answers/components/answer-card';
 import { cardColors } from '@/features/answers/model/constants';
+import { useAuth } from '@/shared/providers/auth-provider';
+import { cn } from '@/shared/utils/cn';
 import { HeartFilledIcon } from '@/ui/icons/filled/heart-filled.icon';
 import { HeartLinearIcon } from '@/ui/icons/linear/heart-linear.icon';
-import { AnswerCardColor } from '@/features/answers/components/answer-card';
-import { useToggleAnswerLike } from '@/features/answers/api/mutations';
-import { useRouter } from 'next/navigation';
+import { Text } from '@/ui/primitives/text';
 import { toast } from '@/ui/primitives/toast';
-import { useAuth } from '@/shared/providers/auth-provider';
+import { useRouter } from 'next/navigation';
+import { FC, useState } from 'react';
 
 export const AnswerLikeButton: FC<{
   count: number;

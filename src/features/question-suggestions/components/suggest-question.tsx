@@ -1,17 +1,17 @@
 'use client';
 
-import { FC } from 'react';
-import { ResponsiveModal } from '@/ui/components/responsive-modal';
-import { useForm } from 'react-hook-form';
-import { Text } from '@/ui/primitives/text';
-import { ControlledTextarea } from '@/ui/components/controlled-textarea';
-import { ControlledInput } from '@/ui/components/controlled-input';
-import Link from 'next/link';
-import { Button } from '@/ui/primitives/button';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { suggestQuestionClientSchema } from '@/features/question-suggestions/model/schemas';
-import { z } from 'zod';
 import { useCreateQuestionSuggestion } from '@/features/question-suggestions/api/mutations';
+import { suggestQuestionClientSchema } from '@/features/question-suggestions/model/schemas';
+import { ControlledInput } from '@/ui/components/controlled-input';
+import { ControlledTextarea } from '@/ui/components/controlled-textarea';
+import { ResponsiveModal } from '@/ui/components/responsive-modal';
+import { Button } from '@/ui/primitives/button';
+import { Text } from '@/ui/primitives/text';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 export const SuggestQuestion: FC<{ isOpen: boolean; close: Function }> = ({
   isOpen,

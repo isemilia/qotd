@@ -1,13 +1,13 @@
 'use client';
 
-import { FC, ReactNode } from 'react';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
 import { cn } from '@/shared/utils/cn';
+import { getPaginationButtons } from '@/shared/utils/pagination';
+import { Skeleton } from '@/ui/primitives/skeleton';
 import { Text } from '@/ui/primitives/text';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Skeleton } from '@/ui/primitives/skeleton';
-import { getPaginationButtons } from '@/shared/utils/pagination';
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { FC, ReactNode } from 'react';
 
 type Props = {
   currentPage: number;

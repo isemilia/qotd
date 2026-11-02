@@ -1,7 +1,7 @@
 'use client';
 
-import { FC } from 'react';
 import { FilterChip, FilterChipOption } from '@/ui/primitives/filter-chip';
+import { FC } from 'react';
 
 export const FilterChipGroup: FC<{
   options: FilterChipOption[];

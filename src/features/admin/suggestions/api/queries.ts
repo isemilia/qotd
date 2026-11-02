@@ -1,9 +1,9 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import {
   getAdminSuggestionById,
   getAdminSuggestions,
 } from '@/features/admin/suggestions/api/requests';
 import { GetAdminSuggestionsParams } from '@/features/admin/suggestions/model/types';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 export const useGetAdminSuggestions = (params?: GetAdminSuggestionsParams) => {
   return useQuery({

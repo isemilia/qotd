@@ -1,18 +1,18 @@
 'use client';
 
-import { Text } from '@/ui/primitives/text';
-import { FilterChipGroup } from '@/ui/components/filter-chip-group';
-import { SearchIcon } from 'lucide-react';
-import { Input } from '@/ui/primitives/input';
-import { parseAsInteger, useQueryState } from 'nuqs';
-import { useDebounce } from '@/shared/hooks/use-debounce';
 import { useGetAdminUsers } from '@/features/admin/users/api/queries';
-import { UserStatus } from '@/features/admin/users/model/types';
-import { DynamicPagination } from '@/ui/components/dynamic-pagination';
-import { DataTable } from '@/ui/components/data-table';
-import { CopyableText } from '@/ui/components/copyable-text';
-import { formatDate } from '@/shared/utils/date';
 import { UserStatusChip } from '@/features/admin/users/components/user-status-chip';
+import { UserStatus } from '@/features/admin/users/model/types';
+import { useDebounce } from '@/shared/hooks/use-debounce';
+import { formatDate } from '@/shared/utils/date';
+import { CopyableText } from '@/ui/components/copyable-text';
+import { DataTable } from '@/ui/components/data-table';
+import { DynamicPagination } from '@/ui/components/dynamic-pagination';
+import { FilterChipGroup } from '@/ui/components/filter-chip-group';
+import { Input } from '@/ui/primitives/input';
+import { Text } from '@/ui/primitives/text';
+import { SearchIcon } from 'lucide-react';
+import { parseAsInteger, useQueryState } from 'nuqs';
 
 const columns = [
   {

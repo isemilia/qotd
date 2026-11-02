@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import { TabLinks } from '@/ui/components/tab-links';
+import { FC } from 'react';
 
 export const ProfileNavigation: FC = () => {
   const items = [

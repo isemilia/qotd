@@ -1,8 +1,8 @@
-import { ComponentType, FC, SVGProps } from 'react';
-import Link from 'next/link';
-import { Text, TextColor } from '@/ui/primitives/text';
 import { cn } from '@/shared/utils/cn';
 import { Spinner } from '@/ui/primitives/spinner';
+import { Text, TextColor } from '@/ui/primitives/text';
+import Link from 'next/link';
+import { ComponentType, FC, SVGProps } from 'react';
 
 export const SidebarItem: FC<{
   icon: ComponentType<SVGProps<SVGSVGElement>>;

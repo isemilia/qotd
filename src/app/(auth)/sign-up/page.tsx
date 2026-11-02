@@ -1,5 +1,5 @@
-import { Surface } from '@/ui/primitives/surface';
 import { SignUpForm } from '@/features/auth/components/sign-up-form';
+import { Surface } from '@/ui/primitives/surface';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

@@ -1,12 +1,12 @@
-import { FC } from 'react';
-import { DatePickerInput, DatePickerInputProps } from './date-picker-input';
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldLabel,
 } from '@/ui/primitives/field';
+import { FC } from 'react';
 import { Controller } from 'react-hook-form';
+import { DatePickerInput, DatePickerInputProps } from './date-picker-input';
 
 export type ControlledDatePickerInputProps = DatePickerInputProps & {
   name: string;

@@ -1,9 +1,9 @@
-import { Text } from '@/ui/primitives/text';
-import { InfoField } from '@/ui/components/info-field';
-import { FC } from 'react';
-import { AdminAnswerById } from '@/features/admin/answers/model/schema';
 import { AnswerStatusChip } from '@/features/admin/answers/components/answer-status-chip';
+import { AdminAnswerById } from '@/features/admin/answers/model/schema';
 import { formatDate } from '@/shared/utils/date';
+import { InfoField } from '@/ui/components/info-field';
+import { Text } from '@/ui/primitives/text';
+import { FC } from 'react';
 
 export const ReviewModerationTab: FC<{
   status?: AdminAnswerById['status'];

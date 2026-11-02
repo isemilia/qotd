@@ -1,8 +1,8 @@
-import { FC, ReactNode } from 'react';
-import { useMediaQuery } from 'usehooks-ts';
+import { cn } from '@/shared/utils/cn';
 import { Dialog, DialogContent } from '@/ui/primitives/dialog';
 import { Drawer, DrawerContent } from '@/ui/primitives/drawer';
-import { cn } from '@/shared/utils/cn';
+import { FC, ReactNode } from 'react';
+import { useMediaQuery } from 'usehooks-ts';
 
 export const ResponsiveModal: FC<{
   open: boolean;

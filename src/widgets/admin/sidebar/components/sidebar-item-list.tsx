@@ -1,11 +1,11 @@
 'use client';
 
-import { CalendarCheck, LayoutDashboard, ListPlus, Users } from 'lucide-react';
-import { Text } from '@/ui/primitives/text';
 import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
-import { SidebarItem } from './sidebar-item';
-import { FC } from 'react';
+import { Text } from '@/ui/primitives/text';
+import { CalendarCheck, LayoutDashboard, ListPlus, Users } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { FC } from 'react';
+import { SidebarItem } from './sidebar-item';
 
 export const SidebarItemList: FC = () => {
   const pathname = usePathname();

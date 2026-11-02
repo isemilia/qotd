@@ -1,6 +1,6 @@
-import { ElementType, ReactNode } from 'react';
 import { DynamicProps } from '@/shared/model/types';
 import { cn } from '@/shared/utils/cn';
+import { ElementType, ReactNode } from 'react';
 
 const fonts = {
   sans: 'font-sans',

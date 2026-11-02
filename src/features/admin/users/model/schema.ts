@@ -1,7 +1,7 @@
-import { paginationSchema } from '@/shared/model/schemas';
-import { z } from 'zod';
 import { userStatuses } from '@/features/admin/users/model/types';
 import { userRoles } from '@/features/auth/model/types';
+import { paginationSchema } from '@/shared/model/schemas';
+import { z } from 'zod';
 
 export const adminUserSchema = z.object({
   id: z.uuid(),

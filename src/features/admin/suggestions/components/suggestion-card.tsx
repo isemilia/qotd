@@ -1,9 +1,9 @@
-import { FC } from 'react';
-import { Text } from '@/ui/primitives/text';
 import { SuggestionStatusChip } from '@/features/admin/suggestions/components/suggestion-status-chip';
 import { SuggestionStatus } from '@/features/admin/suggestions/model/types';
 import { formatDate } from '@/shared/utils/date';
+import { Text } from '@/ui/primitives/text';
 import { Dot } from 'lucide-react';
+import { FC } from 'react';
 
 const normalizeQuestion = (text?: string) => {
   if (!text) return '';

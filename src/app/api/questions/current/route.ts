@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
 import { RequestStatus } from '@/server/model/types';
 import { getCurrentQuestion } from '@/server/utils/questions';
+import { NextResponse } from 'next/server';
 
 export const GET = async () => {
   try {

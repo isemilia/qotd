@@ -1,8 +1,8 @@
 'use client';
 
-import { createContext, FC, PropsWithChildren, useContext } from 'react';
 import { useMe } from '@/features/auth/api/queries';
 import { PublicUser } from '@/server/model/types';
+import { createContext, FC, PropsWithChildren, useContext } from 'react';
 
 type AuthContextValue = {
   user: PublicUser | null;

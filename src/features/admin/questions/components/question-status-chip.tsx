@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { QuestionStatus } from '@/features/admin/questions/model/types';
 import { cn } from '@/shared/utils/cn';
 import { Text } from '@/ui/primitives/text';
-import { QuestionStatus } from '@/features/admin/questions/model/types';
+import { FC } from 'react';
 
 export const propertyMap: Record<
   QuestionStatus,

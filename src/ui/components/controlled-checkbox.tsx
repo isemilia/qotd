@@ -1,7 +1,7 @@
-import { Field, FieldLabel } from '@/ui/primitives/field';
-import { Controller } from 'react-hook-form';
-import { FC, ReactNode } from 'react';
 import { Checkbox } from '@/ui/primitives/checkbox';
+import { Field, FieldLabel } from '@/ui/primitives/field';
+import { FC, ReactNode } from 'react';
+import { Controller } from 'react-hook-form';
 
 export const ControlledCheckbox: FC<{
   name: string;

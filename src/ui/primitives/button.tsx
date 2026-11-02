@@ -1,7 +1,7 @@
+import { Spinner } from '@/ui/primitives//spinner';
 import { Button as ButtonPrimitive } from '@base-ui/react/button';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'cn';
-import { Spinner } from '@/ui/primitives//spinner';
 
 // shadcn
 const buttonVariants = cva(

@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { SuggestionStatus } from '@/features/admin/suggestions/model/types';
 import { cn } from '@/shared/utils/cn';
 import { Text } from '@/ui/primitives/text';
-import { SuggestionStatus } from '@/features/admin/suggestions/model/types';
+import { FC } from 'react';
 
 export const propertyMap: Record<
   SuggestionStatus,

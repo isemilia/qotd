@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { getCurrentUser } from '@/server/utils/session';
+import { Button } from '@/ui/primitives/button';
+import { Text } from '@/ui/primitives/text';
+import { MobileMenu } from '@/widgets/header/components/mobile-menu';
+import { UserDropdown } from '@/widgets/header/components/user-dropdown';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Text } from '@/ui/primitives/text';
-import { Button } from '@/ui/primitives/button';
-import { getCurrentUser } from '@/server/utils/session';
-import { UserDropdown } from '@/widgets/header/components/user-dropdown';
-import { MobileMenu } from '@/widgets/header/components/mobile-menu';
+import { FC } from 'react';
 
 export const Header: FC = async () => {
   const me = await getCurrentUser();

@@ -1,8 +1,8 @@
 'use client';
 
-import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'cn';
+import * as React from 'react';
 
 import { Button } from '@/ui/primitives//button';
 import { Input } from '@/ui/primitives//input';
@@ -151,7 +151,7 @@ export {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
-  InputGroupText,
   InputGroupInput,
+  InputGroupText,
   InputGroupTextarea,
 };

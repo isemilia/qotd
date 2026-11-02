@@ -1,5 +1,5 @@
-import { db } from '@/server/utils/db';
 import { CurrentQuestion } from '@/server/model/types';
+import { db } from '@/server/utils/db';
 
 export const getCurrentQuestion = async () => {
   return (

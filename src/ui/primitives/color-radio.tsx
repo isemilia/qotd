@@ -1,7 +1,7 @@
-import { FC } from 'react';
 import { cn } from '@/shared/utils/cn';
 import { FieldLabel } from '@/ui/primitives/field';
 import { RadioGroup, RadioGroupItem } from '@/ui/primitives/radio-group';
+import { FC } from 'react';
 
 export type ColorOption = {
   value: string;

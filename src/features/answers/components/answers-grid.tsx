@@ -1,14 +1,14 @@
-import { getAnswers, GetAnswersArgs } from '@/server/utils/answers';
-import { Text } from '@/ui/primitives/text';
 import {
   AnswerCard,
   AnswerCardSkeleton,
 } from '@/features/answers/components/answer-card';
-import { CardGrid } from '@/ui/primitives/card-grid';
+import { getAnswers, GetAnswersArgs } from '@/server/utils/answers';
 import {
   DynamicPagination,
   DynamicPaginationSkeleton,
 } from '@/ui/components/dynamic-pagination';
+import { CardGrid } from '@/ui/primitives/card-grid';
+import { Text } from '@/ui/primitives/text';
 import { FC } from 'react';
 
 export const AnswersGrid: FC<

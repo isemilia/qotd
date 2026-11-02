@@ -1,7 +1,7 @@
 'use client';
 
-import { FC } from 'react';
 import { cn } from '@/shared/utils/cn';
+import { FC } from 'react';
 
 export type FilterChipOption = { label: string; value: string };
 

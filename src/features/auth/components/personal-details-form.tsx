@@ -1,14 +1,13 @@
 'use client';
 
+import { useChangePersonalDetails } from '@/features/auth/api/mutations';
+import { changePersonalDetailsClientSchema } from '@/features/auth/model/schemas';
+import { PersonalDetailsFormValues } from '@/features/auth/model/types';
+import { ControlledInput } from '@/ui/components/controlled-input';
+import { Button } from '@/ui/primitives/button';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { changePersonalDetailsClientSchema } from '@/features/auth/model/schemas';
-import { ControlledInput } from '@/ui/components/controlled-input';
-import { cn } from '@/shared/utils/cn';
-import { Button } from '@/ui/primitives/button';
-import { PersonalDetailsFormValues } from '@/features/auth/model/types';
-import { useChangePersonalDetails } from '@/features/auth/api/mutations';
 
 export const PersonalDetailsForm: FC<{
   className?: string;

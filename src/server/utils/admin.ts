@@ -1,7 +1,7 @@
+import { staffRoles } from '@/features/auth/model/types';
+import { RequestStatus } from '@/server/model/types';
 import { getSession } from '@/server/utils/session';
 import { NextResponse } from 'next/server';
-import { RequestStatus } from '@/server/model/types';
-import { staffRoles } from '@/features/auth/model/types';
 
 export const checkAdminAccess = async () => {
   const session = await getSession();

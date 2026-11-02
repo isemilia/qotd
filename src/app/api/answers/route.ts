@@ -1,12 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { AnswerCardColor } from '@/features/answers/components/answer-card';
+import { postAnswerBodySchema } from '@/features/answers/model/schemas';
 import { RequestStatus } from '@/server/model/types';
+import { getAnswers } from '@/server/utils/answers';
 import { db } from '@/server/utils/db';
 import { isExpiredQuestion } from '@/server/utils/questions';
-import { postAnswerBodySchema } from '@/features/answers/model/schemas';
-import { z } from 'zod';
 import { getCurrentUser } from '@/server/utils/session';
-import { AnswerCardColor } from '@/features/answers/components/answer-card';
-import { getAnswers } from '@/server/utils/answers';
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 
 export const GET = async (request: NextRequest) => {
   try {

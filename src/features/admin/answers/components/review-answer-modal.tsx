@@ -1,17 +1,17 @@
 'use client';
 
-import { FC, ReactNode, useState } from 'react';
-import { ResponsiveModal } from '@/ui/components/responsive-modal';
-import { Text } from '@/ui/primitives/text';
-import { useGetAdminAnswerById } from '@/features/admin/answers/api/queries';
-import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
-import { ReviewAnswerTabs } from '@/features/admin/answers/components/review-answer-tabs';
-import { Shield, User } from 'lucide-react';
-import { ReviewAnswerTab } from '@/features/admin/answers/components/review-answer-tab';
-import { Button } from '@/ui/primitives/button';
-import { ReviewUserTab } from '@/features/admin/answers/components/review-user-tab';
-import { ReviewModerationTab } from '@/features/admin/answers/components/review-moderation-tab';
 import { useRestoreAdminAnswer } from '@/features/admin/answers/api/mutations';
+import { useGetAdminAnswerById } from '@/features/admin/answers/api/queries';
+import { ReviewAnswerTab } from '@/features/admin/answers/components/review-answer-tab';
+import { ReviewAnswerTabs } from '@/features/admin/answers/components/review-answer-tabs';
+import { ReviewModerationTab } from '@/features/admin/answers/components/review-moderation-tab';
+import { ReviewUserTab } from '@/features/admin/answers/components/review-user-tab';
+import { ResponsiveModal } from '@/ui/components/responsive-modal';
+import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
+import { Button } from '@/ui/primitives/button';
+import { Text } from '@/ui/primitives/text';
+import { Shield, User } from 'lucide-react';
+import { FC, ReactNode, useState } from 'react';
 
 export const ReviewAnswerModal: FC<{
   isOpen: boolean;

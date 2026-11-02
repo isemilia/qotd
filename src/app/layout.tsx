@@ -1,11 +1,11 @@
-import type { Metadata } from 'next';
-import { DM_Sans, DM_Mono } from 'next/font/google';
-import './globals.css';
-import { cn } from '@/shared/utils/cn';
-import { QueryProvider } from '@/shared/providers/query-provider';
-import { Toaster } from '@/ui/primitives/toast';
 import { AuthProvider } from '@/shared/providers/auth-provider';
+import { QueryProvider } from '@/shared/providers/query-provider';
+import { cn } from '@/shared/utils/cn';
+import { Toaster } from '@/ui/primitives/toast';
+import type { Metadata } from 'next';
+import { DM_Mono, DM_Sans } from 'next/font/google';
 import { NuqsAdapter } from 'nuqs/adapters/next';
+import './globals.css';
 
 const dmSans = DM_Sans({
   variable: '--font-dm-sans',

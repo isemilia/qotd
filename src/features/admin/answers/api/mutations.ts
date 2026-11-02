@@ -1,9 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from '@/ui/primitives/toast';
 import {
   hideAdminAnswer,
   restoreAdminAnswer,
 } from '@/features/admin/answers/api/requests';
+import { toast } from '@/ui/primitives/toast';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const useHideAdminAnswer = () => {
   const queryClient = useQueryClient();

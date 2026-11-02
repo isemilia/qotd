@@ -1,22 +1,22 @@
 'use client';
 
-import { Text } from '@/ui/primitives/text';
-import { FilterChipGroup } from '@/ui/components/filter-chip-group';
-import { SearchIcon } from 'lucide-react';
-import { Input } from '@/ui/primitives/input';
-import { parseAsInteger, useQueryState } from 'nuqs';
-import { useDebounce } from '@/shared/hooks/use-debounce';
-import { useGetAdminSuggestions } from '@/features/admin/suggestions/api/queries';
-import { SuggestionStatus } from '@/features/admin/suggestions/model/types';
-import { DynamicPagination } from '@/ui/components/dynamic-pagination';
-import { DataTable, RowClickArgs } from '@/ui/components/data-table';
-import { CopyableText } from '@/ui/components/copyable-text';
-import { formatDate } from '@/shared/utils/date';
-import { SuggestionStatusChip } from '@/features/admin/suggestions/components/suggestion-status-chip';
-import { ReviewSuggestionModal } from '@/features/admin/suggestions/components/review-suggestion-modal';
-import { useState } from 'react';
-import { RejectSuggestionModal } from '@/features/admin/suggestions/components/reject-suggestion-modal';
 import { EditQuestionModal } from '@/features/admin/questions/components/edit-question-modal';
+import { useGetAdminSuggestions } from '@/features/admin/suggestions/api/queries';
+import { RejectSuggestionModal } from '@/features/admin/suggestions/components/reject-suggestion-modal';
+import { ReviewSuggestionModal } from '@/features/admin/suggestions/components/review-suggestion-modal';
+import { SuggestionStatusChip } from '@/features/admin/suggestions/components/suggestion-status-chip';
+import { SuggestionStatus } from '@/features/admin/suggestions/model/types';
+import { useDebounce } from '@/shared/hooks/use-debounce';
+import { formatDate } from '@/shared/utils/date';
+import { CopyableText } from '@/ui/components/copyable-text';
+import { DataTable, RowClickArgs } from '@/ui/components/data-table';
+import { DynamicPagination } from '@/ui/components/dynamic-pagination';
+import { FilterChipGroup } from '@/ui/components/filter-chip-group';
+import { Input } from '@/ui/primitives/input';
+import { Text } from '@/ui/primitives/text';
+import { SearchIcon } from 'lucide-react';
+import { parseAsInteger, useQueryState } from 'nuqs';
+import { useState } from 'react';
 
 const columns = [
   {

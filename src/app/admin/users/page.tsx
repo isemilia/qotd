@@ -1,5 +1,5 @@
-import { Metadata } from 'next';
 import { UsersView } from '@/views/admin/users';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Users',

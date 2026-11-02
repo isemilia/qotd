@@ -1,11 +1,11 @@
-import { toSearchParams } from '@/server/utils/search-params';
-import { RequestStatus } from '@/server/model/types';
-import { GetAdminUsersParams } from '@/features/admin/users/model/types';
-import { Pagination } from '@/shared/model/schemas';
 import {
   AdminUser,
   adminUsersResponseSchema,
 } from '@/features/admin/users/model/schema';
+import { GetAdminUsersParams } from '@/features/admin/users/model/types';
+import { RequestStatus } from '@/server/model/types';
+import { toSearchParams } from '@/server/utils/search-params';
+import { Pagination } from '@/shared/model/schemas';
 
 export const getAdminUsers = async (params?: GetAdminUsersParams) => {
   const paramsString = params ? '?' + toSearchParams(params) : '';

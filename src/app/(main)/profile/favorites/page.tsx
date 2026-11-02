@@ -1,5 +1,5 @@
-import { getCurrentUser } from '@/server/utils/session';
 import { AnswersGrid } from '@/features/answers/components/answers-grid';
+import { getCurrentUser } from '@/server/utils/session';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

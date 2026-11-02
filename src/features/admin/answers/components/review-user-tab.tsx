@@ -1,9 +1,9 @@
-import { FC } from 'react';
-import { Text } from '@/ui/primitives/text';
-import { ProfileFilledIcon } from '@/ui/icons/filled/profile-filled.icon';
 import { AdminAnswerById } from '@/features/admin/answers/model/schema';
-import { InfoField } from '@/ui/components/info-field';
 import { formatDate } from '@/shared/utils/date';
+import { InfoField } from '@/ui/components/info-field';
+import { ProfileFilledIcon } from '@/ui/icons/filled/profile-filled.icon';
+import { Text } from '@/ui/primitives/text';
+import { FC } from 'react';
 
 export const ReviewUserTab: FC<{ user?: AdminAnswerById['user'] }> = ({
   user,

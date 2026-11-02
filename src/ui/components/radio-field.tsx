@@ -1,7 +1,7 @@
-import { Field, FieldLabel, FieldSet } from '@/ui/primitives/field';
+import { Field, FieldLabel } from '@/ui/primitives/field';
 import { RadioGroup, RadioGroupItem } from '@/ui/primitives/radio-group';
-import { ChangeEventHandler, FC } from 'react';
 import { RadioGroupProps } from '@base-ui/react';
+import { ChangeEventHandler, FC } from 'react';
 
 export type RadioFieldProps = {
   options: { name: string; label: string }[];

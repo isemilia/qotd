@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { RequestStatus } from '@/server/model/types';
-import { deleteAllSessionsByUserId, getSession } from '@/server/utils/session';
-import { db } from '@/server/utils/db';
 import { accountDeletionSchema } from '@/features/auth/model/schemas';
+import { RequestStatus } from '@/server/model/types';
+import { db } from '@/server/utils/db';
+import { deleteAllSessionsByUserId, getSession } from '@/server/utils/session';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 export const POST = async (request: NextRequest) => {

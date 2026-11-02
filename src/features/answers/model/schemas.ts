@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { answerCardColors } from '@/features/answers/components/answer-card';
+import { z } from 'zod';
 
 export const postAnswerBodySchema = z.object({
   questionId: z.uuid(),

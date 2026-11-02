@@ -1,7 +1,3 @@
-import { toSearchParams } from '@/server/utils/search-params';
-import { RequestStatus } from '@/server/model/types';
-import { Pagination } from '@/shared/model/schemas';
-import { GetAdminSuggestionsParams } from '@/features/admin/suggestions/model/types';
 import {
   AdminSuggestion,
   adminSuggestionResponseSchema,
@@ -9,6 +5,10 @@ import {
   ApproveAdminSuggestionBody,
   RejectAdminSuggestionBody,
 } from '@/features/admin/suggestions/model/schema';
+import { GetAdminSuggestionsParams } from '@/features/admin/suggestions/model/types';
+import { RequestStatus } from '@/server/model/types';
+import { toSearchParams } from '@/server/utils/search-params';
+import { Pagination } from '@/shared/model/schemas';
 
 export const getAdminSuggestions = async (
   params?: GetAdminSuggestionsParams,

@@ -1,20 +1,20 @@
 'use client';
 
-import { ProfileFilledIcon } from '@/ui/icons/filled/profile-filled.icon';
-import { Text } from '@/ui/primitives/text';
+import { useLogout } from '@/features/auth/api/mutations';
 import { PublicUser } from '@/server/model/types';
+import { ProfileFilledIcon } from '@/ui/icons/filled/profile-filled.icon';
+import { HeartLinearIcon } from '@/ui/icons/linear/heart-linear.icon';
+import { LogoutLinearIcon } from '@/ui/icons/linear/logout-linear.icon';
+import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
+import { ProfileLinearIcon } from '@/ui/icons/linear/profile-linear.icon';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/ui/primitives/dropdown-menu';
-import { ProfileLinearIcon } from '@/ui/icons/linear/profile-linear.icon';
-import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
-import { LogoutLinearIcon } from '@/ui/icons/linear/logout-linear.icon';
-import { useLogout } from '@/features/auth/api/mutations';
-import { UserDropdownItemType } from '../model/types';
+import { Text } from '@/ui/primitives/text';
 import { UserDropdownItem } from '@/widgets/header/components/user-dropdown-item';
-import { HeartLinearIcon } from '@/ui/icons/linear/heart-linear.icon';
+import { UserDropdownItemType } from '../model/types';
 
 export const UserDropdown = ({ user }: { user: PublicUser }) => {
   const logout = useLogout();

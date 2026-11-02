@@ -1,6 +1,6 @@
 import { questionStatuses } from '@/features/admin/questions/model/types';
-import { z } from 'zod';
 import { paginationSchema } from '@/shared/model/schemas';
+import { z } from 'zod';
 
 export const adminQuestionSchema = z.object({
   id: z.uuid(),

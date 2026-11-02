@@ -1,6 +1,6 @@
+import { RequestStatus } from '@/server/model/types';
 import { removeSession } from '@/server/utils/session';
 import { NextResponse } from 'next/server';
-import { RequestStatus } from '@/server/model/types';
 
 export const POST = async () => {
   try {

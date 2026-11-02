@@ -1,6 +1,6 @@
+import { Sidebar } from '@/widgets/admin/sidebar';
 import type { Metadata } from 'next';
 import { FC, ReactNode } from 'react';
-import { Sidebar } from '@/widgets/admin/sidebar';
 
 export const metadata: Metadata = {
   title: {

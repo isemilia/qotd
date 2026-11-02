@@ -5,9 +5,9 @@ import {
   FieldLabel,
 } from '@/ui/primitives/field';
 import { Input } from '@/ui/primitives/input';
-import { Controller } from 'react-hook-form';
-import { ComponentPropsWithoutRef, FC, HTMLInputTypeAttribute } from 'react';
 import { Text } from '@/ui/primitives/text';
+import { ComponentPropsWithoutRef, FC, HTMLInputTypeAttribute } from 'react';
+import { Controller } from 'react-hook-form';
 
 export const ControlledInput: FC<
   {

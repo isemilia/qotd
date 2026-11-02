@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import Image from 'next/image';
 import { Text } from '@/ui/primitives/text';
+import Image from 'next/image';
+import Link from 'next/link';
 import { Fragment } from 'react';
 
 export const Footer = () => {

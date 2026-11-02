@@ -1,6 +1,6 @@
-import { FC, ReactNode } from 'react';
-import { Text } from '@/ui/primitives/text';
 import { cn } from '@/shared/utils/cn';
+import { Text } from '@/ui/primitives/text';
+import { FC, ReactNode } from 'react';
 
 export const InfoField: FC<{
   label: string;

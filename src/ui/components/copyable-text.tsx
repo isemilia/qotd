@@ -1,9 +1,9 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { cn } from '@/shared/utils/cn';
 import { Text } from '@/ui/primitives/text';
 import { Check, Copy } from 'lucide-react';
-import { cn } from '@/shared/utils/cn';
+import { FC, useState } from 'react';
 
 export const CopyableText: FC<{ children?: string; className?: string }> = ({
   children,

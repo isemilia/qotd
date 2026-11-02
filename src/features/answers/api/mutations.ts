@@ -1,9 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
-import { toast } from '@/ui/primitives/toast';
 import {
   createAnswer,
   toggleAnswerLike,
 } from '@/features/answers/api/requests';
+import { toast } from '@/ui/primitives/toast';
+import { useMutation } from '@tanstack/react-query';
 
 export const useCreateAnswer = () => {
   return useMutation({

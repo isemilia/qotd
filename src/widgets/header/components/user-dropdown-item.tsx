@@ -1,10 +1,10 @@
-import { FC } from 'react';
-import Link from 'next/link';
-import { DropdownMenuItem } from '@/ui/primitives/dropdown-menu';
-import { UserDropdownItemType } from '@/widgets/header/model/types';
-import { Text } from '@/ui/primitives/text';
-import { Spinner } from '@/ui/primitives/spinner';
 import { cn } from '@/shared/utils/cn';
+import { DropdownMenuItem } from '@/ui/primitives/dropdown-menu';
+import { Spinner } from '@/ui/primitives/spinner';
+import { Text } from '@/ui/primitives/text';
+import { UserDropdownItemType } from '@/widgets/header/model/types';
+import Link from 'next/link';
+import { FC } from 'react';
 
 export const UserDropdownItem: FC<
   UserDropdownItemType & { loading?: boolean }

@@ -1,9 +1,9 @@
 'use client';
 
-import { cloneElement, FC, ReactElement, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/shared/providers/auth-provider';
 import { SuggestQuestion } from '@/features/question-suggestions/components/suggest-question';
+import { useAuth } from '@/shared/providers/auth-provider';
+import { useRouter } from 'next/navigation';
+import { cloneElement, FC, ReactElement, useState } from 'react';
 
 export const SuggestQuestionTrigger: FC<{
   children: ReactElement<{ onClick?: Function }>;

@@ -1,9 +1,9 @@
 'use client';
 
-import { FC } from 'react';
-import { LogoutLinearIcon } from '@/ui/icons/linear/logout-linear.icon';
-import { SidebarItem } from './sidebar-item';
 import { useLogout } from '@/features/auth/api/mutations';
+import { LogoutLinearIcon } from '@/ui/icons/linear/logout-linear.icon';
+import { FC } from 'react';
+import { SidebarItem } from './sidebar-item';
 
 export const SidebarLogoutButton: FC = () => {
   const logout = useLogout();

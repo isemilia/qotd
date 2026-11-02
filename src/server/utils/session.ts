@@ -1,7 +1,7 @@
-import { db } from '@/server/utils/db';
-import { cookies } from 'next/headers';
 import { UserRole } from '@/features/auth/model/types';
 import { PublicUser } from '@/server/model/types';
+import { db } from '@/server/utils/db';
+import { cookies } from 'next/headers';
 
 export const COOKIE_SESSION_KEY = 'sessionId';
 

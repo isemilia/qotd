@@ -1,12 +1,12 @@
-import { FC } from 'react';
 import {
   AnswerCard,
   AnswerCardSkeleton,
 } from '@/features/answers/components/answer-card';
-import { Text } from '@/ui/primitives/text';
 import { getCurrentAnswers } from '@/server/utils/answers';
-import { CardGrid } from '@/ui/primitives/card-grid';
 import { DynamicPagination } from '@/ui/components/dynamic-pagination';
+import { CardGrid } from '@/ui/primitives/card-grid';
+import { Text } from '@/ui/primitives/text';
+import { FC } from 'react';
 
 export const CurrentAnswers: FC<{ page: number }> = async ({ page }) => {
   try {

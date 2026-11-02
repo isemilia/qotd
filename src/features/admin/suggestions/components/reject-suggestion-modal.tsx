@@ -1,17 +1,17 @@
 'use client';
 
-import { FC } from 'react';
-import { ResponsiveModal } from '@/ui/components/responsive-modal';
-import { useGetAdminSuggestionById } from '@/features/admin/suggestions/api/queries';
-import { Text } from '@/ui/primitives/text';
-import { Skeleton } from '@/ui/primitives/skeleton';
 import { QuestionFormSkeleton } from '@/features/admin/questions/components/question-form';
-import { Dot } from 'lucide-react';
-import { formatDate } from '@/shared/utils/date';
-import { RejectSuggestionForm } from './reject-suggestion-form';
-import { RejectAdminSuggestionForm } from '@/features/admin/suggestions/model/schema';
 import { useRejectAdminSuggestion } from '@/features/admin/suggestions/api/mutations';
+import { useGetAdminSuggestionById } from '@/features/admin/suggestions/api/queries';
 import { adminRejectionReasons } from '@/features/admin/suggestions/model/constants';
+import { RejectAdminSuggestionForm } from '@/features/admin/suggestions/model/schema';
+import { formatDate } from '@/shared/utils/date';
+import { ResponsiveModal } from '@/ui/components/responsive-modal';
+import { Skeleton } from '@/ui/primitives/skeleton';
+import { Text } from '@/ui/primitives/text';
+import { Dot } from 'lucide-react';
+import { FC } from 'react';
+import { RejectSuggestionForm } from './reject-suggestion-form';
 
 export const RejectSuggestionModal: FC<{
   isOpen: boolean;

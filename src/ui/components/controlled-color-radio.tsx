@@ -1,7 +1,7 @@
 import { ColorOption, ColorRadio } from '@/ui/primitives/color-radio';
+import { Field, FieldError, FieldLabel } from '@/ui/primitives/field';
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
-import { Field, FieldError, FieldLabel } from '@/ui/primitives/field';
 
 type ControlledColorRadioProps = {
   name: string;

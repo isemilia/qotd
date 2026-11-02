@@ -1,15 +1,15 @@
-import { MenuItem } from '@/widgets/header/model/types';
-import { ProfileLinearIcon } from '@/ui/icons/linear/profile-linear.icon';
-import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
-import { LoginLinearIcon } from '@/ui/icons/linear/login-linear.icon';
 import { AddUserLinearIcon } from '@/ui/icons/linear/add-user-linear.icon';
 import { ChronologyLinearIcon } from '@/ui/icons/linear/chronology-linear.icon';
+import { LoginLinearIcon } from '@/ui/icons/linear/login-linear.icon';
+import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
+import { ProfileLinearIcon } from '@/ui/icons/linear/profile-linear.icon';
+import { MenuItem } from '@/widgets/header/model/types';
 // import { CommentLinearIcon } from '@/ui/icons/linear/comment-linear.icon';
+import { HeartLinearIcon } from '@/ui/icons/linear/heart-linear.icon';
 import { ListLinearIcon } from '@/ui/icons/linear/list-linear.icon';
+import { MailLinearIcon } from '@/ui/icons/linear/mail-linear.icon';
 import { NoteLinearIcon } from '@/ui/icons/linear/note-linear.icon';
 import { UserDocumentLinearIcon } from '@/ui/icons/linear/user-document-linear.icon';
-import { MailLinearIcon } from '@/ui/icons/linear/mail-linear.icon';
-import { HeartLinearIcon } from '@/ui/icons/linear/heart-linear.icon';
 
 export const mobileMenuGroups = {
   authenticated: [
