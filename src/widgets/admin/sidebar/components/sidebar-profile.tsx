@@ -1,14 +1,14 @@
-import { FC } from 'react';
-import { ProfileFilledIcon } from '@/ui/icons/filled/profile-filled.icon';
-import { Text } from '@/ui/primitives/text';
 import { getCurrentUser } from '@/server/utils/session';
+import { ProfileFilledIcon } from '@/ui/icons/filled/profile-filled.icon';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/ui/primitives/collapsible';
-import { SidebarItem } from './sidebar-item';
+import { Text } from '@/ui/primitives/text';
 import { ArrowLeft } from 'lucide-react';
+import { FC } from 'react';
+import { SidebarItem } from './sidebar-item';
 import { SidebarLogoutButton } from './sidebar-logout-button';
 
 export const SidebarProfile: FC = async () => {

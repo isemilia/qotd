@@ -1,6 +1,6 @@
-import { FC, ReactNode } from 'react';
-import { Header } from '@/widgets/header/header';
 import { Footer } from '@/widgets/footer';
+import { Header } from '@/widgets/header/header';
+import { FC, ReactNode } from 'react';
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   return (

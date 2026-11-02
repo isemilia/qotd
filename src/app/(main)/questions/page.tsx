@@ -1,8 +1,8 @@
-import { ContentContainer } from '@/ui/primitives/content-container';
-import { Text } from '@/ui/primitives/text';
 import { QuestionCard } from '@/features/questions/components/question-card';
 import { getPreviousQuestions } from '@/server/utils/questions';
 import { DynamicPagination } from '@/ui/components/dynamic-pagination';
+import { ContentContainer } from '@/ui/primitives/content-container';
+import { Text } from '@/ui/primitives/text';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

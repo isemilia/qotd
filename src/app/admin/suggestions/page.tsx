@@ -1,5 +1,5 @@
-import { Metadata } from 'next';
 import { SuggestionsView } from '@/views/admin/suggestions';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Suggestions',

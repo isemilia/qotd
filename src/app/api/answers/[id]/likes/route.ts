@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { RequestStatus } from '@/server/model/types';
-import { getCurrentUser } from '@/server/utils/session';
 import { db } from '@/server/utils/db';
+import { getCurrentUser } from '@/server/utils/session';
+import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (
   request: NextRequest,

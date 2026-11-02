@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { formatLongDate } from '@/shared/utils/date';
 import { Text } from '@/ui/primitives/text';
 import { ChevronRight, Dot } from 'lucide-react';
 import Link from 'next/link';
-import { formatLongDate } from '@/shared/utils/date';
+import { FC } from 'react';
 
 export const QuestionCard: FC<{
   question: string;

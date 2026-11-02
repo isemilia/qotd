@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { signInSchema } from '@/features/auth/model/schemas';
+import { UserRole } from '@/features/auth/model/types';
 import { RequestStatus } from '@/server/model/types';
-import { z } from 'zod';
 import { db } from '@/server/utils/db';
 import { comparePasswords } from '@/server/utils/password';
 import { createSession } from '@/server/utils/session';
-import { UserRole } from '@/features/auth/model/types';
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 
 const invalidCredentialsResponse = () => {
   return NextResponse.json(

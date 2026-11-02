@@ -1,9 +1,9 @@
+import { cn } from '@/shared/utils/cn';
+import { Spinner } from '@/ui/primitives/spinner';
+import { Text } from '@/ui/primitives/text';
+import Link from 'next/link';
 import { FC } from 'react';
 import { MenuItem } from '../model/types';
-import Link from 'next/link';
-import { Text } from '@/ui/primitives/text';
-import { Spinner } from '@/ui/primitives/spinner';
-import { cn } from '@/shared/utils/cn';
 
 export const MobileMenuItem: FC<MenuItem & { loading?: boolean }> = ({
   icon: Icon,

@@ -1,10 +1,10 @@
 'use client';
 
-import { FC } from 'react';
+import { cn } from '@/shared/utils/cn';
 import { Text } from '@/ui/primitives/text';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/shared/utils/cn';
+import { FC } from 'react';
 
 export type TabLinkItem = {
   label: string;

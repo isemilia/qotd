@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { useCreateAdminQuestion } from '@/features/admin/questions/api/mutations';
 import { QuestionForm } from '@/features/admin/questions/components/question-form';
-import { ResponsiveModal } from '@/ui/components/responsive-modal';
-import { Text } from '@/ui/primitives/text';
 import { AdminQuestionFormValues } from '@/features/admin/questions/model/schema';
 import { formatDate } from '@/shared/utils/date';
-import { useCreateAdminQuestion } from '@/features/admin/questions/api/mutations';
+import { ResponsiveModal } from '@/ui/components/responsive-modal';
+import { Text } from '@/ui/primitives/text';
+import { FC } from 'react';
 
 export const CreateQuestionModal: FC<{
   isOpen: boolean;

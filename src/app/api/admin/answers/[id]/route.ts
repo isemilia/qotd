@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { RequestStatus } from '@/server/model/types';
 import { checkAdminAccess } from '@/server/utils/admin';
 import { db } from '@/server/utils/db';
-import { RequestStatus } from '@/server/model/types';
+import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (
   request: NextRequest,

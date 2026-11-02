@@ -1,17 +1,17 @@
 'use client';
 
-import { FC, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { ControlledRadioField } from '@/ui/components/controlled-radio-field';
 import { adminAnswerHideReasonOptions } from '@/features/admin/answers/model/constants';
-import { ControlledTextarea } from '@/ui/components/controlled-textarea';
-import { Text } from '@/ui/primitives/text';
-import { Button } from '@/ui/primitives/button';
 import {
   HideAdminAnswerForm,
   hideAdminAnswerForm,
 } from '@/features/admin/answers/model/schema';
+import { ControlledRadioField } from '@/ui/components/controlled-radio-field';
+import { ControlledTextarea } from '@/ui/components/controlled-textarea';
+import { Button } from '@/ui/primitives/button';
+import { Text } from '@/ui/primitives/text';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { FC, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 
 export const HideAnswerForm: FC<{
   onSubmit?: (data: HideAdminAnswerForm) => void;

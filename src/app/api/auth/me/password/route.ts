@@ -1,18 +1,18 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { RequestStatus } from '@/server/model/types';
 import { changePasswordSchema } from '@/features/auth/model/schemas';
-import z from 'zod';
-import {
-  createSession,
-  deleteAllSessionsByUserId,
-  getSession,
-} from '@/server/utils/session';
+import { RequestStatus } from '@/server/model/types';
 import { db } from '@/server/utils/db';
 import {
   comparePasswords,
   generateSalt,
   hashPassword,
 } from '@/server/utils/password';
+import {
+  createSession,
+  deleteAllSessionsByUserId,
+  getSession,
+} from '@/server/utils/session';
+import { NextRequest, NextResponse } from 'next/server';
+import z from 'zod';
 
 export const PATCH = async (request: NextRequest) => {
   try {

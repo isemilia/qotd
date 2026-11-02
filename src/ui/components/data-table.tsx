@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { cn } from '@/shared/utils/cn';
 import {
   Table,
   TableBody,
@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/ui/primitives/table';
-import { cn } from '@/shared/utils/cn';
+import { ReactNode } from 'react';
 
 export type RowClickArgs<R extends object = object> = {
   row: Record<string, ReactNode> & R & { id: string };

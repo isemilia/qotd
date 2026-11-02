@@ -1,14 +1,7 @@
-import { FC } from 'react';
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-  FieldLegend,
-  FieldSet,
-} from '@/ui/primitives/field';
-import { Controller } from 'react-hook-form';
 import { RadioField, RadioFieldProps } from '@/ui/components/radio-field';
+import { FieldError, FieldLegend, FieldSet } from '@/ui/primitives/field';
+import { FC } from 'react';
+import { Controller } from 'react-hook-form';
 
 export type ControlledRadioFieldProps = Omit<
   RadioFieldProps,

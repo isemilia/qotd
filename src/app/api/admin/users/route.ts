@@ -1,7 +1,7 @@
-import { checkAdminAccess } from '@/server/utils/admin';
-import { NextRequest, NextResponse } from 'next/server';
 import { RequestStatus } from '@/server/model/types';
+import { checkAdminAccess } from '@/server/utils/admin';
 import { db } from '@/server/utils/db';
+import { NextRequest, NextResponse } from 'next/server';
 
 const userRoles = ['user', 'moderator', 'admin'] as const;
 const userStatuses = ['active', 'deleted'] as const;

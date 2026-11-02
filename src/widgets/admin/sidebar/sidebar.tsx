@@ -1,8 +1,8 @@
-import { FC } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { SidebarProfile } from '@/widgets/admin/sidebar/components/sidebar-profile';
 import { SidebarItemList } from '@/widgets/admin/sidebar/components/sidebar-item-list';
+import { SidebarProfile } from '@/widgets/admin/sidebar/components/sidebar-profile';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FC } from 'react';
 
 export const Sidebar: FC = () => {
   return (

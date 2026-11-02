@@ -1,13 +1,13 @@
-import { FC } from 'react';
-import { Text } from '@/ui/primitives/text';
-import { getTimeGap } from '@/shared/utils/get-time-gap';
+import { AnswerStatus } from '@/features/admin/answers/model/types';
+import { AnswerLikeButton } from '@/features/answers/components/answer-like-button';
 import { cardColors } from '@/features/answers/model/constants';
 import { cn } from '@/shared/utils/cn';
-import { AnswerLikeButton } from '@/features/answers/components/answer-like-button';
-import Link from 'next/link';
+import { getTimeGap } from '@/shared/utils/get-time-gap';
 import { Skeleton } from '@/ui/primitives/skeleton';
-import { AnswerStatus } from '@/features/admin/answers/model/types';
+import { Text } from '@/ui/primitives/text';
 import { Info } from 'lucide-react';
+import Link from 'next/link';
+import { FC } from 'react';
 
 export const answerCardColors = [
   'lavender',

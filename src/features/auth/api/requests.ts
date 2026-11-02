@@ -1,15 +1,15 @@
-import { z } from 'zod';
 import {
   accountDeletionClientSchema,
   signInSchema,
   signUpSchema,
 } from '@/features/auth/model/schemas';
+import { PersonalDetailsFormValues } from '@/features/auth/model/types';
 import {
   PublicUser,
   PublicUserShort,
   RequestStatus,
 } from '@/server/model/types';
-import { PersonalDetailsFormValues } from '@/features/auth/model/types';
+import { z } from 'zod';
 
 export const createAccount = async (body: z.infer<typeof signUpSchema>) => {
   const response = await fetch('/api/auth/register', {

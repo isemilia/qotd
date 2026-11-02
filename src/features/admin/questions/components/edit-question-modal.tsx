@@ -1,13 +1,13 @@
-import { FC } from 'react';
+import { useEditAdminQuestion } from '@/features/admin/questions/api/mutations';
+import { useGetAdminQuestionById } from '@/features/admin/questions/api/queries';
 import { QuestionForm } from '@/features/admin/questions/components/question-form';
-import { ResponsiveModal } from '@/ui/components/responsive-modal';
-import { Text } from '@/ui/primitives/text';
 import { AdminQuestionFormValues } from '@/features/admin/questions/model/schema';
 import { formatDate, isAfterToday } from '@/shared/utils/date';
-import { useEditAdminQuestion } from '@/features/admin/questions/api/mutations';
-import { toast } from '@/ui/primitives/toast';
-import { useGetAdminQuestionById } from '@/features/admin/questions/api/queries';
+import { ResponsiveModal } from '@/ui/components/responsive-modal';
 import { Skeleton } from '@/ui/primitives/skeleton';
+import { Text } from '@/ui/primitives/text';
+import { toast } from '@/ui/primitives/toast';
+import { FC } from 'react';
 
 export const EditQuestionModal: FC<{
   isOpen: boolean;

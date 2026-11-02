@@ -1,9 +1,9 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { GetAdminAnswersParams } from '@/features/admin/answers/model/types';
 import {
   getAdminAnswerById,
   getAdminAnswers,
 } from '@/features/admin/answers/api/requests';
+import { GetAdminAnswersParams } from '@/features/admin/answers/model/types';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 export const useGetAdminAnswers = (params?: GetAdminAnswersParams) => {
   return useQuery({

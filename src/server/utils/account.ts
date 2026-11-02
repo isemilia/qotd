@@ -1,6 +1,6 @@
-import { getCurrentUser } from '@/server/utils/session';
-import { db } from '@/server/utils/db';
 import { PublicUserShort } from '@/server/model/types';
+import { db } from '@/server/utils/db';
+import { getCurrentUser } from '@/server/utils/session';
 
 export const changePersonalDetails = async ({ name }: { name: string }) => {
   const user = await getCurrentUser();

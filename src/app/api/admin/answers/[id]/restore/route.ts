@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { RequestStatus } from '@/server/model/types';
 import { checkAdminAccess } from '@/server/utils/admin';
-import { getSession } from '@/server/utils/session';
 import { db } from '@/server/utils/db';
+import { getSession } from '@/server/utils/session';
+import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (
   request: NextRequest,

@@ -1,5 +1,5 @@
-import { FC, ReactNode } from 'react';
 import { cn } from '@/shared/utils/cn';
+import { FC, ReactNode } from 'react';
 
 export const CardGrid: FC<{ children?: ReactNode; className?: string }> = ({
   className,

@@ -1,12 +1,12 @@
-import { FC } from 'react';
-import { ResponsiveModal } from '@/ui/components/responsive-modal';
-import { Text } from '@/ui/primitives/text';
-import { useGetAdminQuestionById } from '@/features/admin/questions/api/queries';
-import { Dot } from 'lucide-react';
-import { formatLongDate } from '@/shared/utils/date';
-import { Button } from '@/ui/primitives/button';
 import { useDeleteAdminQuestionById } from '@/features/admin/questions/api/mutations';
+import { useGetAdminQuestionById } from '@/features/admin/questions/api/queries';
+import { formatLongDate } from '@/shared/utils/date';
+import { ResponsiveModal } from '@/ui/components/responsive-modal';
+import { Button } from '@/ui/primitives/button';
+import { Text } from '@/ui/primitives/text';
 import { toast } from '@/ui/primitives/toast';
+import { Dot } from 'lucide-react';
+import { FC } from 'react';
 
 export const DeleteQuestionModal: FC<{
   isOpen: boolean;

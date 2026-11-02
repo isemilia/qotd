@@ -1,15 +1,15 @@
 'use client';
 
-import { FC } from 'react';
+import { useHideAdminAnswer } from '@/features/admin/answers/api/mutations';
+import { useGetAdminAnswerById } from '@/features/admin/answers/api/queries';
+import { HideAnswerForm } from '@/features/admin/answers/components/hide-answer-form';
+import { adminAnswerHideReasons } from '@/features/admin/answers/model/constants';
+import { HideAdminAnswerForm } from '@/features/admin/answers/model/schema';
+import { formatDate } from '@/shared/utils/date';
 import { ResponsiveModal } from '@/ui/components/responsive-modal';
 import { Text } from '@/ui/primitives/text';
-import { useGetAdminAnswerById } from '@/features/admin/answers/api/queries';
 import { Dot } from 'lucide-react';
-import { formatDate } from '@/shared/utils/date';
-import { HideAnswerForm } from '@/features/admin/answers/components/hide-answer-form';
-import { useHideAdminAnswer } from '@/features/admin/answers/api/mutations';
-import { HideAdminAnswerForm } from '@/features/admin/answers/model/schema';
-import { adminAnswerHideReasons } from '@/features/admin/answers/model/constants';
+import { FC } from 'react';
 
 export const HideAnswerModal: FC<{
   isOpen: boolean;

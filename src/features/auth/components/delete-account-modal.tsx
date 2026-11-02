@@ -1,17 +1,17 @@
 'use client';
 
-import { FC, useState } from 'react';
-import { Button } from '@/ui/primitives/button';
-import { TrashIcon } from 'lucide-react';
-import { cn } from '@/shared/utils/cn';
-import { ResponsiveModal } from '@/ui/components/responsive-modal';
-import { useForm } from 'react-hook-form';
-import { Text } from '@/ui/primitives/text';
-import { ControlledTextarea } from '@/ui/components/controlled-textarea';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { accountDeletionClientSchema } from '@/features/auth/model/schemas';
-import { z } from 'zod';
 import { useDeleteAccount } from '@/features/auth/api/mutations';
+import { accountDeletionClientSchema } from '@/features/auth/model/schemas';
+import { cn } from '@/shared/utils/cn';
+import { ControlledTextarea } from '@/ui/components/controlled-textarea';
+import { ResponsiveModal } from '@/ui/components/responsive-modal';
+import { Button } from '@/ui/primitives/button';
+import { Text } from '@/ui/primitives/text';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { TrashIcon } from 'lucide-react';
+import { FC, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 export const DeleteAccountModal: FC<{ triggerClassName?: string }> = ({
   triggerClassName,

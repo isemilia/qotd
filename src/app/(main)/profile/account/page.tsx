@@ -1,10 +1,10 @@
-import { PersonalDetailsForm } from '@/features/auth/components/personal-details-form';
-import { Text } from '@/ui/primitives/text';
-import { getCurrentUser } from '@/server/utils/session';
-import NotFound from 'next/dist/client/components/builtin/not-found';
 import { ChangePasswordForm } from '@/features/auth/components/change-password-form';
 import { DeleteAccountModal } from '@/features/auth/components/delete-account-modal';
+import { PersonalDetailsForm } from '@/features/auth/components/personal-details-form';
+import { getCurrentUser } from '@/server/utils/session';
+import { Text } from '@/ui/primitives/text';
 import { Metadata } from 'next';
+import NotFound from 'next/dist/client/components/builtin/not-found';
 
 export const metadata: Metadata = {
   title: 'Account',

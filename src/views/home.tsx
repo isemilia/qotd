@@ -1,15 +1,15 @@
-import { Text } from '@/ui/primitives/text';
-import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
-import { Button } from '@/ui/primitives/button';
-import { ContentContainer } from '@/ui/primitives/content-container';
-import { CreateAnswerTrigger } from '@/widgets/create-answer-trigger';
 import {
   CurrentAnswers,
   CurrentAnswersSkeleton,
 } from '@/features/answers/components/current-answers';
+import { getCurrentQuestion } from '@/server/utils/questions';
+import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
+import { Button } from '@/ui/primitives/button';
+import { ContentContainer } from '@/ui/primitives/content-container';
+import { Text } from '@/ui/primitives/text';
+import { CreateAnswerTrigger } from '@/widgets/create-answer-trigger';
 import { SuggestQuestionTrigger } from '@/widgets/suggest-question-trigger';
 import { FC, Suspense } from 'react';
-import { getCurrentQuestion } from '@/server/utils/questions';
 
 export const HomeView: FC<{ page: number }> = async ({ page }) => {
   const currentQuestion = await getCurrentQuestion();

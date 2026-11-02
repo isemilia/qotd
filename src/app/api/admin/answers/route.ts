@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/server/utils/db';
+import {
+  AnswerStatus,
+  answerStatuses,
+} from '@/features/admin/answers/model/types';
 import { RequestStatus } from '@/server/model/types';
 import { checkAdminAccess } from '@/server/utils/admin';
-import {
-  answerStatuses,
-  AnswerStatus,
-} from '@/features/admin/answers/model/types';
+import { db } from '@/server/utils/db';
+import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (request: NextRequest) => {
   try {

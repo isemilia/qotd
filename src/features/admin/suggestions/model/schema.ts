@@ -1,8 +1,8 @@
-import { z } from 'zod';
-import { paginationSchema } from '@/shared/model/schemas';
 import { adminQuestionSchema } from '@/features/admin/questions/model/schema';
-import { suggestionStatuses } from '@/features/admin/suggestions/model/types';
 import { adminRejectionReasonKeys } from '@/features/admin/suggestions/model/constants';
+import { suggestionStatuses } from '@/features/admin/suggestions/model/types';
+import { paginationSchema } from '@/shared/model/schemas';
+import { z } from 'zod';
 
 export const approveSuggestionSchema = z.object({
   suggestedQuestion: z.string().max(200).min(1),

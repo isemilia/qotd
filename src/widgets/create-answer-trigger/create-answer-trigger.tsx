@@ -1,9 +1,9 @@
 'use client';
 
-import { cloneElement, FC, ReactElement, useState } from 'react';
 import { CreateAnswer } from '@/features/answers/components/create-answer';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '@/shared/providers/auth-provider';
+import { useRouter } from 'next/navigation';
+import { cloneElement, FC, ReactElement, useState } from 'react';
 
 export const CreateAnswerTrigger: FC<{
   children: ReactElement<{ onClick?: Function }>;

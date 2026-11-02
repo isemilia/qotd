@@ -1,7 +1,7 @@
-import { AnswerCardColor } from '@/features/answers/components/answer-card';
-import { UserRole } from '@/features/auth/model/types';
 import { AnswerStatus } from '@/features/admin/answers/model/types';
 import { SuggestionStatus } from '@/features/admin/suggestions/model/types';
+import { AnswerCardColor } from '@/features/answers/components/answer-card';
+import { UserRole } from '@/features/auth/model/types';
 
 export enum RequestStatus {
   SUCCESS = 'success',

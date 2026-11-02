@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { AnswerStatusChip } from '@/features/admin/answers/components/answer-status-chip';
+import { AdminAnswerById } from '@/features/admin/answers/model/schema';
 import { Text } from '@/ui/primitives/text';
 import { Dot } from 'lucide-react';
-import { AdminAnswerById } from '@/features/admin/answers/model/schema';
-import { AnswerStatusChip } from '@/features/admin/answers/components/answer-status-chip';
+import { FC } from 'react';
 
 export const ReviewAnswerTab: FC<{
   question?: Pick<

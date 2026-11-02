@@ -1,16 +1,16 @@
-import { FC } from 'react';
-import { ResponsiveModal } from '@/ui/components/responsive-modal';
-import { useGetAdminSuggestionById } from '@/features/admin/suggestions/api/queries';
-import { Text } from '@/ui/primitives/text';
-import { Dot } from 'lucide-react';
-import { formatDate } from '@/shared/utils/date';
 import {
   QuestionForm,
   QuestionFormSkeleton,
 } from '@/features/admin/questions/components/question-form';
-import { Skeleton } from '@/ui/primitives/skeleton';
 import { AdminQuestionFormValues } from '@/features/admin/questions/model/schema';
 import { useApproveAdminSuggestion } from '@/features/admin/suggestions/api/mutations';
+import { useGetAdminSuggestionById } from '@/features/admin/suggestions/api/queries';
+import { formatDate } from '@/shared/utils/date';
+import { ResponsiveModal } from '@/ui/components/responsive-modal';
+import { Skeleton } from '@/ui/primitives/skeleton';
+import { Text } from '@/ui/primitives/text';
+import { Dot } from 'lucide-react';
+import { FC } from 'react';
 
 export const ReviewSuggestionModal: FC<{
   isOpen: boolean;

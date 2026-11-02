@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { RequestStatus } from '@/server/model/types';
-import { getCurrentUser } from '@/server/utils/session';
-import { changePersonalDetails } from '@/server/utils/account';
 import { changePersonalDetailsSchema } from '@/features/auth/model/schemas';
+import { RequestStatus } from '@/server/model/types';
+import { changePersonalDetails } from '@/server/utils/account';
+import { getCurrentUser } from '@/server/utils/session';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 export const GET = async () => {

@@ -1,18 +1,18 @@
 'use client';
 
-import { FC } from 'react';
-import Image from 'next/image';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { signUpClientSchema } from '@/features/auth/model/schemas';
-import { Text } from '@/ui/primitives/text';
-import Link from 'next/link';
-import { ControlledInput } from '@/ui/components/controlled-input';
-import { Button } from '@/ui/primitives/button';
-import { z } from 'zod';
-import { InlineLink } from '@/ui/components/inline-link';
-import { ControlledCheckbox } from '@/ui/components/controlled-checkbox';
 import { useCreateAccount } from '@/features/auth/api/mutations';
+import { signUpClientSchema } from '@/features/auth/model/schemas';
+import { ControlledCheckbox } from '@/ui/components/controlled-checkbox';
+import { ControlledInput } from '@/ui/components/controlled-input';
+import { InlineLink } from '@/ui/components/inline-link';
+import { Button } from '@/ui/primitives/button';
+import { Text } from '@/ui/primitives/text';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 export const SignUpForm: FC = () => {
   const form = useForm({

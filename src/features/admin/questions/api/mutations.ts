@@ -1,10 +1,10 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from '@/ui/primitives/toast';
 import {
   createAdminQuestion,
   deleteAdminQuestionById,
   editAdminQuestion,
 } from '@/features/admin/questions/api/requests';
+import { toast } from '@/ui/primitives/toast';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const useCreateAdminQuestion = () => {
   const queryClient = useQueryClient();

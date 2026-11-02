@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import { db } from '@/server/utils/db';
+import { rejectSuggestionSchema } from '@/features/admin/suggestions/model/schema';
 import { RequestStatus } from '@/server/model/types';
 import { checkAdminAccess } from '@/server/utils/admin';
-import { rejectSuggestionSchema } from '@/features/admin/suggestions/model/schema';
+import { db } from '@/server/utils/db';
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 
 export const POST = async (
   request: NextRequest,

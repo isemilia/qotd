@@ -1,6 +1,8 @@
 'use client';
 
-import { FC, Fragment } from 'react';
+import { useLogout } from '@/features/auth/api/mutations';
+import { ProfileFilledIcon } from '@/ui/icons/filled/profile-filled.icon';
+import { LogoutLinearIcon } from '@/ui/icons/linear/logout-linear.icon';
 import { MenuLinearIcon } from '@/ui/icons/linear/menu-linear.icon';
 import {
   Dialog,
@@ -9,15 +11,13 @@ import {
   DialogHeader,
   DialogTrigger,
 } from '@/ui/primitives/dialog';
-import Image from 'next/image';
-import { XIcon } from 'lucide-react';
-import { MenuItem } from '@/widgets/header/model/types';
+import { Text } from '@/ui/primitives/text';
 import { MobileMenuItem } from '@/widgets/header/components/mobile-menu-item';
 import { mobileMenuGroups } from '@/widgets/header/model/constants';
-import { LogoutLinearIcon } from '@/ui/icons/linear/logout-linear.icon';
-import { useLogout } from '@/features/auth/api/mutations';
-import { Text } from '@/ui/primitives/text';
-import { ProfileFilledIcon } from '@/ui/icons/filled/profile-filled.icon';
+import { MenuItem } from '@/widgets/header/model/types';
+import { XIcon } from 'lucide-react';
+import Image from 'next/image';
+import { FC, Fragment } from 'react';
 
 export const MobileMenu: FC<{
   isAuthenticated: boolean;

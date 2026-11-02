@@ -1,6 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
-import { toast } from '@/ui/primitives/toast';
 import { createQuestionSuggestion } from '@/features/question-suggestions/api/requests';
+import { toast } from '@/ui/primitives/toast';
+import { useMutation } from '@tanstack/react-query';
 
 export const useCreateQuestionSuggestion = () => {
   return useMutation({

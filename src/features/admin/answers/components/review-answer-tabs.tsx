@@ -1,6 +1,6 @@
-import { FC, ReactNode, SVGProps } from 'react';
-import { Text } from '@/ui/primitives/text';
 import { cn } from '@/shared/utils/cn';
+import { Text } from '@/ui/primitives/text';
+import { FC, ReactNode, SVGProps } from 'react';
 
 export const ReviewAnswerTabs: FC<{
   tabs: {

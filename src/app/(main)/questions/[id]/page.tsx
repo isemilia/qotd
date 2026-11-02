@@ -1,13 +1,13 @@
+import { AnswerCard } from '@/features/answers/components/answer-card';
+import { getAnswers } from '@/server/utils/answers';
 import { getQuestionById } from '@/server/utils/questions';
+import { formatLongDate } from '@/shared/utils/date';
+import { BackLink } from '@/ui/components/back-link';
+import { DynamicPagination } from '@/ui/components/dynamic-pagination';
+import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
 import { ContentContainer } from '@/ui/primitives/content-container';
 import { Text } from '@/ui/primitives/text';
 import { Calendar } from 'lucide-react';
-import { MessageLinearIcon } from '@/ui/icons/linear/message-linear.icon';
-import { formatLongDate } from '@/shared/utils/date';
-import { getAnswers } from '@/server/utils/answers';
-import { AnswerCard } from '@/features/answers/components/answer-card';
-import { DynamicPagination } from '@/ui/components/dynamic-pagination';
-import { BackLink } from '@/ui/components/back-link';
 import { Metadata } from 'next';
 
 export async function generateMetadata({

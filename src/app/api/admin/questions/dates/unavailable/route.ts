@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
 import { RequestStatus } from '@/server/model/types';
-import { db } from '@/server/utils/db';
 import { checkAdminAccess } from '@/server/utils/admin';
+import { db } from '@/server/utils/db';
+import { NextResponse } from 'next/server';
 
 export const GET = async () => {
   try {

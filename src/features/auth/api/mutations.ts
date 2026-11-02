@@ -1,4 +1,3 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   changePassword,
   changePersonalDetails,
@@ -8,6 +7,7 @@ import {
   signIn,
 } from '@/features/auth/api/requests';
 import { toast } from '@/ui/primitives/toast';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export const useCreateAccount = () => {

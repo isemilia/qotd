@@ -1,5 +1,5 @@
-import { ComponentType, SVGProps } from 'react';
 import { TextColor } from '@/ui/primitives/text';
+import { ComponentType, SVGProps } from 'react';
 
 export type MenuItem = {
   label: string;

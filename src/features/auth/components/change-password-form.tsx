@@ -1,14 +1,14 @@
 'use client';
 
-import { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import { useChangePassword } from '@/features/auth/api/mutations';
+import { changePasswordClientSchema } from '@/features/auth/model/schemas';
 import { ControlledInput } from '@/ui/components/controlled-input';
 import { Button } from '@/ui/primitives/button';
-import { useChangePassword } from '@/features/auth/api/mutations';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { changePasswordClientSchema } from '@/features/auth/model/schemas';
-import { z } from 'zod';
 import { toast } from '@/ui/primitives/toast';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 export const ChangePasswordForm: FC<{
   className?: string;

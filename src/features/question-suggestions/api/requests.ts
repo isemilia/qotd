@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { suggestQuestionSchema } from '@/features/question-suggestions/model/schemas';
+import { z } from 'zod';
 
 export const createQuestionSuggestion = async (
   body: z.infer<typeof suggestQuestionSchema>,
