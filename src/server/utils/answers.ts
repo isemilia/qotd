@@ -1,12 +1,16 @@
 import { db } from '@/server/utils/db';
-import { Answer, PaginationConfig } from '@/server/model/types';
+import { Answer, AnswerExtended, PaginationConfig } from '@/server/model/types';
 import { getCurrentQuestion } from '@/server/utils/questions';
 import { getCurrentUser } from '@/server/utils/session';
+import { AnswerStatus } from '@/features/admin/answers/model/types';
 
 export const getCurrentAnswers = async ({
   page: _page,
   pageSize: _pageSize,
-}: PaginationConfig = {}) => {
+  status = 'published',
+}: PaginationConfig & {
+  status?: AnswerStatus;
+} = {}) => {
   const currentQuestion = await getCurrentQuestion();
 
   if (!currentQuestion) {
@@ -43,9 +47,10 @@ export const getCurrentAnswers = async ({
               AND al.user_id = $2
           ) AS "isLiked"
         FROM answers a
-        LEFT JOIN questions q ON a.question_id = q.id
-        LEFT JOIN answer_likes l ON a.id = l.answer_id
+          LEFT JOIN questions q ON a.question_id = q.id
+          LEFT JOIN answer_likes l ON a.id = l.answer_id
         WHERE a.question_id = $1
+          AND a.status = $5
         GROUP BY
           a.id,
           a.answer,
@@ -55,19 +60,20 @@ export const getCurrentAnswers = async ({
           a.created_at,
           a.color
         ORDER BY a.created_at DESC, a.id DESC
-        LIMIT $3
+          LIMIT $3
         OFFSET $4;
       `,
-      [currentQuestion.id, currentUser?.id ?? null, pageSize, offset],
+      [currentQuestion.id, currentUser?.id ?? null, pageSize, offset, status],
     ),
 
     db.query<{ count: string }>(
       `
         SELECT COUNT(*) AS count
         FROM answers
-        WHERE question_id = $1;
+        WHERE question_id = $1
+          AND status = $2;
       `,
-      [currentQuestion.id],
+      [currentQuestion.id, status],
     ),
   ]);
 
@@ -91,9 +97,10 @@ const buildWhereClause = (
     questionId?: string | null;
     userId?: string | null;
     likedByUserId?: string | null;
+    status?: AnswerStatus;
   } = {},
 ) => {
-  const { questionId, userId, likedByUserId } = args;
+  const { questionId, userId, likedByUserId, status } = args;
 
   const values: string[] = [];
   const conditions: string[] = [];
@@ -120,6 +127,11 @@ const buildWhereClause = (
     `);
   }
 
+  if (status) {
+    values.push(status);
+    conditions.push(`a.status = $${values.length}`);
+  }
+
   return {
     values,
     clause: conditions.length ? `WHERE ${conditions.join(' AND ')}` : '',
@@ -130,6 +142,7 @@ export type GetAnswersArgs = {
   questionId?: string | null;
   userId?: string | null;
   likedByUserId?: string | null;
+  status?: AnswerStatus;
 } & PaginationConfig;
 
 export const getAnswers = async (args: GetAnswersArgs = {}) => {
@@ -137,6 +150,7 @@ export const getAnswers = async (args: GetAnswersArgs = {}) => {
     questionId,
     userId,
     likedByUserId,
+    status,
     page: _page,
     pageSize: _pageSize,
   } = args;
@@ -154,6 +168,7 @@ export const getAnswers = async (args: GetAnswersArgs = {}) => {
     questionId,
     userId,
     likedByUserId,
+    status,
   });
 
   const values: (string | number | null)[] = [
@@ -168,13 +183,14 @@ export const getAnswers = async (args: GetAnswersArgs = {}) => {
   values.push(offset);
   const offsetParam = `$${values.length}`;
 
-  // i guess this is why i should consider using an ORM lol
   const [answersResult, countResult] = await Promise.all([
-    db.query<Answer>(
+    db.query<AnswerExtended>(
       `
         SELECT
           a.id,
           a.answer,
+          a.status,
+          a.moderation_reason as "moderationReason",
           json_build_object(
             'id', q.id,
             'question', q.question,
@@ -190,9 +206,9 @@ export const getAnswers = async (args: GetAnswersArgs = {}) => {
               AND al.user_id = ${currentUserParam}
           ) AS "isLiked"
         FROM answers a
-        LEFT JOIN questions q ON a.question_id = q.id
-        LEFT JOIN answer_likes l ON a.id = l.answer_id
-        ${where.clause}
+               LEFT JOIN questions q ON a.question_id = q.id
+               LEFT JOIN answer_likes l ON a.id = l.answer_id
+          ${where.clause}
         GROUP BY
           a.id,
           a.answer,
@@ -202,7 +218,7 @@ export const getAnswers = async (args: GetAnswersArgs = {}) => {
           a.created_at,
           a.color
         ORDER BY a.created_at DESC, a.id DESC
-        LIMIT ${pageSizeParam}
+          LIMIT ${pageSizeParam}
         OFFSET ${offsetParam}
       `,
       values,
@@ -212,7 +228,7 @@ export const getAnswers = async (args: GetAnswersArgs = {}) => {
       `
         SELECT COUNT(*) AS count
         FROM answers a
-        ${where.clause}
+          ${where.clause}
       `,
       where.values,
     ),

@@ -40,6 +40,8 @@ export const AnswersGrid: FC<
               likeCount={item.likeCount}
               isLiked={item.isLiked}
               color={item.color}
+              status={item.status}
+              moderationReason={item.moderationReason}
             />
           );
         })}

@@ -1,5 +1,7 @@
 import { AnswerCardColor } from '@/features/answers/components/answer-card';
 import { UserRole } from '@/features/auth/model/types';
+import { AnswerStatus } from '@/features/admin/answers/model/types';
+import { SuggestionStatus } from '@/features/admin/suggestions/model/types';
 
 export enum RequestStatus {
   SUCCESS = 'success',
@@ -47,7 +49,22 @@ export type Answer = {
   isLiked: boolean;
 };
 
+export type AnswerExtended = Answer & {
+  status: AnswerStatus;
+  moderationReason: string | null;
+};
+
 export type PaginationConfig = {
   page?: number | null;
   pageSize?: number | null;
+};
+
+export type Suggestion = {
+  id: string;
+  creditName: string;
+  suggestedQuestion: string;
+  status: SuggestionStatus;
+  reason: string;
+  createdAt: string;
+  scheduledQuestion: null | { id: string; question: string; date: string };
 };

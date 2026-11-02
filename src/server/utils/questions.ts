@@ -14,6 +14,7 @@ export const getCurrentQuestion = async () => {
           SELECT COUNT(*)::int
           FROM answers a
           WHERE a.question_id = q.id
+            AND a.status = 'published'
         ) AS "answerCount"
         FROM questions q
         WHERE date = (NOW() AT TIME ZONE 'UTC')::date;
@@ -43,6 +44,7 @@ export const getQuestionById = async (id: string) => {
           SELECT COUNT(*)
           FROM answers a
           WHERE a.question_id = q.id
+            AND a.status = 'published'
         )::int AS "answerCount"
         FROM questions q
         WHERE q.id = $1
@@ -93,9 +95,11 @@ export const getPreviousQuestions = async (
           q.id,
           q.question,
           q.date::text AS date,
-        COUNT(a.id)::int AS "answerCount"
+          COUNT(a.id)::int AS "answerCount"
         FROM questions q
-          LEFT JOIN answers a ON a.question_id = q.id
+          LEFT JOIN answers a
+          ON a.question_id = q.id
+          AND a.status = 'published'
         WHERE q.date < CURRENT_DATE
         GROUP BY q.id
         ORDER BY q.date DESC

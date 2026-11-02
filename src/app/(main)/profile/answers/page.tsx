@@ -3,8 +3,8 @@ import { getCurrentUser } from '@/server/utils/session';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'My Answers',
-  description: 'View the answers you’ve shared on Commonly.',
+  title: 'My answers',
+  description: "View the answers you've shared on Commonly.",
 };
 
 const Page = async ({
