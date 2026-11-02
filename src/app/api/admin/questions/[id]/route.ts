@@ -8,7 +8,8 @@ export const GET = async (
   { params }: { params: Promise<{ id: string }> },
 ) => {
   try {
-    await checkAdminAccess();
+    const accessError = await checkAdminAccess();
+    if (accessError) return accessError;
 
     const questionId = (await params).id;
 
@@ -68,7 +69,8 @@ export const DELETE = async (
   { params }: { params: Promise<{ id: string }> },
 ) => {
   try {
-    await checkAdminAccess();
+    const accessError = await checkAdminAccess();
+    if (accessError) return accessError;
 
     const questionId = (await params).id;
 

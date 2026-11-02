@@ -19,4 +19,6 @@ export const checkAdminAccess = async () => {
       { status: 403 },
     );
   }
+
+  return null;
 };
