@@ -10,7 +10,13 @@ const routes = {
     '/profile/answers',
     '/profile/favorites',
   ],
-  staff: ['/admin'],
+  staff: [
+    '/admin',
+    '/admin/scheduled',
+    '/admin/suggestions',
+    '/admin/answers',
+    '/admin/users',
+  ],
 };
 
 export const proxy = async (request: NextRequest) => {
