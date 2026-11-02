@@ -1,5 +1,7 @@
 import {
   AdminUser,
+  AdminUserById,
+  adminUserByIdSchema,
   adminUsersResponseSchema,
 } from '@/features/admin/users/model/schema';
 import { GetAdminUsersParams } from '@/features/admin/users/model/types';
@@ -22,6 +24,24 @@ export const getAdminUsers = async (params?: GetAdminUsersParams) => {
   }
 
   const parsedData = adminUsersResponseSchema.safeParse(result.data);
+
+  return { ...result, data: parsedData.data };
+};
+
+export const getAdminUserById = async (userId: string) => {
+  const response = await fetch(`/api/admin/users/${userId}`);
+
+  const result: {
+    message: string;
+    status: RequestStatus;
+    data: AdminUserById;
+  } = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  const parsedData = adminUserByIdSchema.safeParse(result.data);
 
   return { ...result, data: parsedData.data };
 };
