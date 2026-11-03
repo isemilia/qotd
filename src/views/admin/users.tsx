@@ -34,6 +34,10 @@ const columns = [
     accessor: 'role',
   },
   {
+    header: 'Last login',
+    accessor: 'lastLoginAt',
+  },
+  {
     header: 'Joined',
     accessor: 'createdAt',
   },
@@ -120,21 +124,24 @@ export const UsersView = () => {
             <DataTable
               columns={columns}
               onRowClick={handleRowClick}
-              rows={users.map((item) => ({
-                id: item.id,
-                status: <UserStatusChip variant={item.status} />,
-                createdAt: formatDate(new Date(item.createdAt), 'short'),
-                role: item.role,
-                email: item.email || '-',
-                name: item.name,
-                uuid: (
-                  <CopyableText
-                    className={'[&_span]:max-w-[50px] [&_span]:truncate'}
-                  >
-                    {item.id}
-                  </CopyableText>
-                ),
-              }))}
+              rows={users.map((item) => {
+                return {
+                  id: item.id,
+                  status: <UserStatusChip variant={item.status} />,
+                  createdAt: formatDate(item.createdAt, 'short'),
+                  lastLoginAt: formatDate(item.lastLoginAt, 'short'),
+                  role: item.role,
+                  email: item.email || '-',
+                  name: item.name,
+                  uuid: (
+                    <CopyableText
+                      className={'[&_span]:max-w-[50px] [&_span]:truncate'}
+                    >
+                      {item.id}
+                    </CopyableText>
+                  ),
+                };
+              })}
             />
           </div>
 

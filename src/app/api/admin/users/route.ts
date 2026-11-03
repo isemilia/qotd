@@ -57,6 +57,7 @@ export const GET = async (request: NextRequest) => {
             u.role,
             u.status,
             u.terms_and_guidelines_accepted AS "termsAndGuidelinesAccepted",
+            u.last_login_at AS "lastLoginAt",
             u.created_at AS "createdAt"
           FROM users u
           WHERE (

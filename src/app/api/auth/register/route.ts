@@ -50,6 +50,15 @@ export const POST = async (request: NextRequest) => {
 
     await createSession({ id: user.id, role: user.role });
 
+    await db.query(
+      `
+      UPDATE users
+      SET last_login_at = NOW()
+      WHERE id = $1
+    `,
+      [user.id],
+    );
+
     return NextResponse.json({
       status: RequestStatus.SUCCESS,
       message: 'Account created successfully',

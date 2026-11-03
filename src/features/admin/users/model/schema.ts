@@ -10,6 +10,7 @@ export const adminUserSchema = z.object({
   role: z.enum(userRoles),
   status: z.enum(userStatuses),
   termsAndGuidelinesAccepted: z.boolean(),
+  lastLoginAt: z.iso.datetime().nullable(),
   createdAt: z.iso.datetime(),
 });
 
@@ -27,6 +28,7 @@ export const adminUserByIdSchema = z.object({
   role: z.enum(userRoles),
   status: z.enum(userStatuses),
   termsAndGuidelinesAccepted: z.boolean(),
+  lastLoginAt: z.iso.datetime().nullable(),
   createdAt: z.iso.datetime(),
 
   totalAnswers: z.number().int().nonnegative(),

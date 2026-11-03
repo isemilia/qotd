@@ -68,6 +68,10 @@ export const UserDetailsModal: FC<{
                 capitalize
               />
               <InfoField
+                label={'Last login'}
+                value={formatDate(user?.lastLoginAt, 'long')}
+              />
+              <InfoField
                 label={'Joined'}
                 value={formatDate(user?.createdAt, 'long')}
               />

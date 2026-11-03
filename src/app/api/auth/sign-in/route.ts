@@ -62,6 +62,15 @@ export const POST = async (request: NextRequest) => {
 
     const { password, salt, ...safeUser } = user;
 
+    await db.query(
+      `
+      UPDATE users
+      SET last_login_at = NOW()
+      WHERE id = $1
+    `,
+      [user.id],
+    );
+
     return NextResponse.json({
       status: RequestStatus.SUCCESS,
       message: 'Signed in successfully',
