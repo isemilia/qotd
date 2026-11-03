@@ -1,6 +1,7 @@
 'use client';
 
 import { useGetAdminUsers } from '@/features/admin/users/api/queries';
+import { ChangeUserRoleModal } from '@/features/admin/users/components/change-user-role-modal';
 import { UserDetailsModal } from '@/features/admin/users/components/user-details-modal';
 import { UserStatusChip } from '@/features/admin/users/components/user-status-chip';
 import { UserStatus } from '@/features/admin/users/model/types';
@@ -50,6 +51,7 @@ const columns = [
 export const UsersView = () => {
   // modals
   const [detailsId, setDetailsId] = useState<string | null>(null);
+  const [changeRoleId, setChangeRoleId] = useState<string | null>(null);
 
   // api states
   const [filter, setFilter] = useQueryState('filter', {
@@ -163,6 +165,20 @@ export const UsersView = () => {
         isOpen={Boolean(detailsId)}
         userId={detailsId}
         close={() => setDetailsId(null)}
+        onChangeRole={(userId) => {
+          if (userId) {
+            setChangeRoleId(userId);
+            setDetailsId(null);
+          }
+        }}
+      />
+
+      <ChangeUserRoleModal
+        isOpen={Boolean(changeRoleId)}
+        close={() => {
+          setChangeRoleId(null);
+        }}
+        userId={changeRoleId}
       />
     </>
   );
