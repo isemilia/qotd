@@ -40,3 +40,7 @@ export const adminUserByIdSchema = z.object({
 });
 
 export type AdminUserById = z.infer<typeof adminUserByIdSchema>;
+
+export const adminUpdateUserBody = z.object({
+  role: z.enum(userRoles),
+});

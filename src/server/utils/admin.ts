@@ -3,7 +3,13 @@ import { RequestStatus } from '@/server/model/types';
 import { getSession } from '@/server/utils/session';
 import { NextResponse } from 'next/server';
 
-export const checkAdminAccess = async () => {
+type CheckAdminAccessOptions = {
+  adminOnly?: boolean;
+};
+
+export const checkAdminAccess = async (
+  options: CheckAdminAccessOptions = {},
+) => {
   const session = await getSession();
 
   if (!session) {
@@ -13,7 +19,16 @@ export const checkAdminAccess = async () => {
     );
   }
 
-  if (!staffRoles.includes(session.user_role)) {
+  // only admin
+  if (options.adminOnly && session.user_role !== 'admin') {
+    return NextResponse.json(
+      { status: RequestStatus.ERROR, message: 'Forbidden' },
+      { status: 403 },
+    );
+  }
+
+  // all staff roles
+  if (!options.adminOnly && !staffRoles.includes(session.user_role)) {
     return NextResponse.json(
       { status: RequestStatus.ERROR, message: 'Forbidden' },
       { status: 403 },
