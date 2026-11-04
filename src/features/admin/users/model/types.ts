@@ -1,6 +1,6 @@
 import { UserRole } from '@/features/auth/model/types';
 
-export const userStatuses = ['active', 'deleted'] as const;
+export const userStatuses = ['active', 'deleted', 'suspended'] as const;
 
 export type UserStatus = (typeof userStatuses)[number];
 

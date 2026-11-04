@@ -41,6 +41,11 @@ export const adminUserByIdSchema = z.object({
 
 export type AdminUserById = z.infer<typeof adminUserByIdSchema>;
 
-export const adminUpdateUserBody = z.object({
-  role: z.enum(userRoles),
-});
+export const adminUpdateUserBody = z
+  .object({
+    role: z.enum(userRoles).optional(),
+    status: z.enum(userStatuses).optional(),
+  })
+  .refine((data) => Object.keys(data).length > 0, {
+    message: 'At least one field must be provided',
+  });

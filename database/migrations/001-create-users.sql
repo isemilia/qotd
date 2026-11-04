@@ -6,7 +6,8 @@ CREATE TYPE user_role AS ENUM (
 
 CREATE TYPE user_status AS ENUM (
     'active',
-    'deleted'
+    'deleted',
+    'suspended'
 );
 
 CREATE TABLE users (

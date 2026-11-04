@@ -10,7 +10,7 @@ export const GET = async (
   { params }: { params: Promise<{ id: string }> },
 ) => {
   try {
-    const accessError = await checkAdminAccess({ adminOnly: true });
+    const accessError = await checkAdminAccess();
     if (accessError) return accessError;
 
     const userId = (await params).id;
@@ -98,7 +98,7 @@ export const PATCH = async (
   { params }: { params: Promise<{ id: string }> },
 ) => {
   try {
-    const accessError = await checkAdminAccess();
+    const accessError = await checkAdminAccess({ adminOnly: true });
     if (accessError) return accessError;
 
     const body = await request.json();
@@ -117,23 +117,32 @@ export const PATCH = async (
     }
 
     const parsedData = parseResult.data;
-
     const userId = (await params).id;
 
     const result = await db.transaction(async (client) => {
-      const userResult = await client.query<{
-        id: string;
-        name: string;
-        email: string;
-        role: string;
-      }>(
+      const updates: string[] = [];
+      const values: unknown[] = [];
+
+      if (parsedData.role !== undefined) {
+        values.push(parsedData.role);
+        updates.push(`role = $${values.length}`);
+      }
+
+      if (parsedData.status !== undefined) {
+        values.push(parsedData.status);
+        updates.push(`status = $${values.length}`);
+      }
+
+      values.push(userId);
+
+      const userResult = await client.query(
         `
-        UPDATE users
-        SET role = $1
-        WHERE id = $2
-        RETURNING id, name, email, role
-      `,
-        [parsedData.role, userId],
+          UPDATE users
+          SET ${updates.join(', ')}
+          WHERE id = $${values.length}
+          RETURNING id, name, email, role, status
+        `,
+        values,
       );
 
       if (userResult.rowCount === 0) {
@@ -159,6 +168,7 @@ export const PATCH = async (
     }
 
     console.error(e);
+
     return NextResponse.json(
       {
         status: RequestStatus.ERROR,
