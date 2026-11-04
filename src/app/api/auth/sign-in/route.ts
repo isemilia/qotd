@@ -1,3 +1,4 @@
+import { UserStatus } from '@/features/admin/users/model/types';
 import { signInSchema } from '@/features/auth/model/schemas';
 import { UserRole } from '@/features/auth/model/types';
 import { RequestStatus } from '@/server/model/types';
@@ -41,7 +42,18 @@ export const POST = async (request: NextRequest) => {
         password: string;
         id: string;
         role: UserRole;
-      }>(`SELECT * FROM users WHERE email = $1`, [parsedData.email])
+        status: UserStatus;
+      }>(
+        `SELECT 
+          id, 
+          password, 
+          salt, 
+          role, 
+          status 
+        FROM users 
+        WHERE email = $1`,
+        [parsedData.email],
+      )
     ).rows[0];
 
     if (!user) {
@@ -58,9 +70,18 @@ export const POST = async (request: NextRequest) => {
       return invalidCredentialsResponse();
     }
 
-    await createSession(user);
-
-    const { password, salt, ...safeUser } = user;
+    if (user.status !== 'active') {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message:
+            user.status === 'suspended'
+              ? 'Your account has been suspended. Please contact support if you believe this is a mistake'
+              : 'Your account is not active',
+        },
+        { status: 403 },
+      );
+    }
 
     await db.query(
       `
@@ -70,6 +91,10 @@ export const POST = async (request: NextRequest) => {
     `,
       [user.id],
     );
+
+    await createSession(user);
+
+    const { password, salt, ...safeUser } = user;
 
     return NextResponse.json({
       status: RequestStatus.SUCCESS,
