@@ -1,6 +1,6 @@
 import { adminUpdateUserBody } from '@/features/admin/users/model/schema';
 import { RequestStatus } from '@/server/model/types';
-import { checkAdminAccess } from '@/server/utils/admin';
+import { checkStaffAccess } from '@/server/utils/admin';
 import { db } from '@/server/utils/db';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
@@ -10,7 +10,7 @@ export const GET = async (
   { params }: { params: Promise<{ id: string }> },
 ) => {
   try {
-    const accessError = await checkAdminAccess();
+    const accessError = await checkStaffAccess();
     if (accessError) return accessError;
 
     const userId = (await params).id;
@@ -98,7 +98,7 @@ export const PATCH = async (
   { params }: { params: Promise<{ id: string }> },
 ) => {
   try {
-    const accessError = await checkAdminAccess({ adminOnly: true });
+    const accessError = await checkStaffAccess({ adminOnly: true });
     if (accessError) return accessError;
 
     const body = await request.json();

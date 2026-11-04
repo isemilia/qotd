@@ -1,5 +1,5 @@
 import { RequestStatus } from '@/server/model/types';
-import { checkAdminAccess } from '@/server/utils/admin';
+import { checkStaffAccess } from '@/server/utils/admin';
 import { db } from '@/server/utils/db';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -7,7 +7,7 @@ const suggestionStatuses = ['pending', 'approved', 'rejected'] as const;
 
 export const GET = async (request: NextRequest) => {
   try {
-    const accessError = await checkAdminAccess();
+    const accessError = await checkStaffAccess();
     if (accessError) return accessError;
 
     const searchParams = request.nextUrl.searchParams;

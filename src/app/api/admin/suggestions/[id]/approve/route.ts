@@ -1,6 +1,6 @@
 import { approveSuggestionSchema } from '@/features/admin/suggestions/model/schema';
 import { RequestStatus } from '@/server/model/types';
-import { checkAdminAccess } from '@/server/utils/admin';
+import { checkStaffAccess } from '@/server/utils/admin';
 import { db } from '@/server/utils/db';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
@@ -10,7 +10,7 @@ export const POST = async (
   { params }: { params: Promise<{ id: string }> },
 ) => {
   try {
-    const accessError = await checkAdminAccess();
+    const accessError = await checkStaffAccess();
     if (accessError) return accessError;
 
     const { id: suggestionId } = await params;

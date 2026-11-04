@@ -1,5 +1,5 @@
 import { RequestStatus } from '@/server/model/types';
-import { checkAdminAccess } from '@/server/utils/admin';
+import { checkStaffAccess } from '@/server/utils/admin';
 import { db } from '@/server/utils/db';
 import { getSession } from '@/server/utils/session';
 import { NextRequest, NextResponse } from 'next/server';
@@ -9,7 +9,7 @@ export const POST = async (
   { params }: { params: Promise<{ id: string }> },
 ) => {
   try {
-    const accessError = await checkAdminAccess();
+    const accessError = await checkStaffAccess();
     if (accessError) return accessError;
 
     const answerId = (await params).id;

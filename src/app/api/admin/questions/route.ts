@@ -7,14 +7,14 @@ import {
   questionStatuses,
 } from '@/features/admin/questions/model/types';
 import { RequestStatus } from '@/server/model/types';
-import { checkAdminAccess } from '@/server/utils/admin';
+import { checkStaffAccess } from '@/server/utils/admin';
 import { db } from '@/server/utils/db';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 export const GET = async (request: NextRequest) => {
   try {
-    const accessError = await checkAdminAccess();
+    const accessError = await checkStaffAccess();
     if (accessError) return accessError;
 
     const searchParams = request.nextUrl.searchParams;
@@ -135,7 +135,7 @@ export const GET = async (request: NextRequest) => {
 
 export const POST = async (request: NextRequest) => {
   try {
-    const accessError = await checkAdminAccess();
+    const accessError = await checkStaffAccess();
     if (accessError) return accessError;
 
     const body = await request.json();
@@ -199,7 +199,7 @@ export const POST = async (request: NextRequest) => {
 
 export const PUT = async (request: NextRequest) => {
   try {
-    const accessError = await checkAdminAccess();
+    const accessError = await checkStaffAccess();
     if (accessError) return accessError;
 
     const body = await request.json();

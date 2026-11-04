@@ -3,12 +3,12 @@ import { RequestStatus } from '@/server/model/types';
 import { getSession } from '@/server/utils/session';
 import { NextResponse } from 'next/server';
 
-type CheckAdminAccessOptions = {
+type CheckStaffAccessOptions = {
   adminOnly?: boolean;
 };
 
-export const checkAdminAccess = async (
-  options: CheckAdminAccessOptions = {},
+export const checkStaffAccess = async (
+  options: CheckStaffAccessOptions = {},
 ) => {
   const session = await getSession();
 
