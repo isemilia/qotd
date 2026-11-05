@@ -14,7 +14,8 @@ export const UserDetailsModal: FC<{
   isOpen: boolean;
   close: () => void;
   userId?: string | null;
-}> = ({ isOpen, close, userId }) => {
+  onChangeRole?: (userId?: string | null) => void;
+}> = ({ isOpen, close, userId, onChangeRole }) => {
   const userRequest = useGetAdminUserById(userId);
   const user = userRequest.data?.data;
 
@@ -109,7 +110,13 @@ export const UserDetailsModal: FC<{
         }
       >
         <Button variant={'outline'}>Cancel</Button>
-        <Button>Change role</Button>
+        <Button
+          onClick={() => {
+            onChangeRole?.(userId);
+          }}
+        >
+          Change role
+        </Button>
       </div>
     </ResponsiveModal>
   );

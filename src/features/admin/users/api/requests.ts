@@ -1,4 +1,5 @@
 import {
+  AdminUpdateUserBody,
   AdminUser,
   AdminUserById,
   adminUserByIdSchema,
@@ -44,4 +45,28 @@ export const getAdminUserById = async (userId: string) => {
   const parsedData = adminUserByIdSchema.safeParse(result.data);
 
   return { ...result, data: parsedData.data };
+};
+
+export const updateAdminUser = async ({
+  userId,
+  body,
+}: {
+  userId: string;
+  body: AdminUpdateUserBody;
+}) => {
+  const response = await fetch(`/api/admin/users/${userId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.message);
+  }
+
+  return result;
 };

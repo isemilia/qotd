@@ -1,14 +1,16 @@
+import { adminUpdateUserBody } from '@/features/admin/users/model/schema';
 import { RequestStatus } from '@/server/model/types';
-import { checkAdminAccess } from '@/server/utils/admin';
+import { checkStaffAccess } from '@/server/utils/admin';
 import { db } from '@/server/utils/db';
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 
 export const GET = async (
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) => {
   try {
-    const accessError = await checkAdminAccess();
+    const accessError = await checkStaffAccess();
     if (accessError) return accessError;
 
     const userId = (await params).id;
@@ -81,6 +83,92 @@ export const GET = async (
     });
   } catch (e) {
     console.error(e);
+    return NextResponse.json(
+      {
+        status: RequestStatus.ERROR,
+        message: 'Something went wrong',
+      },
+      { status: 500 },
+    );
+  }
+};
+
+export const PATCH = async (
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) => {
+  try {
+    const accessError = await checkStaffAccess({ adminOnly: true });
+    if (accessError) return accessError;
+
+    const body = await request.json();
+
+    const parseResult = adminUpdateUserBody.safeParse(body);
+
+    if (parseResult.error) {
+      return NextResponse.json(
+        {
+          status: RequestStatus.ERROR,
+          message: 'Invalid input',
+          errors: z.flattenError(parseResult.error),
+        },
+        { status: 400 },
+      );
+    }
+
+    const parsedData = parseResult.data;
+    const userId = (await params).id;
+
+    const result = await db.transaction(async (client) => {
+      const updates: string[] = [];
+      const values: unknown[] = [];
+
+      if (parsedData.role !== undefined) {
+        values.push(parsedData.role);
+        updates.push(`role = $${values.length}`);
+      }
+
+      if (parsedData.status !== undefined) {
+        values.push(parsedData.status);
+        updates.push(`status = $${values.length}`);
+      }
+
+      values.push(userId);
+
+      const userResult = await client.query(
+        `
+          UPDATE users
+          SET ${updates.join(', ')}
+          WHERE id = $${values.length}
+          RETURNING id, name, email, role, status
+        `,
+        values,
+      );
+
+      if (userResult.rowCount === 0) {
+        throw new Error('USER_NOT_FOUND');
+      }
+
+      await client.query('DELETE FROM sessions WHERE user_id = $1', [userId]);
+
+      return userResult.rows[0];
+    });
+
+    return NextResponse.json({
+      status: RequestStatus.SUCCESS,
+      message: 'Updated user successfully',
+      data: result,
+    });
+  } catch (e) {
+    if (e instanceof Error && e.message === 'USER_NOT_FOUND') {
+      return NextResponse.json(
+        { status: RequestStatus.ERROR, message: 'User not found' },
+        { status: 404 },
+      );
+    }
+
+    console.error(e);
+
     return NextResponse.json(
       {
         status: RequestStatus.ERROR,
