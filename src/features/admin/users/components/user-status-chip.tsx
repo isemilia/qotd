@@ -12,6 +12,11 @@ export const propertyMap: Record<
     text: 'text-mint-800',
     label: 'Active',
   },
+  suspended: {
+    bg: 'bg-sand-200',
+    text: 'text-sand-800',
+    label: 'Suspended',
+  },
   deleted: {
     bg: 'bg-destructive-200',
     text: 'text-destructive-800',

@@ -1,7 +1,9 @@
 'use client';
 
+import { useUpdateAminUser } from '@/features/admin/users/api/mutations';
 import { useGetAdminUserById } from '@/features/admin/users/api/queries';
 import { ChangeUserRoleForm } from '@/features/admin/users/components/change-user-role-form';
+import { UpdateAdminUserForm } from '@/features/admin/users/model/schema';
 import { ResponsiveModal } from '@/ui/components/responsive-modal';
 import { ProfileFilledIcon } from '@/ui/icons/filled/profile-filled.icon';
 import { Text } from '@/ui/primitives/text';
@@ -14,6 +16,20 @@ export const ChangeUserRoleModal: FC<{
 }> = ({ isOpen, close, userId }) => {
   const userRequest = useGetAdminUserById(userId);
   const user = userRequest.data?.data;
+
+  const updateRequest = useUpdateAminUser();
+
+  const handleSubmit = async (data: UpdateAdminUserForm) => {
+    if (!user?.id) return;
+
+    await updateRequest.mutateAsync({
+      userId: user.id,
+      body: {
+        role: data.role,
+      },
+    });
+    close();
+  };
 
   return (
     <ResponsiveModal
@@ -38,7 +54,13 @@ export const ChangeUserRoleModal: FC<{
             </Text>
           </div>
         </div>
-        <ChangeUserRoleForm />
+        <ChangeUserRoleForm
+          key={user?.id}
+          defaultValues={{ role: user?.role }}
+          isPending={updateRequest.isPending}
+          onSubmit={handleSubmit}
+          onCancel={close}
+        />
       </div>
     </ResponsiveModal>
   );
